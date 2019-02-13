@@ -16,18 +16,39 @@ project toe.
 
 Minimaal 3000 tekens.
 
-## Hardware analyse
+> TODO: Add (All)
 
+## Hardware Analyse
 #### Hardware Blockdiagram
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
-## Software analyse
+### Controllers
+> TODO: Add Controller Analysis (Tom)
+### Sensors
+> TODO: Add Sensor Analysis (Jonas)
+### Actuators
+> TODO: Add Actuator Analysis (Ben)
 
-Plaats hier een flow-chart van de software. Hierin moet de werking van de software duidelijk worden weergegeven. Voorzie ook de nodige uitleg.
+## Software Analyse
+### Diagrams
+#### Algemene Architectuur
+> TODO: Add diagram (Matthias)
+
+#### Software Flowchart
+> TODO: Add diagram (Matthias)
+
+#### Database Model
+> TODO: Add diagram (Matthias)
+
+### Software Analyse
+> TODO: Add (Tom & Matthias)
+
+## Stucturele Analyse
+> TODO: Add (Michiel)
 
 ## User stories en Engineering Tasks
 
-Geef hier de userstories en engineering tasks. De beschrijving moet conform zijn met de methode zoals gezien in de lessen  van projectmanagement vn dhr Peeters.
+User Stories op Jira: [Jira](https://jira.ap.be/projects/JP19LAFA/summary)
 
 ## systeemspecificaties
 
