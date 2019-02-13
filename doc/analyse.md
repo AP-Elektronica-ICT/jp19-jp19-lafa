@@ -7,7 +7,7 @@ Bij het wateren van planten, kan men de planten makkelijk teveel water geven. Hi
 
 ## Mindmap
 
-![alt text](https://github.com/AP-Elektronica-ICT/jp19-lafa/blob/master/doc/img/analysis/mindmap.png)
+![Mindmap](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/mindmap.png)
 
 ## Beschrijving
 
@@ -19,7 +19,7 @@ Minimaal 3000 tekens.
 ## Hardware analyse
 
 #### Hardware Blockdiagram
-![alt text](https://github.com/AP-Elektronica-ICT/jp19-lafa/blob/master/doc/img/analysis/hardware_blockdiagram.png)
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
 ## Software analyse
 
