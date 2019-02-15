@@ -23,11 +23,13 @@ Minimaal 3000 tekens.
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
 ### Controllers
-> TODO: Add Controller Analysis (Tom)
+[Go to Controllers Analysis](../Controllers.md)
 ### Sensors
-> TODO: Add Sensor Analysis (Jonas)
+[Go to Sensor Analysis](../Sensors.md)
 ### Actuators
-> TODO: Add Actuator Analysis (Ben)
+[Go to Actuator Analysis](../Actuators.md)
+### Communication
+[Go to Communication Analysis](../Communication.md)
 
 ## Software Analyse
 ### Diagrams
