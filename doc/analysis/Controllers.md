@@ -1,5 +1,5 @@
 # Controller Analyse
-[Go to General Analysis](../README.md)
+[Go to General Analysis](../analysis)
 
 ## Controllers
 ### Controller Name

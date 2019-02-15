@@ -1,5 +1,5 @@
 # Communication Analyse
-[Go to General Analysis](../README.md)
+[Go to General Analysis](../analysis)
 
 ## Parts
 ### C Name

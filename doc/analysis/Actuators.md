@@ -1,5 +1,5 @@
 # Actuator Analyse
-[Go to General Analysis](../README.md)
+[Go to General Analysis](../analysis)
 
 ## Parts
 ### Actuator Name
