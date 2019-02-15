@@ -30,6 +30,8 @@ Minimaal 3000 tekens.
 [Go to Actuator Analysis](../analysis/Actuators.md)
 ### Communication
 [Go to Communication Analysis](../analysis/Communication.md)
+### Structure
+[Go to Structure Analysis](../analysis/Structure.md)
 
 ## Software Analyse
 ### Diagrams
@@ -44,9 +46,6 @@ Minimaal 3000 tekens.
 
 ### Software Analyse
 > TODO: Add (Tom & Matthias)
-
-## Stucturele Analyse
-> TODO: Add (Michiel)
 
 ## User stories en Engineering Tasks
 
