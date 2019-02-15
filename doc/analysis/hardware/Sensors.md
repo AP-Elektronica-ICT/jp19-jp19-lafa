@@ -1,5 +1,5 @@
 # Sensor Analyse
-[Go to General Analysis](../analysis)
+[Go to General Analysis](../../analysis)
 
 ## Parts
 ### DS18B20 - Water Temperature Sensor

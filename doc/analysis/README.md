@@ -22,38 +22,32 @@ Minimaal 3000 tekens.
 #### Hardware Blockdiagram
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
+#### Node Connection Diagram
+> TODO: ADD Diagram (Tom)
+
 ### Controllers
-[Go to Controllers Analysis](../analysis/Controllers.md)
+[Go to Controllers Analysis](../analysis/hardware/Controllers.md)
 ### Sensors
-[Go to Sensor Analysis](../analysis/Sensors.md)
+[Go to Sensor Analysis](../analysis/hardware/Sensors.md)
 ### Actuators
-[Go to Actuator Analysis](../analysis/Actuators.md)
+[Go to Actuator Analysis](../analysis/hardware/Actuators.md)
 ### Communication
-[Go to Communication Analysis](../analysis/Communication.md)
+[Go to Communication Analysis](../analysis/hardware/Communication.md)
 ### Structure
-[Go to Structure Analysis](../analysis/Structure.md)
+[Go to Structure Analysis](../analysis/hardware/Structure.md)
 
 ## Software Analyse
-### Diagrams
 #### Algemene Architectuur
-> TODO: Add diagram (Matthias)
+> TODO: ADD diagram (Matthias)
+### Data & Data Storage
+[Go to Data Analysis](../analysis/software/Data.md)
+### Web Platform
+[Go to Platform Analysis](../analysis/software/Platform.md)
+### Computer Vision
+[Go to Data Analysis](../analysis/software/Vision.md)
 
-#### Software Flowchart
-> TODO: Add diagram (Matthias)
-
-#### Database Model
-> TODO: Add diagram (Matthias)
-
-### Software Analyse
-> TODO: Add (Tom & Matthias)
 
 ## User stories en Engineering Tasks
 
 User Stories op Jira: [Jira](https://jira.ap.be/projects/JP19LAFA/summary)
-
-## systeemspecificaties
-
-Geef hier de systeemspecificaties waaruit je de hardware en software kan ontwerpen
-
-
 
