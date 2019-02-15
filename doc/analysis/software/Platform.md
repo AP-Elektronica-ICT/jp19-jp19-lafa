@@ -1,5 +1,5 @@
 # Web Platform Analyse
-[Go to General Analysis](../../analysis)
+[Go to General Analysis](../../analysis#web-platform)
 
 ## Functionality
 > TODO: ADD

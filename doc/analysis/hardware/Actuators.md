@@ -1,5 +1,5 @@
 # Actuator Analyse
-[Go to General Analysis](../../analysis)
+[Go to General Analysis](../../analysis#actuators)
 
 ## Parts
 ### Actuator Name

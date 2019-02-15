@@ -1,2 +1,2 @@
 # Structure Analyse
-[Go to General Analysis](../../analysis)
+[Go to General Analysis](../../analysis#structure)

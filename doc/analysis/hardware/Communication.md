@@ -1,5 +1,5 @@
 # Communication Analyse
-[Go to General Analysis](../../analysis)
+[Go to General Analysis](../../analysis#communication)
 
 ## Parts
 ### C Name
