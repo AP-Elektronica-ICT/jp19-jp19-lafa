@@ -9,7 +9,7 @@ Every hour the program will take a picture of each plant and check if the plan i
 ## Structure
 Each level of our module will have plants and our camera must be able to detect those plants. In order to decrease the amount of camera's needed the construction must have movable camera's. Each level of our construction will have one camera that can move to each plant.
 
-![Unreliable node block diagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/vision/VisionMechanical.png)
+![Mechanical view of camera module](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/vision/VisionMechanical.jpg)
 
 ## Flowchart
 ### Train
