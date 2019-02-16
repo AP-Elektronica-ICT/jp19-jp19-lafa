@@ -10,12 +10,12 @@ Each node will communicate with the master using TCP/IP
 
 ### Parts
 #### Node
-* 1 switch (minimum 5 ports)  - [Part 4](#parts)
-* 5 x ethernet cable (shared between nodes)  - [Part 1](#parts)
+* 1 switch (minimum 5 ports)  - [Part 4](#partslist)
+* 5 x ethernet cable (shared between nodes)  - [Part 1](#partslist)
 
 #### Master
-* 1 switch (minimum 4 ports)  - [Part 3](#parts)
-* 4 x ethernet cable (shared between nodes)  - [Part 1](#parts)
+* 1 switch (minimum 4 ports)  - [Part 3](#partslist)
+* 4 x ethernet cable (shared between nodes)  - [Part 1](#partslist)
 
 ## Node
 
@@ -29,8 +29,8 @@ Internal communication happens with a few protocols:
 * TCP/IP
 
 ### Parts
-* Shielded cable for I²C - [Part 2](#parts)
-* 1 x ethernet cable (already included in the Network segment) [Part 1](#parts)
+* Shielded cable for I²C - [Part 2](#partslist)
+* 1 x ethernet cable (already included in the Network segment) [Part 1](#partslist)
 * 3 x USB cable (already included in the camera modules)
 
 
@@ -48,6 +48,7 @@ Master communicates over TCP/IP with the internal network and the outside world
 * 1 x ethernet cable (already included in the Network segment)
 * 1 x Wifi module (already included in the raspberry pi)
 
+<a id="partslist"></a>
 ## Part list
 
 > TODO: parts aren't concrete because the seller that AP uses isn't known to me 
@@ -77,5 +78,3 @@ Master communicates over TCP/IP with the internal network and the outside world
     * [Possible switch](https://www.amazon.com/TP-Link-Ethernet-Optimization-Unmanaged-TL-SG105/dp/B00A128S24/ref=sr_1_1?fst=as%3Aoff&qid=1550337134&refinements=p_n_feature_four_browse-bin%3A5662321011&rnid=5662319011&s=pc&sr=1-1&th=1)
     * 5 x RJ 45
     * Link speed > 100 Mbit/s
-
-<a name="parts"></a>
