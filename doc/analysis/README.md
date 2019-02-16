@@ -19,31 +19,31 @@ Minimaal 3000 tekens.
 > TODO: Add (All)
 
 ## Hardware Analyse
-#### Hardware Blockdiagram
+### Hardware Blockdiagram
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
-#### Node Connection Diagram
+### Node Connection Diagram
 > TODO: ADD Diagram (Tom)
 
-### Controllers
+#### Controllers
 [Go to Controllers Analysis](../analysis/hardware/Controllers.md)
-### Sensors
+#### Sensors
 [Go to Sensor Analysis](../analysis/hardware/Sensors.md)
-### Actuators
+#### Actuators
 [Go to Actuator Analysis](../analysis/hardware/Actuators.md)
-### Communication
+#### Communication
 [Go to Communication Analysis](../analysis/hardware/Communication.md)
-### Structure
+#### Structure
 [Go to Structure Analysis](../analysis/hardware/Structure.md)
 
 ## Software Analyse
-#### Web Platform Architectuur
+### Web Platform Architectuur
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/webplatform_blockdiagram.png)
-### Data & Data Storage
+#### Data & Data Storage
 [Go to Data Analysis](../analysis/software/Data.md)
-### Web Platform
+#### Web Platform
 [Go to Platform Analysis](../analysis/software/Platform.md)
-### Computer Vision
+#### Computer Vision
 [Go to Data Analysis](../analysis/software/Vision.md)
 
 
