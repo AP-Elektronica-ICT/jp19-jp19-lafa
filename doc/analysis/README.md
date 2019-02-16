@@ -25,16 +25,16 @@ Minimaal 3000 tekens.
 ### Node Connection Diagram
 
 #### Scalable Network topology
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/ScalableNodeTopology.png)
+![Scalable network topology](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/ScalableNodeTopology.png)
 
 #### Unreliable Network topology
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/UnreliableNodeTopology.png)
+![Unreliable network topology](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/UnreliableNodeTopology.png)
 
 #### Scalable node block Diagram
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Scalable.png)
+![Scalable node block diagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Scalable.png)
 
 #### Unreliable node block Diagram
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Unreliable.png)
+![Unreliable node block diagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Unreliable.png)
 
 #### Controllers
 [Go to Controllers Analysis](../analysis/hardware/Controllers.md)
