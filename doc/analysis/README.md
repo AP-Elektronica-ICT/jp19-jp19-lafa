@@ -23,7 +23,18 @@ Minimaal 3000 tekens.
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
 
 ### Node Connection Diagram
-> TODO: ADD Diagram (Tom)
+
+#### Scalable Network topology
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/ScalableNodeTopology.png)
+
+#### Unreliable Network topology
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/UnreliableNodeTopology.png)
+
+#### Scalable node block Diagram
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Scalable.png)
+
+#### Unreliable node block Diagram
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Unreliable.png)
 
 #### Controllers
 [Go to Controllers Analysis](../analysis/hardware/Controllers.md)
