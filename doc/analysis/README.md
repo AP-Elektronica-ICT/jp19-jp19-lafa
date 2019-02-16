@@ -37,8 +37,8 @@ Minimaal 3000 tekens.
 [Go to Structure Analysis](../analysis/hardware/Structure.md)
 
 ## Software Analyse
-#### Algemene Architectuur
-> TODO: ADD diagram (Matthias)
+#### Web Platform Architectuur
+![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/webplatform_blockdiagram.png)
 ### Data & Data Storage
 [Go to Data Analysis](../analysis/software/Data.md)
 ### Web Platform
