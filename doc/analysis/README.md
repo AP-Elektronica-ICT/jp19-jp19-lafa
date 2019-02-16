@@ -55,7 +55,7 @@ Minimaal 3000 tekens.
 #### Web Platform
 [Go to Platform Analysis](../analysis/software/Platform.md)
 #### Computer Vision
-[Go to Data Analysis](../analysis/software/Vision.md)
+[Go to Computer Vision Analysis](../analysis/software/Vision.md)
 
 
 ## User stories en Engineering Tasks
