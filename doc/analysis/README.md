@@ -56,6 +56,8 @@ Minimaal 3000 tekens.
 [Go to Platform Analysis](../analysis/software/Platform.md)
 #### Computer Vision
 [Go to Computer Vision Analysis](../analysis/software/Vision.md)
+### State diagram
+![Mindmap](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/state_diagram.png)
 
 
 ## User stories en Engineering Tasks
