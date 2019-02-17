@@ -1,62 +1,48 @@
 # Data Analyse
 [Go to General Analysis](../../analysis#data--data-storage)
 
+## Database
+PostgreSQL - an object-relational database management system with an emphasis on extensibility and standards compliance.
+
+## Entity Relationship Diagram
+![ERD](../../img/analysis/erd_database.png)
+
 ## Database Interfaces
 ```typescript
-interface FarmNode {
-  _id: MongoID,
-  identity: string,
-  label: string,
-  sensorData: SensorData[],
-  imageData: ImageData[],
-  plants: Plant[]
-}
-```
-```typescript
-interface SensorData {
-  _id: MongoID,
-  sensor: Sensor,
-  value: number,
-  time: Date
+interface Node {
+  id: serial;
+  label: string;
+  live_since: Date;
+  identity: string;
 }
 ```
 ```typescript
 interface Sensor {
-  _id: MongoID,
-  label: string,
-  node: FarmNode
+  id: serial;
+  label: string;
+  node: number;
 }
 ```
 ```typescript
-interface ImageData {
-  _id: MongoID,
-  location: string,
-  time: Date
+interface SensorData {
+  id: serial;
+  sensor: number;
+  value: number;
+  time: Date;
 }
 ```
 ```typescript
 interface Plant {
-  _id: MongoID,
-  planted: Date,
-  type: string,
-  location: PlantLocation,
-  state: PlantState
+  id: serial;
+  label: string;
+  node: number;
+  planted: Date;
 }
 ```
 ```typescript
-interface PlantLocation {
-  x: number,
-  y: number
+interface Image {
+  id: serial,
+  plant: string,
+  time: Date
 }
 ```
-```typescript
-enum PlantState {
-  'seed',
-  'child',
-  'grown',
-  'done'
-}
-```
-
-## Storage Solution
-> TODO: ADD
