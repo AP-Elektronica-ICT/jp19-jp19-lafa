@@ -111,6 +111,8 @@ De Raspberry Pi heeft communicatie mogelijkheden zoals I²c en SPI. Het is niet 
 ## Software Analyse
 ### Web Platform Architectuur
 ![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/webplatform_blockdiagram.png)
+#### Flowchart per device
+[Go to Flowchart Analysis](../analysis/software/Flowcharts.md)
 #### Data & Data Storage
 [Go to Data Analysis](../analysis/software/Data.md)
 #### Web Platform
