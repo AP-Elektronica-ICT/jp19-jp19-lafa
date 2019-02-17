@@ -39,4 +39,10 @@ PostgreSQL
 ```GET /<nodeID>/image```
 
 ## Mockups
-> TODO: ADD
+All Mockups from AP-Elektronica-ICT/iot18-lf1. All rights reserved by Melvin Bootsgezel.
+### Nodes Overview
+![](https://raw.githubusercontent.com/AP-Elektronica-ICT/iot18-lf1/master/doc/img/mockups/my_labfarm_mockup.png)
+### Node Sensor Data
+![](https://raw.githubusercontent.com/AP-Elektronica-ICT/iot18-lf1/master/doc/img/mockups/labfarm_overview_mockup.png)
+### Node Image Data
+![](https://raw.githubusercontent.com/AP-Elektronica-ICT/iot18-lf1/master/doc/img/mockups/picture_overview_mockup.png)
