@@ -81,21 +81,21 @@ De Raspberry Pi heeft communicatie mogelijkheden zoals I²c en SPI. Het is niet 
 
 ## Hardware Analyse
 ### Hardware Blockdiagram
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
+![Hardware Blockdiagram](../img/analysis/hardware_blockdiagram.png)
 
 ### Node Connection Diagram
 
 #### Scalable Network topology
-![Scalable network topology](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/ScalableNodeTopology.png)
+![Scalable network topology](../img/analysis/ScalableNodeTopology.png)
 
 #### Unreliable Network topology
-![Unreliable network topology](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/UnreliableNodeTopology.png)
+![Unreliable network topology](../img/analysis/UnreliableNodeTopology.png)
 
 #### Scalable node block Diagram
-![Scalable node block diagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Scalable.png)
+![Scalable node block diagram](../img/analysis/Node_Scalable.png)
 
 #### Unreliable node block Diagram
-![Unreliable node block diagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/Node_Unreliable.png)
+![Unreliable node block diagram](../img/analysis/Node_Unreliable.png)
 
 #### Controllers
 [Go to Controllers Analysis](../analysis/hardware/Controllers.md)
@@ -110,7 +110,7 @@ De Raspberry Pi heeft communicatie mogelijkheden zoals I²c en SPI. Het is niet 
 
 ## Software Analyse
 ### Web Platform Architectuur
-![Hardware Blockdiagram](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/webplatform_blockdiagram.png)
+![Hardware Blockdiagram](../img/analysis/webplatform_blockdiagram.png)
 #### Flowchart per device
 [Go to Flowchart Analysis](../analysis/software/Flowcharts.md)
 #### Data & Data Storage
@@ -120,9 +120,9 @@ De Raspberry Pi heeft communicatie mogelijkheden zoals I²c en SPI. Het is niet 
 #### Computer Vision
 [Go to Computer Vision Analysis](../analysis/software/Vision.md)
 ### State diagram
-![Mindmap](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/state_diagram.png)
+![Mindmap](../img/analysis/state_diagram.png)
 
 
 ## User stories en Engineering Tasks
 
-User Stories op Jira: [Jira](https://jira.ap.be/projects/JP19LAFA/summary)
+[User Stories op Jira](https://jira.ap.be/projects/JP19LAFA/summary)

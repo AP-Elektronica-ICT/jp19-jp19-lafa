@@ -3,7 +3,7 @@
 
 ## Network
 
-![Network topology](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/ScalableNodeTopology.png)
+![Network topology](../../img/analysis/ScalableNodeTopology.png)
 
 ### Protocol
 Each node will communicate with the master using TCP/IP
@@ -19,7 +19,7 @@ Each node will communicate with the master using TCP/IP
 
 ## Node
 
-![Block diagram of a Node](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/hardware_blockdiagram.png)
+![Block diagram of a Node](../../img/analysis/hardware_blockdiagram.png)
 
 ### Protocol
 Internal communication happens with a few protocols:
@@ -36,7 +36,7 @@ Internal communication happens with a few protocols:
 
 ## Master
 
-![Block diagram of a Node](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/webplatform_blockdiagram.png)
+![Block diagram of a Node](../../img/analysis/webplatform_blockdiagram.png)
 
 ### Protocol
 Master communicates over TCP/IP with the internal network and the outside world

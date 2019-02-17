@@ -9,11 +9,11 @@ Every hour the program will take a picture of each plant and check if the plan i
 ## Structure
 Each level of our module will have plants and our camera must be able to detect those plants. In order to decrease the amount of camera's needed the construction must have movable camera's. Each level of our construction will have one camera that can move to each plant.
 
-![Mechanical view of camera module](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/vision/VisionMechanical.jpg)
+![Mechanical view of camera module](../../img/analysis/vision/VisionMechanical.jpg)
 
 ## Flowchart
 ### Train
-![Neural network training flowchart](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/vision/VisionTrainFlowchart.png)
+![Neural network training flowchart](../../img/analysis/vision/VisionTrainFlowchart.png)
 
 ### Detect
-![Neural network predicition flowchart](https://raw.githubusercontent.com/AP-Elektronica-ICT/jp19-lafa/analysis/doc/img/analysis/vision/VisionPredictFlowchart.png)
+![Neural network predicition flowchart](../../img/analysis/vision/VisionPredictFlowchart.png)
