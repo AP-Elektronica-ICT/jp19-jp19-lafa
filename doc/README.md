@@ -1,6 +1,6 @@
 # Documentatie
 
-In deze map bevat all documentatie van FarmLab
+Deze map bevat alle documentatie van FarmLab
 
 **Relevante Documenten:**
 * [Analyse](./analysis)
