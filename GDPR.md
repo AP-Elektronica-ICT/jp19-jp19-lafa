@@ -1,8 +1,8 @@
 <h1>Privacy Policy for Artesis Plantijn</h1>
 
-<p>At Farmlab, accessible from https://farmlab.aplearning.xyz, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Farmlab and how we use it.</p>
+<p>At Farmlab, accessible from https://farmlab.team, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Farmlab and how we use it.</p>
 
-<p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at s102480@ap.be</p>
+<p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at developers@farmlab.team</p>
 
 <h2>General Data Protection Regulation (GDPR)</h2>
 <p>We are a Data Controller of your information.</p>
