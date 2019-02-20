@@ -1,4 +1,4 @@
-# Structure Analyse
+# Structural Analysis
 [Go to General Analysis](../../analysis#structure)
 
 
