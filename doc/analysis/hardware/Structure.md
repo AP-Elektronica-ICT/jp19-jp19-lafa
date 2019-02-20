@@ -5,3 +5,7 @@
 ## 3D view
 
 ![Network topology](../../img/analysis/structure/1.png)
+
+## Technical drawing
+
+![Network topology](../../img/analysis/ScalableNodeTopology.png)
