@@ -2,7 +2,7 @@
 
 #### **Did you find a bug?**
 
-* **Do not open up a GitHub issue if the bug is a security vulnerability**, and instead [contact us](mailto:s102480@ap.be).
+* **Do not open up a GitHub issue if the bug is a security vulnerability**, and instead [contact us](mailto:developers@farmlab.team).
 
 * If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/AP-Elektronica-ICT/jp19-lafa/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
@@ -28,7 +28,7 @@ Changes that are cosmetic in nature and do not add anything substantial to the s
 
 #### **Do you have questions about the source code?**
 
-* Ask any question about how to use Farm Lab via [this mail](mailto:s102480@ap.be).
+* Ask any question about how to use Farm Lab via [this mail](mailto:developers@farmlab.team).
 
 
 #### **Do you want to contribute to the documentation?**
