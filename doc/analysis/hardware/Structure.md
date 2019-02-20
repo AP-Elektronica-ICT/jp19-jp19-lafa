@@ -8,4 +8,4 @@
 
 ## Technical drawing
 
-![Network topology](../../img/analysis/ScalableNodeTopology.png)
+![Network topology](../../img/analysis/structure/4.png)
