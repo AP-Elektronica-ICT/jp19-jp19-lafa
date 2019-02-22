@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/ares/.platformio/penv/bin:/home/ares/.platformio/penv:/home/ares/bin:/home/ares/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ares/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}
