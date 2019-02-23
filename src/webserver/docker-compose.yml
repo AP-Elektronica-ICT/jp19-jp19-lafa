@@ -14,12 +14,9 @@ services:
     - "3000:3000" 
   links:
     - db
- db:
-    image: postgres:latest
-    environment: 
-      - "POSTGRES_PASSWORD: example"
-    restart: always
-    ports:
-      - "5432:5432" # postgres binding to a non docker network
-    volumes: 
-      - ./volume:/var/lib/postgresql/data
+
+ db: 
+  build: database
+  restart: always
+  ports:
+    - "5432:5432"
