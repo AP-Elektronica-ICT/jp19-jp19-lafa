@@ -5,9 +5,12 @@ RUN apt-get update && apt-get install -y postgresql postgresql-contrib
 
 USER postgres
 
+COPY . .
+
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb -O docker docker
+    createdb -O docker docker &&\
+    psql -U postgres -d docker -a -f init.sql
 
 # Adjust PostgreSQL configuration to allow remote connections
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/10/main/pg_hba.conf

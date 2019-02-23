@@ -13,7 +13,7 @@ services:
   ports:
     - "3000:3000" 
   links:
-    - db
+    - db:database
 
  db: 
   build: database

@@ -37,4 +37,5 @@ router.get('/sensor/:id/:limit?', (req, res) => {
     res.status(200).send(data.rows);
   }).catch(e => res.status(400).send(e));
 });
+
 module.exports = router;
