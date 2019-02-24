@@ -9,9 +9,13 @@ const { check, validationResult } = require('express-validator/check');
 // const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // Connect to PostgreSQL
+// Use docker network to connect to the database (see link in docker-compose file)
+// The URL to connect to postgres should be in the form of postgres://db:5432/<database> where db is the host address
+// That is resolved by docker and 5432 the port inside the database container (not exposed)
+
 const pool = new Pool({
   user: 'docker',
-  host: 'localhost',
+  host: 'db',
   database: 'docker',
   password: 'docker',
   port: 5432,
@@ -43,7 +47,6 @@ router.get('/sensor/:id/:limit?', (req, res) => {
     res.status(200).send(data.rows);
   }).catch(e => res.status(400).send(e));
 });
-
 
 router.post('/nodes', [
   check('label').isLength({ min: 5, max: 64 })
