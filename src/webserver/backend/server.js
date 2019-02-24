@@ -11,4 +11,5 @@ app.get('/', (req, res) => {
   res.send('USE API ROUTES');
 });
 
-app.listen(3000);
+// all docker exposed traffic needs to go to the IP 0.0.0.0 see frontend for more info
+app.listen(3000, '0.0.0.0');
