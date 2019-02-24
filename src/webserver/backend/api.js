@@ -3,6 +3,8 @@ const router = express.Router();
 const { Pool } = require('pg');
 
 // Use docker network to connect to the database (see link in docker-compose file)
+// The URL to connect to postgres should be in the form of postgres://db:5432/<database> where db is the host address
+// That is resolved by docker and 5432 the port inside the database container (not exposed)
 const pool = new Pool({
   user: 'docker',
   host: 'db',
