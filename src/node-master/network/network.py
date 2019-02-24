@@ -1,2 +1,2 @@
-def printing(name):
+def start(name):
     print("In network Thread" + name)

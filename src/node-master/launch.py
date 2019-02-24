@@ -10,21 +10,21 @@ from computervision import vision
 list = []
 
 if __name__ == '__main__':
-    network = Process(target=net.printing, args=(" hello",))
+    network = Process(target=net.start, args=(" hello",))
     list.append(network)
 
-    stepper = Process(target=motor.printing, args=(" hello",))
+    stepper = Process(target=motor.start, args=(" hello",))
     list.append(stepper)
-    stepper2 = Process(target=motor.printing, args=(" hello",))
+    stepper2 = Process(target=motor.start, args=(" hello",))
     list.append(stepper2)
-    stepper3 = Process(target=motor.printing, args=(" hello",))
+    stepper3 = Process(target=motor.start, args=(" hello",))
     list.append(stepper3)
 
 
-    atmega = Process(target=net.printing, args=(" hello",))
+    atmega = Process(target=i2c.start, args=(" hello",))
     list.append(atmega)
 
-    cv = Process(target=net.printing, args=(" hello",))
+    cv = Process(target=vision.start, args=(" hello",))
     list.append(cv)
 
     for process in list:
