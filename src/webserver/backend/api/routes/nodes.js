@@ -15,7 +15,7 @@ module.exports = function (app, pool) {
 
   // Add a node to a cluster
   router.post('/', [
-      check('label').isLength({ min: 5, max: 64 }).withMessage('Lenght does not meet requirements')
+      check('label').isLength({ min: 5, max: 64 }).withMessage('Label length does not meet requirements')
     ], (req, res) => {
       if (!validator.valid(req, res)) return;
       pool.query({ text: 'INSERT INTO nodes(label) VALUES($1) RETURNING *', values: [req.body.label] }).then(data => {
@@ -32,12 +32,3 @@ module.exports = function (app, pool) {
 
   return router;
 };
-
-// function checkValidation(req, res) {
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     res.status(422).json({ errors: errors.array() });
-//     return true;
-//   }
-//   return false;
-// }

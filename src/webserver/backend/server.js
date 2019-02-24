@@ -18,8 +18,8 @@ const sensorsRoute = require('./api/routes/sensors')(app, pool);
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/nodes', nodesRoute);
-app.use('/api/sensors', sensorsRoute);
+app.use('/api/v0a/nodes', nodesRoute);
+app.use('/api/v0a/sensors', sensorsRoute);
 
 app.get('/api', (req, res) => {
   res.sendStatus(403);
