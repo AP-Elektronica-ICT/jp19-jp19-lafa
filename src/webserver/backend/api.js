@@ -1,7 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
+// const bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator/check');
 
+// Parser
+// const jsonParser = bodyParser.json()
+// const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+// Connect to PostgreSQL
 const pool = new Pool({
   user: 'docker',
   host: 'localhost',
@@ -11,8 +18,7 @@ const pool = new Pool({
 });
 
 router.get('/', (req, res) => {
-  res.status(403)
-  res.send('Forbidden');
+  return res.sendStatus(403);
 });
 
 // Get all nodes in a cluster
@@ -36,6 +42,17 @@ router.get('/sensor/:id/:limit?', (req, res) => {
   pool.query({ text: 'SELECT * FROM "sensor_data" WHERE "parent" = $1 ORDER BY "time" DESC LIMIT $2', values: [req.params.id, req.params.limit | 20] }).then(data => {
     res.status(200).send(data.rows);
   }).catch(e => res.status(400).send(e));
+});
+
+
+router.post('/nodes', [
+  check('label').isLength({ min: 5, max: 64 })
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  res.status(200).send(req.body);
 });
 
 module.exports = router;
