@@ -13,7 +13,7 @@ Base URL: ```http://URL:3000/api/v0a/```
 ```GET /nodes/```
 
 Params:\
-``id``: Unique id of the node \
+``id``: Unique id of the node
 
 Response: 
 ```js
@@ -26,7 +26,7 @@ Response:
 ]
 ```
 
-### vGet all sensors in a node
+### Get all sensors in a node
 ```GET /nodes/<id>/sensors/```
 
 Response: 
@@ -48,7 +48,7 @@ Response:
 
 Params:\
 ``id``: Unique id of the sensor \
-``limit``: Limit of responses (optional)
+``limit``: Limit amount of responses (optional)
 
 Response: 
 ```js
