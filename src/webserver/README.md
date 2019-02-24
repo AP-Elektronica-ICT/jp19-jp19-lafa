@@ -16,7 +16,7 @@ Params:\
 ``id``: Unique id of the node \
 
 Response: 
-```json
+```js
 [
   {
     "id": 1,                                  // Unique ID
@@ -30,7 +30,7 @@ Response:
 ```GET /nodes/<id>/sensors/```
 
 Response: 
-```json
+```js
 [
   {
     "id": 1,                    // Unique ID
@@ -51,7 +51,7 @@ Params:\
 ``limit``: Limit of responses (optional)
 
 Response: 
-```json
+```js
 [
   {
     "id": 1,                              // Unique ID
@@ -66,9 +66,9 @@ Response:
 ```POST /nodes/```
 
 Body: 
-```json
+```js
 {
-  "label": "Some Node Name",             // Node Name
+  "label": "Some Node Name",  // Node Name
 }
 ```
 
@@ -76,7 +76,7 @@ Body:
 ```POST /sensors/```
 
 Body: 
-```json
+```js
 {
   "parent": 1,                // Parent Node ID
   "label": "Test Sensor",     // Sensor Name
@@ -93,9 +93,9 @@ Params:\
 ``id``: Unique id of the sensor
 
 Body: 
-```json
+```js
 {
-  "parent": 1,                // Sensor ID
-  "value": 2.3,               // Sensor Value
+  "parent": 1,    // Sensor ID
+  "value": 2.3,   // Sensor Value
 }
 ```
