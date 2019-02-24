@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
 
+// Use docker network to connect to the database (see link in docker-compose file)
 const pool = new Pool({
   user: 'docker',
-  host: 'localhost',
+  host: 'db',
   database: 'docker',
   password: 'docker',
   port: 5432,
