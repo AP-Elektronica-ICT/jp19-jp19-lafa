@@ -4,7 +4,7 @@
 from multiprocessing import Process
 from network import network as net
 from motorcontroller import motor
-from i2c import i2c
+#from i2c import i2c
 from computervision import vision
 
 list = []
@@ -21,8 +21,8 @@ if __name__ == '__main__':
     list.append(stepper3)
 
 
-    atmega = Process(target=i2c.start, args=(" hello",))
-    list.append(atmega)
+   # atmega = Process(target=i2c.start, args=(" hello",))
+    #list.append(atmega)
 
     cv = Process(target=vision.start, args=(" hello",))
     list.append(cv)
