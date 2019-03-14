@@ -1,15 +1,15 @@
 import smbus
 import time
 
-bus = smbus.SMBus(1) # RPI used i²C bus 1
+bus = smbus.SMBus(1) # RPI used i2C bus 1
 
-# This is the address we setup in the Arduino Program
-# TODO : get all I2C detected devices and populate a list
-address = 0x0a
+# This is the address we setup in the atmega Program 
+address = 10
 
 def readNumber():
     return bus.read_i2c_block_data(address, 2)
 
+# Read a message from the atmega, this message is maximum 20 bytes long
 def readMessageFromArduino():
     data = bus.read_i2c_block_data(address, 0,20)
     Message = ""
@@ -28,4 +28,9 @@ def start(name):
     print("In I2C Thread" + name)
     while True:
         readMessageFromArduino()
-        time.sleep(0.01)
+        time.sleep(0.5)
+
+# send datat to attiny (light)
+# bus.write_i2c_block_data(0,ord('2'),[ord("5"),ord('5')])
+if __name__ == "__main__":
+    start("i2C")

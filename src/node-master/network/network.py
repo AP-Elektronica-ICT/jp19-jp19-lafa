@@ -1,7 +1,9 @@
 import paho.mqtt.client as mqtt
+import smbus
 import time
 import os
 import sys
+import helper
 
 """
     This module handles communication with the central server.
@@ -76,8 +78,9 @@ class MQTT:
         And don't forget to call MQTT.end() before sending information
         When you don't need MQTT anymore use disconnect this will end the client connection
     """
-    def __init__(self, host, port):
+    def __init__(self, host, port, password="", user=""):
         self.client = mqtt.Client()
+        self.client.username_pw_set(user, password)
         self.client.connect(host, port, 60)
         self.client.on_message = self.on_message
         self.id = ID('id.txt', self.client)
@@ -86,6 +89,9 @@ class MQTT:
 
     def send(self, item):
         self.client.publish("node", item)
+
+    def subscribe(self, topic):
+        self.client.subscribe(topic)
 
     def disconnect(self):
         self.client.disconnect()
@@ -104,17 +110,34 @@ class MQTT:
             self.id.id = str(msg.payload.decode("utf-8"))
             print("Received id: " + self.id.id)
             self.id.save()
+        if msg.topic == 'light':
+            print("Light value")
+            light(str(msg.payload.decode("utf-8")))
+
+def light(value):
+    try:
+        if int(value) >= 0 and int(value) <= 255:
+            val = list(value)
+            val = helper.normalize(val,3)
+            bus = smbus.SMBus(1)
+            bus.write_i2c_block_data(5,ord(val[0]),[ord(val[1]),ord(val[2])])  
+        else:
+            print("Value send from mqqt broker is invalid: {}".format(value))  
+    except Exception as e:
+        print(e)
+        print("MQTT broker send a value that can't be parsed to an int")
 
 # This function should send information to the server 
 def eventHandler(server):
     while True:
         server.send("Hello")
+        server.subscribe("light")
         server.start()
         time.sleep(1)
         server.end()
 
 def start(name):
-    server = MQTT("localhost", 1884)
+    server = MQTT("mqtt.farmlab.team", 1883, user="demo", password="demopass")
 
     eventHandler(server)
 
