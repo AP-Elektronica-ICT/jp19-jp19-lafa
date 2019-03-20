@@ -1,6 +1,12 @@
 def normalize(list, size):
-    if(len(list) < size):
-        for i in range(len(list) - size):
-            [0] + list
-        return list
-    return list
+    end = list
+    print(len(list), size)
+    if(len(list) <= size):
+        for i in range(size - len(list)):
+            end = ['0'] + end
+        return end
+    return end
+
+if __name__ == "__main__":
+    list = ["1", "2"]
+    print(normalize(list, 3))

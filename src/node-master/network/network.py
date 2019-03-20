@@ -119,6 +119,7 @@ def light(value):
         if int(value) >= 0 and int(value) <= 255:
             val = list(value)
             val = helper.normalize(val,3)
+            print("value: {}".format(val))
             bus = smbus.SMBus(1)
             bus.write_i2c_block_data(5,ord(val[0]),[ord(val[1]),ord(val[2])])  
         else:
