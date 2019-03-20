@@ -38,8 +38,8 @@
 ## Energy
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
-| Mean Well 150W Embedded Switch Mode Power Supply SMPS 12.5A, 12V | 1 | 32,47 | [Visit](https://benl.rs-online.com/web/p/embedded-switch-mode-power-supplies-smps/6210663/)
-| ! 5V | 1 | -- | [Visit]()
+| Mean Well Voeding - 12V 10A | 1 | €20,66 | [Visit](https://www.tinytronics.nl/shop/nl/voedingen/12v/mean-well-voeding-12v-12.5a-switching-power-supply-lrs-150-12)
+| Mean Well Voeding - 5V 10A | 1 | €12,44 | [Visit](https://www.tinytronics.nl/shop/nl/voedingen/5v/mean-well-voeding-5v-10a-switching-power-supply-lrs-50-5)
 
 
 *Prijzen zonder BTW*
