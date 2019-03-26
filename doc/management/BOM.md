@@ -1,6 +1,7 @@
 # Bill of Materials
 
 ## Mechanical
+
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
 | RS PRO PVC Flexible Tubing, Clear, 13mm External Diameter  | 2        | € 18,16 | [Visit](https://benl.rs-online.com/web/p/flexible-tubes/9145506/)
@@ -10,6 +11,7 @@
 | FlexLink Polyamide XL Adjustable Foot, Beam, 11mm, M8 Thread  | 4        | € 5,01 | [Visit](https://benl.rs-online.com/web/p/flanges-feet-castors/3314166/)
 
 ## Actuators
+
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
 | EasyDriver - Stepper Motor Driver | 3      | € - | Stock
@@ -22,6 +24,7 @@
 | UV Led Strip 5M | 2 | € - | Stock
 
 ## Controlling
+
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
 | Raspberry Pi 3B+ | 1      | € 29,47 | [Visit](https://benl.rs-online.com/web/p/processor-microcontroller-development-kits/1373331)
@@ -29,6 +32,7 @@
 | ! Shielded Cables (4 Wire) | 3 | € - | [Visit]()
 
 ## Sensors
+
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
 | Attiny85 | X | € - | Stock
@@ -40,6 +44,7 @@
 | ! Partical Sensor | 1 | € - | Stock
 
 ## Energy
+
 | Item                           | Amount | Price (Each)  | Store |
 | ------------------------------ | :----: | ------: | :--: |
 | Mean Well Voeding - 12V 10A | 1 | €20,66 | [Visit](https://www.tinytronics.nl/shop/nl/voedingen/12v/mean-well-voeding-12v-12.5a-switching-power-supply-lrs-150-12)
