@@ -1,2 +1,3 @@
-**/node_modules
-.vscode
+**/volume/
+**/node_modules/
+**/.vscode/
