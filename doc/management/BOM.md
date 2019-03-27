@@ -37,10 +37,11 @@
 | Attiny85 | X | € - | Stock
 | DS18B2 - Water Temp | 1 | € - | Stock
 | Honywell HIH6030 - Omgeving Temp & Vocht | 1 | € - | Stock
-| ! LDR | 3 | € - | Stock
-| ! Water & Voeding Reservoir Switch | 2 | € - | [Visit]()
+| LDR | 3 | € - | Stock
+| Levelconverter | 3 | € 3 | [Visit](https://www.sparkfun.com/products/12009)]
+| Water & Voeding Reservoir Switch | 2 | € - | Stock
 | PH Sensor | 1 | € 15,66 | Stock
-| ! Partical Sensor | 1 | € - | Stock
+| Partical Sensor | 1 | € - | Stock
 
 ## Energy
 
