@@ -1,5 +1,7 @@
-# Documentatie
+# Documentation
 
-Deze map bevat alle documentatie
+This folder contains all documentation
 
-**Relevante Documenten:**
+**Relevant Documentents:**
+
+* [Analysis](./analysis)
