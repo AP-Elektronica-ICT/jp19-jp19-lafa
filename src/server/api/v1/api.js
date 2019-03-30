@@ -1,10 +1,11 @@
-const router = require('express').Router({mergeParams: true});
+const router = require('express').Router({ mergeParams: true });
+const models = require('./models');
 
 module.exports = function (app, db) {
 
   // Get all nodes
   router.get('/nodes', (req, res) => {
-    res.send('nodes');
+    res.send(models.nodeSchema);
   });
 
   // Get all sensors in a specific node
