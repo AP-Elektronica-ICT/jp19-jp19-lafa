@@ -6,7 +6,7 @@ const models = {
     live_since: { type: Date, default: Date.now },
     identity: String,
     sensors: [{ type: mongoose.Schema.ObjectId, ref: 'Sensor' }],
-    plants: [{ type: mongoose.Schema.ObjectId, ref: 'Plant' }]
+    //plants: [{ type: mongoose.Schema.ObjectId, ref: 'Plant' }]
   }),
   sensorSchema: new mongoose.Schema({
     label: String,
