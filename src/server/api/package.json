@@ -1,0 +1,20 @@
+{
+  "name": "farmlab-api",
+  "version": "1.0.0",
+  "description": "API for FarmLab Project (Smart Systems & IoT)",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AP-Elektronica-ICT/jp19-lafa.git"
+  },
+  "author": "Matthias Willemsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AP-Elektronica-ICT/jp19-lafa/issues"
+  },
+  "homepage": "https://github.com/AP-Elektronica-ICT/jp19-lafa#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  }
+}
