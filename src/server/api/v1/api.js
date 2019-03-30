@@ -3,10 +3,23 @@ const models = require('./models');
 
 module.exports = function (app, db) {
 
+  const Node = db.model('Node', models.nodeSchema);
+
   // Get all nodes
   router.get('/nodes', (req, res) => {
-    res.send(models.nodeSchema);
+    Node.find({}).exec((err, docs) => {
+      res.send(docs);
+    });
   });
+
+  // router.get('/nodes/post', (req, res) => {
+  //   const node = new Node({
+  //     label: 'Node One',
+  //     identity: 'Timothy'
+  //   })
+  //   node.save().then(() => console.log('Saved Node'));
+  //   res.send('Created Node');
+  // });
 
   // Get all sensors in a specific node
   router.get('/nodes/:nodeid/sensors', (req, res) => {
