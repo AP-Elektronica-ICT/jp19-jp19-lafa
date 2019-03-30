@@ -10,7 +10,7 @@ services:
     container_name: "farmlab-api"
     restart: unless-stopped
     networks:
-      - farmlab_internal
+      - internal
       - traefik_proxy
     labels:
       - "traefik.backend=FarmLabAPI"
@@ -25,13 +25,13 @@ services:
       - farmlab-db-data:/data/db
       - farmlab-db-conf:/data/configdb
     networks:
-      - farmlab_internal
+      - internal
     labels:
       - "traefik.backend=FarmLabDatabase"
       - "traefik.enable=false"
 
 networks:
-  farmlab_internal:
+  internal:
     driver: bridge
   traefik_proxy:
     external:
