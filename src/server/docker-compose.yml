@@ -1,10 +1,14 @@
 version: '3'
 
+volumes:
+  farmlab-db-data:
+  farmlab-db-conf:
+
 services:
   api:
     build: ./api
     container_name: "farmlab-api"
-    restart: always
+    restart: unless-stopped
     networks:
       - farmlab_internal
       - traefik_proxy
@@ -16,10 +20,10 @@ services:
   database:
     image: 'mongo'
     container_name: "farmlab-db"
-    restart: always
+    restart: unless-stopped
     volumes:
-      - mqtt-db-data:/data/db
-      - mqtt-db-conf:/data/configdb
+      - farmlab-db-data:/data/db
+      - farmlab-db-conf:/data/configdb
     networks:
       - farmlab_internal
     labels:
