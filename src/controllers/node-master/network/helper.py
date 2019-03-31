@@ -1,6 +1,5 @@
 def normalize(list, size):
     end = list
-    print(len(list), size)
     if(len(list) <= size):
         for i in range(size - len(list)):
             end = ['0'] + end

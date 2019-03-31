@@ -1,5 +1,5 @@
 
-
+# TODO: add try catch to queue to prevent holdup of all threads (deadlock)
 """
 Queue wrapper for the threadhandler class
 """
@@ -10,22 +10,38 @@ class queue:
 
     def subscribe(self, thread):
         handler = self.queue.get()
-        handler.subscribe(thread)
+        try:
+            handler.subscribe(thread)
+        except Exception as e:
+            print(e)
+            print("Notifying of thread failed")
         self.queue.put(handler)
 
     def unsubscribe(self, thread):
         handler = self.queue.get()
-        handler.unsubscribe(thread)
+        try:
+            handler.unsubscribe(thread)
+        except Exception as e:
+            print(e)
+            print("Notifying of thread failed")
         self.queue.put(handler)
 
     def notifyThreadById(self, sender, sendto, data):
         handler = self.queue.get()
-        handler.notifyThreadById(sender, sendto, data)
+        try:
+            handler.notifyThreadById(sender, sendto, data)
+        except Exception as e:
+            print(e)
+            print("Notifying of thread failed")
         self.queue.put(handler)
 
     def notifyThreadByObject(self, sender, sendto, data):
         handler = self.queue.get()
-        handler.notifyThreadByObject(sender, sendto, data)
+        try:
+            handler.notifyThreadByObject(sender, sendto, data)
+        except Exception as e:
+            print(e)
+            print("Notifying of thread failed")
         self.queue.put(handler)
 
 
@@ -52,11 +68,9 @@ class threadhandler:
             print("Cannot unsubscribe from the thread handler observable is of type {} but expected threadID".format(type(thread)))
 
     def notifyThreadById(self, sender, sendto, data):
-        print("in notify")
         for thread in self.observers:
             print(thread.id, sendto)
             if(thread.id == sendto):
-                print("found thread")
                 self.notifyThread(sender, thread, data)
 
     def notifyThreadByObject(self, sender, sendto, data):

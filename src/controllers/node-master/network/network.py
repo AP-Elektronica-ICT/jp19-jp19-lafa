@@ -1,9 +1,8 @@
 import paho.mqtt.client as mqtt
-import smbus
 import time
 import os
 import sys
-import helper
+import network.helper as helper
 
 
 com = ""
@@ -82,7 +81,7 @@ class MQTT:
         When you don't need MQTT anymore use disconnect this will end the client connection
     """
     def __init__(self, host, port, password="", user=""):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(client_id=File('id.txt').read())
         self.client.username_pw_set(user, password)
         self.client.connect(host, port, 60)
         self.client.on_message = self.on_message
@@ -116,6 +115,23 @@ class MQTT:
         if msg.topic == 'light':
             print("Light value")
             light(str(msg.payload.decode("utf-8")))
+        if msg.topic == 'pump':
+            print("Pump value")
+            pump(str(msg.payload.decode("utf-8")))
+
+def pump(value):
+    try:
+        if int(value) >= 0 and int(value) <= 255:
+            global com, id
+            val = list(value)
+            val = helper.normalize(val,3)
+            print("value: {}".format(val))
+            com.notifyThreadById(id, "i2c", i2c(21, val))
+        else:
+            print("Value send from mqqt broker is invalid: {}".format(value))  
+    except Exception as e:
+        print(e, value)
+        print("MQTT broker send a value that can't be parsed to an int or failed notifying the thread")
 
 def light(value):
     try:
@@ -124,22 +140,23 @@ def light(value):
             val = list(value)
             val = helper.normalize(val,3)
             print("value: {}".format(val))
-            com.notifyThreadById(id, "i2c", i2c(5, val))
-            
+            com.notifyThreadById(id, "i2c", i2c(20, val))
         else:
             print("Value send from mqqt broker is invalid: {}".format(value))  
     except Exception as e:
-        print(e)
-        print("MQTT broker send a value that can't be parsed to an int")
+        print(e, value)
+        print("MQTT broker send a value that can't be parsed to an int or failed notifying the thread")
 
 # This function should send information to the server 
 def eventHandler(server):
     while True:
         server.send("Hello")
         server.subscribe("light")
+        server.subscribe("pump")
         server.start()
-        time.sleep(1)
+        time.sleep(0.1)
         server.end()
+    print("End of event loop")
 
 """
 class used to send payloads to the i2c module
@@ -159,7 +176,7 @@ class event:
 def start(communication, identifier):
     global id, com
     identifier.thread = event()
-    communication.subscribe(id)
+    communication.subscribe(identifier)
     id = identifier
     com = communication
     
