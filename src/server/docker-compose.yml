@@ -14,25 +14,12 @@ services:
       # - traefik_proxy
     ports:
       - 3000:3000
+      - 1883:1883
     labels:
       - "traefik.backend=FarmLabAPI"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.farmlab.team"
       - "traefik.port=3000"
-  mqtt:
-    build: ./mqtt
-    container_name: "farmlab-mqtt-broker"
-    restart: unless-stopped
-    networks:
-      - internal
-      # - traefik_proxy
-    ports:
-      - 1883:1883
-    labels:
-      - "traefik.backend=FarmLabMQTT"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:mqtt.farmlab.team"
-      - "traefik.port=1883"
   database:
     image: 'mongo'
     container_name: "farmlab-db"
