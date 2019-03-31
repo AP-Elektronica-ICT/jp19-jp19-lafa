@@ -1,13 +1,13 @@
 const router = require('express').Router({ mergeParams: true });
-const models = require('./models');
+const schemas = require('./schemas');
 const mosca = require('mosca');
 
 module.exports = function (app, db) {
 
-  const Node = db.model('Node', models.nodeSchema);
-  const Sensor = db.model('Sensor', models.sensorSchema);
-  const SensorData = db.model('SensorData', models.sensorDataSchema);
-  const Actuator = db.model('Actuator', models.actuatorSchema);
+  const Node = db.model('Node', schemas.nodeSchema);
+  const Sensor = db.model('Sensor', schemas.sensorSchema);
+  const SensorData = db.model('SensorData', schemas.sensorDataSchema);
+  const Actuator = db.model('Actuator', schemas.actuatorSchema);
 
   /*/// MQTT ~ Mosca ///*/
 

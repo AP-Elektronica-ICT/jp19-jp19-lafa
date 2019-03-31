@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const models = {
+const schemas = {
   nodeSchema: new mongoose.Schema({
     label: String,
     controller_id: String,
@@ -31,4 +31,4 @@ const models = {
   })
 }
 
-module.exports = models;
+module.exports = schemas;
