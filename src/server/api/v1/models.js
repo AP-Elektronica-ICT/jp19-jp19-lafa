@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const models = {
   nodeSchema: new mongoose.Schema({
     label: String,
+    controller_id: String,
     live_since: { type: Date, default: Date.now },
     identity: String,
     sensors: [{ type: mongoose.Schema.ObjectId, ref: 'Sensor' }],

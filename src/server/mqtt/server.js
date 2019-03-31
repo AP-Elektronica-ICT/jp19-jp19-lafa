@@ -14,12 +14,23 @@ var settings = {
 };
 
 var server = new mosca.Server(settings);
+var prevlight = Math.floor(Math.random() * 255);
+var prevpump = Math.floor(Math.random() * 255);
 
 server.on('subscribed', (topic, client) => {
   if (topic == 'id') {
     send(topic, client.id);
   } else if (topic == "light") {
-    const rand = Math.floor(Math.random() * 255);
+    let rand = prevlight - 10 + Math.floor(Math.random() * 20);
+    if (rand < 0 || rand > 255)
+      rand = 128;
+      prevlight = rand;
+    send(topic, rand.toString(10));
+  } else if (topic == "pump") {
+    let rand = prevpump - 10 + Math.floor(Math.random() * 20);
+    if (rand < 0 || rand > 255)
+      rand = 128;
+      prevpump = rand;
     send(topic, rand.toString(10));
   }
   console.log(topic);

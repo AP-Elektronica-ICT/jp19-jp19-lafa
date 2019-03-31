@@ -2,7 +2,7 @@
   "name": "farmlab-mqtt-broker",
   "version": "1.0.0",
   "description": "MQTT Broker for the FarmLab Project",
-  "main": "broker.js",
+  "main": "server.js",
   "author": "Matthias Willemsen",
   "license": "MIT",
   "dependencies": {

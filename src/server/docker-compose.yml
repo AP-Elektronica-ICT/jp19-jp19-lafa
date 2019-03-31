@@ -11,7 +11,9 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      - traefik_proxy
+      # - traefik_proxy
+    ports:
+      - 3000:3000
     labels:
       - "traefik.backend=FarmLabAPI"
       - "traefik.enable=true"
@@ -23,7 +25,9 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      - traefik_proxy
+      # - traefik_proxy
+    ports:
+      - 1883:1883
     labels:
       - "traefik.backend=FarmLabMQTT"
       - "traefik.enable=true"
@@ -45,6 +49,6 @@ services:
 networks:
   internal:
     driver: bridge
-  traefik_proxy:
-    external:
-      name: management_proxy-bridge
+  # traefik_proxy:
+  #   external:
+  #     name: management_proxy-bridge
