@@ -171,7 +171,7 @@ class used to receive events from other threads
 """
 class event:
     def receive(self, data, sender):
-        print(data)
+        print("Network thread received data from {}, payload is {}".format(sender.id,data))
 
 def start(communication, identifier):
     global id, com

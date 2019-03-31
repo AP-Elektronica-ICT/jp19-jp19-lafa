@@ -24,10 +24,10 @@ def readMessageFromArduino():
 
     print(Message.encode('utf-8'))
 
-"""
-class used to receive events from other threads
-"""
 class event:
+    """
+    class used to receive events from other threads
+    """
     def receive(self, data, sender):
         bus.write_i2c_block_data(data.addr,ord(data.data[0]),[ord(data.data[1]),ord(data.data[2])])  
 
