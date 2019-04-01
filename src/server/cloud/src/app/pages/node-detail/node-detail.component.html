@@ -14,7 +14,7 @@
   <div class="ui row tiny statistics">
     <div class="statistic">
       <div class="value">
-        22&deg;C
+        -
       </div>
       <div class="label">
         Air Temperature
@@ -22,7 +22,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        18&deg;C
+        -
       </div>
       <div class="label">
         Water Temperature
@@ -30,7 +30,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        73%
+        -
       </div>
       <div class="label">
         Air Humidity
@@ -38,7 +38,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        6.5
+        -
       </div>
       <div class="label">
         Water Hardness
@@ -46,6 +46,66 @@
     </div>
   </div>
 
+  <!-- TODO: Extract into component -->
+  <div class="ui row">
+
+    <div class="ui four wide column">
+      <div class="ui segment" style="text-align: center;">
+        <div class="statistic" style="margin: 0 0 1rem 0;">
+          <div class="value">
+            <img src="assets/actuators/flow.svg" class="ui circular mini inline image"
+              style="padding: .5rem 0 .5rem 0;">
+          </div>
+          <div class="label">
+            Flow Pump
+          </div>
+        </div>
+        <div class="ui right labeled fluid input">
+          <input type="number" min="0" max="100" placeholder="Enter value...">
+          <div class="ui basic label"> %</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui four wide column">
+      <div class="ui segment" style="text-align: center;">
+        <div class="statistic" style="margin: 0 0 1rem 0;">
+          <div class="value">
+            <img src="assets/actuators/light.svg" class="ui circular mini inline image"
+              style="padding: .5rem 0 .5rem 0;">
+          </div>
+          <div class="label">
+            Grow Light
+          </div>
+        </div>
+        <div class="ui right labeled fluid input">
+          <input type="number" min="0" max="100" placeholder="Enter value...">
+          <div class="ui basic label"> %</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui four wide column">
+      <div class="ui segment" style="text-align: center;">
+        <div class="statistic" style="margin: 0 0 1rem 0;">
+          <div class="value">
+            <img src="assets/actuators/food.svg" class="ui circular mini inline image"
+              style="padding: .5rem 0 .5rem 0;">
+          </div>
+          <div class="label">
+            Food Pump
+          </div>
+        </div>
+        <div class="ui right labeled disabled fluid input">
+          <input type="text" min="0" max="100" placeholder="Enter value..." value="Not Connected">
+          <div class="ui basic label"> %</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TODO: Extract into component -->
   <div class="ui eight wide column">
     <div class="ui segment chart">
       <app-line-chart></app-line-chart>
