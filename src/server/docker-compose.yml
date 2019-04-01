@@ -13,7 +13,6 @@ services:
       - internal
       - traefik_proxy
     ports:
-      - 3000:3000
       - 1883:1883
     labels:
       - "traefik.backend=FarmLabAPI"
