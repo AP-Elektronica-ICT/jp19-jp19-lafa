@@ -3,24 +3,28 @@ import glob
 import time
 
 
-#Load the One wire interface and return the one wire device
+# Load the One wire interface and return the one wire device
 # NOTE: This currently grabs one device from the one wire interface if you need more turn the glob into an array
 def setup():
     os.system('modprobe w1-gpio')
     os.system('modprobe w1-therm')
-    
+
     base_dir = '/sys/bus/w1/devices/'
     device_folder = glob.glob(base_dir + '28*')[0]
     return device_folder + '/w1_slave'
 
-#read temperature from a one wire file
+# read temperature from a one wire file
+
+
 def read_temp_raw(file):
     f = open(file, 'r')
     lines = f.readlines()
     f.close()
     return lines
- 
-#parse the raw temperature t a usable format
+
+# parse the raw temperature t a usable format
+
+
 def read_temp(file):
     lines = read_temp_raw(file)
     while lines[0].strip()[-3:] != 'YES':
@@ -32,6 +36,7 @@ def read_temp(file):
         # convert temperature to C
         temp_c = float(temp_string) / 1000.0
         return temp_c
+
 
 if __name__ == '__main__':
     file = setup()

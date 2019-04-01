@@ -6,6 +6,7 @@ def normalize(list, size):
         return end
     return end
 
+
 if __name__ == "__main__":
     list = ["1", "2"]
     print(normalize(list, 3))
