@@ -1,17 +1,14 @@
 const router = require('express').Router({ mergeParams: true });
 const schemas = require('./schemas');
-const bodyParser = require('body-parser');
 
 module.exports = function (db) {
-
-  var jsonParser = bodyParser.json()
 
   const Node = db.model('Node', schemas.nodeSchema);
   const Sensor = db.model('Sensor', schemas.sensorSchema);
   const SensorData = db.model('SensorData', schemas.sensorDataSchema);
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
 
-  router.get('/node', jsonParser, (req, res) => {
+  router.post('/node', (req, res) => {
     console.log(req.body);
     const node = new Node({
       label: req.body.label,
@@ -22,7 +19,7 @@ module.exports = function (db) {
     res.send(node);
   });
 
-  router.get('/sensor', jsonParser, (req, res) => {
+  router.post('/sensor', (req, res) => {
     const sensor = new Sensor({
       label: req.body.label,
       type: req.body.type,
@@ -36,7 +33,7 @@ module.exports = function (db) {
     });
   });
 
-  router.get('/sensordata', jsonParser, (req, res) => {
+  router.post('/sensordata', (req, res) => {
     const sensorData = new SensorData({
       value: req.body.value
     }).save();
@@ -48,7 +45,7 @@ module.exports = function (db) {
     });
   });
 
-  router.get('/actuator', jsonParser, (req, res) => {
+  router.post('/actuator', (req, res) => {
     const actuator = new Actuator({
       label: req.body.label,
       type: req.body.type,
