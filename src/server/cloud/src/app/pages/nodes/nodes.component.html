@@ -48,7 +48,7 @@
         <i class="circle red icon"></i>
         <div class="content">
           {{ node.label }}
-          <div class="sub header">#{{ node._id.substring(0,8) }}&nbsp; - &nbsp;Service critical</div>
+          <div class="sub header">#{{ node._id.substring(0,8) }}&nbsp; - &nbsp;Service offline</div>
         </div>
       </h4>
       <h4 class="ui header ten wide column" *ngIf="node.status == 1">
@@ -66,7 +66,15 @@
         </div>
       </h4>
       <div class="ui six wide column">
-        <div class="ui animated button" style="float: right;" [routerLink]="[ '/node', node._id ]">
+        <div class="ui animated button" style="float: right;" [routerLink]="[ '/node', node._id ]"
+          *ngIf="node.status != 0">
+          <div class="visible content">Open</div>
+          <div class="hidden content">
+            <i class="right arrow icon"></i>
+          </div>
+        </div>
+        <div class="ui animated disabled button" style="float: right;" [routerLink]="[ '/node', node._id ]"
+          *ngIf="node.status == 0">
           <div class="visible content">Open</div>
           <div class="hidden content">
             <i class="right arrow icon"></i>

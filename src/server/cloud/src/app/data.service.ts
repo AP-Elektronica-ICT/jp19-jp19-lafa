@@ -10,11 +10,28 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getAllNodes() {
+    // /v1/nodes
     return this.http.get<Node[]>(this.BASEURL + 'nodes');
   }
 
-  getNode(id: string) {
-    return this.http.get<Node>(this.BASEURL + 'nodes/' + id);
+  getNodeById(nodeid: string) {
+    // /v1/nodes/<NODEID>
+    return this.http.get<Node>(this.BASEURL + 'nodes/' + nodeid);
+  }
+
+  getSensorByTopic(nodeid: string, topic: string) {
+    // /v1/nodes/<NODEID>/sensors/<TYPE>
+    return this.http.get<Node>(this.BASEURL + 'nodes/' + nodeid + 'sensors/' + topic);
+  }
+
+  getSensorById(sensorid: string, limit: string) {
+    // /v1/sensors/<SENSORID>
+    return this.http.get<Node>(this.BASEURL + 'sensors/' + sensorid + '/' + limit);
+  }
+
+  getActuatorById(actuatorid: string) {
+    // /v1/actuators/<ACTUATORID>
+    return this.http.get<Node>(this.BASEURL + 'actuators/' + actuatorid);
   }
 }
 
