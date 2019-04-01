@@ -44,10 +44,15 @@ module.exports = function (db) {
     server.authenticate = authenticate;
   });
 
-  // TODO: Make non static
+  // TODO: Automatic sensor & actuator creation
   server.on('subscribed', (topic, client) => {
     if (topic == 'id') {
-      send(topic, '5ca0da12d903422b03558bbb');
+      const node = new Node({
+        label: 'default',
+        identity: 'default',
+        status: 0
+      });
+      send(topic, node.id);
     }
   });
 
