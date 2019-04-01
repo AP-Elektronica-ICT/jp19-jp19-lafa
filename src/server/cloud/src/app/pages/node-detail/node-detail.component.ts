@@ -15,7 +15,7 @@ export class NodeDetailComponent implements OnInit {
   ngOnInit() {
     if (this.route.snapshot.params.id) {
       const id = this.route.snapshot.params.id;
-      this.dataService.getNode(id).subscribe(data => {
+      this.dataService.getNodeById(id).subscribe(data => {
         this.node = data;
       });
     } else {
