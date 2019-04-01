@@ -130,13 +130,18 @@ module.exports = function (db) {
    * @param {number} value (0-255)
    * @returns {ActuatorObject}
    */
-  // TODO: Make non static
+  // TODO: Add validation
   router.put('/actuators/:actuatorid/:value', (req, res) => {
-    Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
-      mqtt.send('5ca0da12d903422b03558bbb/' +  actuator.type, req.params.value);
-      res.statusCode = 202;
-      res.send(result);
-    });
+    Node.findOne({ "actuators": { "$all": req.params.actuatorid } })
+      .select('_id')
+      .exec((err, node) => {
+        Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
+          mqtt.send(node._id + '/' +  actuator.type, req.params.value);
+          actuator.value = req.params.value;
+          res.statusCode = 202;
+          res.send(actuator);
+        });
+      });
   });
 
   router.get('*', (req, res) => {
