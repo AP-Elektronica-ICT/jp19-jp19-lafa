@@ -24,11 +24,13 @@ module.exports = function (db) {
       label: req.body.label,
       type: req.body.type,
       unit: req.body.unit
-    }).save();
-    Node.findById(req.body.parent).exec((err, docs) => {
-      docs.sensors.push(sensor.id)
-      docs.save(() => {
-        res.sendStatus(201);
+    });
+    sensor.save(() => {
+      Node.findById(req.body.parent).exec((err, docs) => {
+        docs.sensors.push(sensor.id)
+        docs.save(() => {
+          res.status(201).send(sensor);
+        });
       });
     });
   });
@@ -36,11 +38,13 @@ module.exports = function (db) {
   router.post('/sensordata', (req, res) => {
     const sensorData = new SensorData({
       value: req.body.value
-    }).save();
-    Sensor.findById(req.body.parent).exec((err, docs) => {
-      docs.data.push(sensorData.id);
-      docs.save(() => {
-        res.sendStatus(201);
+    });
+    sensorData.save(() => {
+      Sensor.findById(req.body.parent).exec((err, docs) => {
+        docs.data.push(sensorData.id);
+        docs.save(() => {
+          res.sendStatus(201);
+        });
       });
     });
   });
@@ -50,11 +54,13 @@ module.exports = function (db) {
       label: req.body.label,
       type: req.body.type,
       value: req.body.value
-    }).save();
-    Node.findById(req.body.parent).exec((err, docs) => {
-      docs.actuators.push(actuator.id);
-      docs.save(() => {
-        res.sendStatus(201);
+    });
+    actuator.save(() => {
+      Node.findById(req.body.parent).exec((err, docs) => {
+        docs.actuators.push(actuator.id);
+        docs.save(() => {
+          res.sendStatus(201);
+        });
       });
     });
   });

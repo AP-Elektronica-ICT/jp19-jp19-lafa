@@ -30,6 +30,16 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.farmlab.team"
       - "traefik.port=3000"
+  mongo-express:
+    image: mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=database
+      - ME_CONFIG_BASICAUTH_USERNAME=Matthias
+      - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
+    networks:
+      - internal
+    ports:
+      - 8081:8081
   database:
     image: 'mongo'
     container_name: "farmlab-db"
