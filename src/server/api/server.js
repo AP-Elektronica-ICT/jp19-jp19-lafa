@@ -13,7 +13,8 @@ mongoose.connect('mongodb://database:27017/data', { useNewUrlParser: true }, (er
 app.use(cors());
 app.use(express.json());
 
-app.use('/v1', require('./v1/api')(app, mongoose));
+app.use('/v1', require('./v1/api')(mongoose));
+app.use('/populate', require('./v1/populate')(mongoose));
 
 app.get('*', (req, res) => {
   res.sendStatus(403);

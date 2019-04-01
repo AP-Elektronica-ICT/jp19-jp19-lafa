@@ -6,6 +6,7 @@ const schemas = {
     controller_id: String,
     live_since: { type: Date, default: Date.now },
     identity: String,
+    status: Number,
     sensors: [{ type: mongoose.Schema.ObjectId, ref: 'Sensor' }],
     actuators: [{ type: mongoose.Schema.ObjectId, ref: 'Actuator' }]
     //plants: [{ type: mongoose.Schema.ObjectId, ref: 'Plant' }]

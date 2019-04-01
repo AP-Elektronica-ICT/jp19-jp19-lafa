@@ -5,7 +5,7 @@ const mosca = require('mosca');
 // TODO: Break up routes into files
 // TODO: Clean up MQTT server
 
-module.exports = function (app, db) {
+module.exports = function (db) {
 
   const Node = db.model('Node', schemas.nodeSchema);
   const Sensor = db.model('Sensor', schemas.sensorSchema);
