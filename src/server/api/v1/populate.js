@@ -9,12 +9,11 @@ module.exports = function (db) {
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
 
   router.post('/node', (req, res) => {
-    console.log(req.body);
     const node = new Node({
       label: req.body.label,
       identity: req.body.identity,
       status: req.body.status
-    });
+    }).save();
     res.statusCode = 201;
     res.send(node);
   });
