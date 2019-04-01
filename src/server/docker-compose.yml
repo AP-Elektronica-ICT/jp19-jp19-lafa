@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      # - traefik_proxy
+      - traefik_proxy
     ports:
       - 3000:3000
       - 1883:1883
@@ -36,6 +36,6 @@ services:
 networks:
   internal:
     driver: bridge
-  # traefik_proxy:
-  #   external:
-  #     name: management_proxy-bridge
+  traefik_proxy:
+    external:
+      name: management_proxy-bridge

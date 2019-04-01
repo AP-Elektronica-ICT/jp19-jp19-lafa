@@ -2,6 +2,9 @@ const router = require('express').Router({ mergeParams: true });
 const schemas = require('./schemas');
 const mosca = require('mosca');
 
+// TODO: Break up routes into files
+// TODO: Clean up MQTT server
+
 module.exports = function (app, db) {
 
   const Node = db.model('Node', schemas.nodeSchema);
@@ -11,7 +14,22 @@ module.exports = function (app, db) {
 
   /*/// MQTT ~ Mosca ///*/
 
-  const settings = {
+  const authenticate = (client, username, password, callback) => {
+    const authorized = (username === 'demo' && password.toString() === 'demopass');
+    if (authorized) client.user = username;
+    callback(null, authorized);
+  };
+
+  const mqtt = {
+    send: (topic, id) => {
+      server.publish({
+        topic: topic,
+        payload: id
+      });
+    }
+  }
+
+  const server = new mosca.Server({
     port: 1883,
     backend: {
       type: 'mongo',
@@ -19,34 +37,21 @@ module.exports = function (app, db) {
       pubsubCollection: 'ascoltatori',
       mongo: {}
     }
-  };
-
-  const authenticate = (client, username, password, callback) => {
-    const authorized = (username === 'demo' && password.toString() === 'demopass');
-    if (authorized) client.user = username;
-    callback(null, authorized);
-  };
-
-  const send = (topic, id) => {
-    server.publish({
-      topic: topic,
-      payload: id
-    });
-  };
-
-  const server = new mosca.Server(settings);
+  });
 
   server.on('ready', () => {
-    console.log('Mosca server is up and running');
+    console.log('MQTT Server Running');
     server.authenticate = authenticate;
   });
 
+  // TODO: Make non static
   server.on('subscribed', (topic, client) => {
     if (topic == 'id') {
       send(topic, '5ca0da12d903422b03558bbb');
     }
   });
 
+  // TODO: Add sensor updates & make dynamic
   server.on('published', (packet, client) => {
     const topic = packet.topic.split('/');
     if (topic[0] != '$SYS')
@@ -70,8 +75,8 @@ module.exports = function (app, db) {
   router.route('/nodes').get((req, res) => {
     Node.find({})
       .select('-sensors -actuators -__v')
-      .exec((err, result) => {
-        res.send(result);
+      .exec((err, nodes) => {
+        res.send(nodes);
       });
   });
 
@@ -85,8 +90,8 @@ module.exports = function (app, db) {
       .select('-__v')
       .populate({ path: 'sensors', select: '-data -__v' })
       .populate({ path: 'actuators', select: '-__v' })
-      .exec((err, docs) => {
-        res.send(docs);
+      .exec((err, node) => {
+        res.send(node);
       });
   });
 
@@ -101,8 +106,8 @@ module.exports = function (app, db) {
     Sensor.findById(req.params.sensorid)
       .select('-__v')
       .populate({ path: 'data', select: '-__v -_id', options: { limit: req.params.limit } })
-      .exec((err, docs) => {
-        res.send(docs)
+      .exec((err, sensor) => {
+        res.send(sensor)
       });
   });
 
@@ -114,8 +119,8 @@ module.exports = function (app, db) {
   router.get('/actuators/:actuatorid/', (req, res) => {
     Actuator.findById(req.params.actuatorid)
       .select('-__v')
-      .exec((err, docs) => {
-        res.send(docs)
+      .exec((err, actuator) => {
+        res.send(actuator)
       });
   });
 
@@ -125,9 +130,10 @@ module.exports = function (app, db) {
    * @param {number} value (0-255)
    * @returns {ActuatorObject}
    */
+  // TODO: Make non static
   router.put('/actuators/:actuatorid/:value', (req, res) => {
-    Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, result) => {
-      send('5ca0da12d903422b03558bbb/' +  result.type, req.params.value);
+    Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
+      mqtt.send('5ca0da12d903422b03558bbb/' +  actuator.type, req.params.value);
       res.statusCode = 202;
       res.send(result);
     });
