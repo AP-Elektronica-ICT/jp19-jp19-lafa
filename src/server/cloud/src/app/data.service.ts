@@ -9,8 +9,12 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getNodes() {
+  getAllNodes() {
     return this.http.get<Node[]>(this.BASEURL + 'nodes');
+  }
+
+  getNode(id: string) {
+    return this.http.get<Node>(this.BASEURL + 'nodes/' + id);
   }
 }
 

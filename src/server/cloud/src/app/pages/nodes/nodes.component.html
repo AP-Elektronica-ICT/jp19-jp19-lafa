@@ -66,7 +66,7 @@
         </div>
       </h4>
       <div class="ui six wide column">
-        <div class="ui animated button" style="float: right;" (click)="updateSelectedNode(node.id)">
+        <div class="ui animated button" style="float: right;" [routerLink]="[ '/node', node._id ]">
           <div class="visible content">Open</div>
           <div class="hidden content">
             <i class="right arrow icon"></i>

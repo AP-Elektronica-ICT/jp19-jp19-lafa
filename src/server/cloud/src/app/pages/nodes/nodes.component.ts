@@ -13,9 +13,8 @@ export class NodesComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getNodes().subscribe(data => {
+    this.dataService.getAllNodes().subscribe(data => {
       this.nodes = data;
-      console.log(data);
       this.dataState = HTTPRequestState.done;
     }, err => {
       this.dataState = HTTPRequestState.error;
