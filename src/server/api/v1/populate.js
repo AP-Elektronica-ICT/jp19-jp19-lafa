@@ -13,7 +13,8 @@ module.exports = function (db) {
       label: req.body.label,
       identity: req.body.identity,
       status: req.body.status
-    }).save();
+    });
+    node.save();
     res.statusCode = 201;
     res.send(node);
   });
