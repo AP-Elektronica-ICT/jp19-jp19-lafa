@@ -5,6 +5,17 @@ volumes:
   farmlab-db-conf:
 
 services:
+  landing:
+    image: httpd:alpine
+    container_name: "farmlab-landing"
+    volumes:
+      - ./landing:/usr/local/apache2/htdocs/.
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.backend=FarmLabLandingServer"
+      - "traefik.frontend.rule=Host:farmlab.team"
+      - "traefik.port=80"
   api:
     build: ./api
     container_name: "farmlab-api"
