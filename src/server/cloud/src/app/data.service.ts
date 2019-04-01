@@ -48,3 +48,20 @@ export interface Node {
   status: number;
   live_since: Date;
 }
+
+enum sensorsTopics {
+  'lightstr',
+  'watertemp',
+  'airtemp',
+  'airhumidity',
+  'waterph',
+  'waterflow',
+  'waterres',
+  'foodres'
+}
+
+enum actuatorsTopics {
+  'lightint',
+  'flowpump',
+  'foodpump'
+}
