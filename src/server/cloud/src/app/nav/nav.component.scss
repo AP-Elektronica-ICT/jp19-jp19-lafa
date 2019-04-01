@@ -1,0 +1,20 @@
+.right > .ui.item:last-child:after {
+  position: absolute;
+  content: '';
+  top: 0%;
+  right: 0px;
+  height: 100%;
+  width: 1px;
+  background: rgba(34, 36, 38, 0.1);
+}
+
+i.arrow.left.icon {
+  margin: 0 !important;
+}
+
+i.bell.icon {
+  margin: 0 !important;
+}
+.ui.dropdown.item > .menu.active {
+  display: block !important;
+}
