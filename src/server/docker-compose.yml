@@ -5,6 +5,17 @@ volumes:
   farmlab-db-conf:
 
 services:
+  landing:
+    image: httpd:alpine
+    container_name: "farmlab-landing"
+    volumes:
+      - ./landing:/usr/local/apache2/htdocs/.
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.backend=FarmLabLandingServer"
+      - "traefik.frontend.rule=Host:farmlab.team"
+      - "traefik.port=80"
   api:
     build: ./api
     container_name: "farmlab-api"
@@ -12,11 +23,23 @@ services:
     networks:
       - internal
       - traefik_proxy
+    ports:
+      - 1883:1883
     labels:
       - "traefik.backend=FarmLabAPI"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.farmlab.team"
       - "traefik.port=3000"
+  mongo-express:
+    image: mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=database
+      - ME_CONFIG_BASICAUTH_USERNAME=Matthias
+      - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
+    networks:
+      - internal
+    ports:
+      - 8081:8081
   database:
     image: 'mongo'
     container_name: "farmlab-db"
