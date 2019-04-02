@@ -3,9 +3,9 @@ import { Node, DataService, Actuator, Sensor, ChartData } from 'src/app/data.ser
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-node-detail',
-  templateUrl: './node-detail.component.html',
-  styleUrls: ['./node-detail.component.scss']
+  selector: 'app-node',
+  templateUrl: './node.component.html',
+  styleUrls: ['./node.component.scss']
 })
 export class NodeDetailComponent implements OnInit {
   private node: Node;
