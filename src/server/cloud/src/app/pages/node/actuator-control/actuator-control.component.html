@@ -7,7 +7,7 @@
       {{ actuator.label }}
     </div>
   </div>
-  <div class="ui right labeled fluid input">
+  <div class="ui right labeled fluid input" [ngClass]="{'disabled': actuator.value == -1}">
     <input type="number" min="0" max="100" (change)="updateActuator($event)" [value]="getActuatorValue()"
       placeholder="Enter value...">
     <div class="ui basic label">%</div>

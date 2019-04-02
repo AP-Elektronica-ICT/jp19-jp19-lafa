@@ -13,6 +13,7 @@ export class NodeDetailComponent implements OnInit {
 
   // Actuators
   private flowpumpAct: Actuator;
+  private foodpumpAct: Actuator;
   private lightintAct: Actuator;
 
   // Sensors
@@ -70,6 +71,9 @@ export class NodeDetailComponent implements OnInit {
           break;
         case 'lightint':
           this.lightintAct = actuator;
+          break;
+        case 'foodpump':
+          this.foodpumpAct = actuator;
           break;
         default:
           break;

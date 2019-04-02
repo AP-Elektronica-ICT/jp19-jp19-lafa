@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
   // private BASEURL = 'http://localhost:3000/v1/';
-  private BASEURL = 'https://api.farmlab.team/v1/';
+  // private BASEURL = 'https://api.farmlab.team/v1/';
+  private BASEURL = 'http://api.farmlab.team:5000/v1/';
 
   constructor(private http: HttpClient) { }
 
