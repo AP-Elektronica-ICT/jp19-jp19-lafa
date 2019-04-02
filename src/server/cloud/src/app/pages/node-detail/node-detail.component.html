@@ -13,11 +13,8 @@
 
   <div class="ui row tiny statistics">
     <div class="statistic">
-      <div class="value" *ngIf="airtempSen">
-        {{ airtempSen.data[0].value }}
-      </div>
-      <div class="value" *ngIf="!airtempSen">
-        -
+      <div class="value">
+        - &deg;C
       </div>
       <div class="label">
         Air Temperature
@@ -28,7 +25,7 @@
         {{ watertempSen.data[0].value }} &deg;C
       </div>
       <div class="value" *ngIf="!watertempSen">
-        -
+        - &deg;C
       </div>
       <div class="label">
         Water Temperature
@@ -36,7 +33,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        -
+        - %
       </div>
       <div class="label">
         Air Humidity
@@ -44,7 +41,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        -
+        - PH
       </div>
       <div class="label">
         Water Hardness
