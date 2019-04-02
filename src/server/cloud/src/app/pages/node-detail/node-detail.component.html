@@ -1,12 +1,20 @@
 <div class="ui grid centered container" style="padding-top: 128px; padding-bottom: 128px;">
   <!-- TODO: Move style to SCSS -->
+  <div class="row" style="font-size: 24px; padding-bottom: 0;">
+    <div class="six wide column" style="text-align: left;">
+      <i class="arrow left icon" [routerLink]="[ '/nodes' ]"></i>
+    </div>
+    <div class="six wide column" style="text-align: right;">
+      <i class="settings icon"></i>
+    </div>
+  </div>
 
   <div class="ui row">
     <h2 class="ui icon header">
       <i class="cube icon"></i>
       <div *ngIf="node" class="content">
         {{ node.label }}
-        <div class="sub header">#{{ node._id.substring(0,8) }}</div>
+        <!-- <div class="sub header">#{{ node._id.substring(0,8) }}</div> -->
       </div>
     </h2>
   </div>
@@ -50,7 +58,7 @@
   </div>
 
   <!-- TODO: Extract into component -->
-  <div class="ui row">
+  <div class="ui row actuators">
 
     <div class="ui four wide column">
       <div class="ui segment" style="text-align: center;">

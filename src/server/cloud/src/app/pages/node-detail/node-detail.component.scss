@@ -1,0 +1,15 @@
+.arrow.left.icon, .settings.icon {
+  cursor: pointer;
+  &:hover {
+    color: rgba($color: #000000, $alpha: 0.6);
+    transition: all .15s ease-in-out;
+  }
+}
+
+.tiny.statistics {
+  margin: 1rem 0;
+}
+
+.ui.row.actuators {
+  margin: 1rem 0;
+}
