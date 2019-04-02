@@ -30,6 +30,17 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.farmlab.team"
       - "traefik.port=3000"
+  cloud:
+    build: ./cloud
+    container_name: "farmlab-cloud"
+    restart: unless-stopped
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.backend=FarmLabCloud"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:cloud.farmlab.team"
+      - "traefik.port=4200"
   mongo-express:
     image: mongo-express:latest
     environment:

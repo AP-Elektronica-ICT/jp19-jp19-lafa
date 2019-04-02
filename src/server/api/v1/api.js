@@ -47,27 +47,54 @@ module.exports = function (db) {
   // TODO: Automatic sensor & actuator creation
   server.on('subscribed', (topic, client) => {
     if (topic == 'id') {
-      const node = new Node({
-        label: 'default',
-        identity: 'default',
-        status: 0
+      const lightintAct = new Actuator({
+        label: 'Light Strip',
+        type: 'lightint',
+        value: '0'
       });
-      send(topic, node.id);
+      lightintAct.save();
+      const flowpumpAct = new Actuator({
+        label: 'Flow Pump',
+        type: 'flowpump',
+        value: '0'
+      });
+      flowpumpAct.save();
+      const watertempSen = new Sensor({
+        label: 'Water Temperature',
+        type: 'watertemp',
+        unit: '&deg;C'
+      });
+      watertempSen.save();
+      const node = new Node({
+        label: 'Development Node',
+        identity: 'DevTemp',
+        status: 0,
+        actuators: [
+          lightintAct.id,
+          flowpumpAct.id
+        ],
+        sensors: [
+          watertempSen.id
+        ]
+      });
+      node.save();
+      mqtt.send(topic, node.id);
+      console.log('New Node: ' + node.id);
     }
   });
 
   // TODO: Add sensor updates & make dynamic
   server.on('published', (packet, client) => {
-    const topic = packet.topic.split('/');
-    if (topic[0] != '$SYS')
-      if (topic[1] == 'light')
-        console.log('Light Strength: ' + packet.payload.toString());
-      else if (topic[1] == 'watertemp')
-        console.log('Air Temp: ' + packet.payload.toString());
-      else if (topic[1] == 'temp')
-        console.log('Water Temp: ' + packet.payload.toString());
-      else
-        console.log('Random');
+    // const topic = packet.topic.split('/');
+    // if (topic[0] != '$SYS')
+    //   if (topic[1] == 'light')
+    //     console.log('Light Strength: ' + packet.payload.toString());
+    //   else if (topic[1] == 'watertemp')
+    //     console.log('Air Temp: ' + packet.payload.toString());
+    //   else if (topic[1] == 'temp')
+    //     console.log('Water Temp: ' + packet.payload.toString());
+    //   else
+    //     console.log('Random');
   });
 
   /*/// ROUTES ///*/
@@ -167,7 +194,7 @@ module.exports = function (db) {
       .select('_id')
       .exec((err, node) => {
         Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
-          mqtt.send(node._id + '/' + actuator.type, req.params.value);
+          mqtt.send(node._id + '/actuator/' + actuator.type, req.params.value);
           actuator.value = req.params.value;
           res.statusCode = 202;
           res.send(actuator);

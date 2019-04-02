@@ -13,7 +13,10 @@
 
   <div class="ui row tiny statistics">
     <div class="statistic">
-      <div class="value">
+      <div class="value" *ngIf="airtempSen">
+        {{ airtempSen.data[0].value }}
+      </div>
+      <div class="value" *ngIf="!airtempSen">
         -
       </div>
       <div class="label">
@@ -21,7 +24,10 @@
       </div>
     </div>
     <div class="statistic">
-      <div class="value">
+      <div class="value" *ngIf="watertempSen">
+        {{ watertempSen.data[0].value }} &deg;C
+      </div>
+      <div class="value" *ngIf="!watertempSen">
         -
       </div>
       <div class="label">
@@ -61,7 +67,8 @@
           </div>
         </div>
         <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="100" placeholder="Enter value...">
+          <input type="number" min="0" max="255" (change)="updateValue($event)" data-actuator="5ca353688f16170010235b0f"
+            placeholder="Enter value...">
           <div class="ui basic label"> %</div>
         </div>
       </div>
@@ -79,7 +86,8 @@
           </div>
         </div>
         <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="100" placeholder="Enter value...">
+          <input type="number" min="0" max="255" (change)="updateValue($event)" data-actuator="5ca353688f16170010235b0e"
+            placeholder="Enter value...">
           <div class="ui basic label"> %</div>
         </div>
       </div>

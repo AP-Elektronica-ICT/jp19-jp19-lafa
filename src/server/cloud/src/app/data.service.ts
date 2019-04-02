@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-  private BASEURL = 'http://localhost:3000/v1/';
+  // private BASEURL = 'http://localhost:3000/v1/';
+  private BASEURL = 'https://api.farmlab.team/v1/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +18,11 @@ export class DataService {
   getNodeById(nodeid: string) {
     // /v1/nodes/<NODEID>
     return this.http.get<Node>(this.BASEURL + 'nodes/' + nodeid);
+  }
+
+  getNodeLatestData(nodeid: string) {
+    // /v1/nodes/<NODEID>/latest
+    return this.http.get<Node>(this.BASEURL + 'nodes/' + nodeid + '/latest');
   }
 
   getSensorByTopic(nodeid: string, topic: string) {
@@ -32,6 +38,10 @@ export class DataService {
   getActuatorById(actuatorid: string) {
     // /v1/actuators/<ACTUATORID>
     return this.http.get<Node>(this.BASEURL + 'actuators/' + actuatorid);
+  }
+
+  updateActuatorById(actuatorid: string, value: string) {
+    return this.http.put(this.BASEURL + 'actuators/' + actuatorid + '/' + value, null);
   }
 }
 
