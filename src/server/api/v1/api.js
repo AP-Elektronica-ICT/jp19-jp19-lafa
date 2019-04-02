@@ -24,7 +24,8 @@ module.exports = function (db) {
     send: (topic, id) => {
       server.publish({
         topic: topic,
-        payload: id
+        payload: id,
+        qos: 1
       });
     }
   }

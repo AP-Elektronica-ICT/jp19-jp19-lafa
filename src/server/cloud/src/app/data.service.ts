@@ -76,6 +76,11 @@ export interface Node {
   live_since: Date;
 }
 
+export interface ChartData {
+  labels: string[];
+  values: number[];
+}
+
 enum sensorsTopics {
   'lightstr',
   'watertemp',

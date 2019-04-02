@@ -6,7 +6,7 @@
       <i class="cube icon"></i>
       <div *ngIf="node" class="content">
         {{ node.label }}
-        <div class="sub header">#{{ node._id }}</div>
+        <div class="sub header">#{{ node._id.substring(0,8) }}</div>
       </div>
     </h2>
   </div>
@@ -41,7 +41,7 @@
     </div>
     <div class="statistic">
       <div class="value">
-        - PH
+        - pH
       </div>
       <div class="label">
         Water Hardness
@@ -113,14 +113,14 @@
   <!-- TODO: Extract into component -->
   <div class="ui eight wide column">
     <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
+      <app-line-chart [showData]="true" [dataset]="fakerWaterTempData"></app-line-chart>
       <div class="ui bottom right attached label">Water Temperature</div>
     </div>
   </div>
 
   <div class="ui eight wide column">
     <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
+      <app-line-chart [showData]="true" [dataset]="fakerAirTempData"></app-line-chart>
       <div class="ui bottom right attached label">Air Temperature</div>
     </div>
   </div>
@@ -135,14 +135,14 @@
   <div class="ui eight wide column">
     <div class="ui segment chart">
       <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Water PH Level</div>
+      <div class="ui bottom right attached label">Water pH Level</div>
     </div>
   </div>
 
   <div class="ui eight wide column">
     <div class="ui segment chart">
       <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Light Strength</div>
+      <div class="ui bottom right attached label">Light Intensity</div>
     </div>
   </div>
 

@@ -1,6 +1,7 @@
 <div class="image">
   <div class="ui active inverted dimmer" #placeHolder>
-    <div class="ui text loader">Loading </div>
+    <div class="ui text loader" *ngIf="this.showData">Loading</div>
+    <div class="ui text" *ngIf="!this.showData">No data retreived</div>
   </div>
   <canvas #chartCanvas></canvas>
 </div>

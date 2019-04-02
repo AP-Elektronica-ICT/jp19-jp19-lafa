@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Node, DataService, Actuator, Sensor } from 'src/app/data.service';
+import { Node, DataService, Actuator, Sensor, ChartData } from 'src/app/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,6 +18,16 @@ export class NodeDetailComponent implements OnInit {
   // Sensors
   private watertempSen: Sensor;
   private airtempSen: Sensor;
+
+  private fakerAirTempData: ChartData = {
+    labels: ['10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h'],
+    values: [21.1, 21.2, 21.5, 21.8, 21.7, 22.0, 21.3, 21, 20.7, 20.2, 19.9, 19]
+  };
+
+  private fakerWaterTempData: ChartData = {
+    labels: ['10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h'],
+    values: [21.1, 21.2, 21.5, 21.3, 21.6, 21.7, 21.3, 21, 20.7, 20.5, 20.2, 20.2]
+  };
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
