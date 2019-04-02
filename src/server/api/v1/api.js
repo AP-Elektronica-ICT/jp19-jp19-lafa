@@ -71,7 +71,7 @@ module.exports = function (db) {
   });
 
   /*/// ROUTES ///*/
-  
+
   /*/ GET /*/
   /**
    * Get all nodes
@@ -88,12 +88,38 @@ module.exports = function (db) {
   /**
    * Get all data from a node
    * @param {ObjectId} nodeid
-   * @returns {Array(Node)}
+   * @returns {Node}
    */
   router.route('/nodes/:nodeid').get((req, res) => {
     Node.findById(req.params.nodeid)
       .select('-__v')
       .populate({ path: 'sensors', select: '-data -__v' })
+      .populate({ path: 'actuators', select: '-__v' })
+      .exec((err, node) => {
+        res.send(node);
+      });
+  });
+
+  /**
+   * Get all the latest sensor data
+   * @param {ObjectId} nodeid
+   * @returns {Node}
+   */
+  router.route('/nodes/:nodeid/latest').get((req, res) => {
+    Node.findById(req.params.nodeid)
+      .select('-__v')
+      .populate({
+        path: 'sensors',
+        select: '-__v',
+        populate: {
+          path: 'data',
+          select: '-__v -_id',
+          options: {
+            limit: '1',
+            sort: { time: -1 }
+          }
+        }
+      })
       .populate({ path: 'actuators', select: '-__v' })
       .exec((err, node) => {
         res.send(node);
@@ -141,7 +167,7 @@ module.exports = function (db) {
       .select('_id')
       .exec((err, node) => {
         Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
-          mqtt.send(node._id + '/' +  actuator.type, req.params.value);
+          mqtt.send(node._id + '/' + actuator.type, req.params.value);
           actuator.value = req.params.value;
           res.statusCode = 202;
           res.send(actuator);

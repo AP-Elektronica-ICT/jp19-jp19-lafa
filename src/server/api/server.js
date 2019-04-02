@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://database:27017/data', { useNewUrlParser: true }, (err) => { 
+mongoose.connect('mongodb://database:27017/data', { useNewUrlParser: true }, (err) => {
   if (err)
     console.log('Database Connection Error');
   else
