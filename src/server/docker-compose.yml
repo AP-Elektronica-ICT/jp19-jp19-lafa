@@ -8,6 +8,7 @@ services:
   landing:
     image: httpd:alpine
     container_name: "farmlab-landing"
+    restart: unless-stopped
     volumes:
       - ./landing:/usr/local/apache2/htdocs/.
     networks:
@@ -15,21 +16,25 @@ services:
     labels:
       - "traefik.backend=FarmLabLandingServer"
       - "traefik.frontend.rule=Host:farmlab.team"
+      - "traefik.docker.network=traefik_proxy"
       - "traefik.port=80"
   api:
     build: ./api
     container_name: "farmlab-api"
     restart: unless-stopped
     networks:
-      - internal
       - traefik_proxy
+      - internal
     ports:
       - 1883:1883
+      - 5000:5000
+    depends_on:
+      - database
     labels:
       - "traefik.backend=FarmLabAPI"
-      - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.farmlab.team"
-      - "traefik.port=3000"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.port=5000"
   cloud:
     build: ./cloud
     container_name: "farmlab-cloud"
@@ -38,35 +43,33 @@ services:
       - traefik_proxy
     labels:
       - "traefik.backend=FarmLabCloud"
-      - "traefik.enable=true"
       - "traefik.frontend.rule=Host:cloud.farmlab.team"
+      - "traefik.docker.network=traefik_proxy"
       - "traefik.port=4200"
-  mongo-express:
-    image: mongo-express:latest
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=database
-      - ME_CONFIG_BASICAUTH_USERNAME=Matthias
-      - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
-    networks:
-      - internal
-    ports:
-      - 8081:8081
+  # mongo-express:
+  #   image: mongo-express:latest
+  #   environment:
+  #     - ME_CONFIG_MONGODB_SERVER=database
+  #     - ME_CONFIG_BASICAUTH_USERNAME=Matthias
+  #     - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
+  #   ports:
+  #     - 8081:8081
   database:
     image: 'mongo'
     container_name: "farmlab-db"
     restart: unless-stopped
+    networks: 
+      - internal
     volumes:
       - farmlab-db-data:/data/db
       - farmlab-db-conf:/data/configdb
-    networks:
-      - internal
     labels:
       - "traefik.backend=FarmLabDatabase"
       - "traefik.enable=false"
 
 networks:
   internal:
-    driver: bridge
+  #   driver: bridge
   traefik_proxy:
     external:
       name: management_proxy-bridge

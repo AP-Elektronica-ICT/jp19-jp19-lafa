@@ -40,7 +40,7 @@ export class DataService {
     return this.http.get<Node>(this.BASEURL + 'actuators/' + actuatorid);
   }
 
-  updateActuatorById(actuatorid: string, value: string) {
+  updateActuatorById(actuatorid: string, value: number) {
     return this.http.put(this.BASEURL + 'actuators/' + actuatorid + '/' + value, null);
   }
 }
@@ -62,7 +62,7 @@ export interface Actuator {
   _id: string;
   label: string;
   type: string;
-  value: string;
+  value: number;
 }
 
 // Status: 0 - DOWN, 1 - RUNNING, 2 - CHECK

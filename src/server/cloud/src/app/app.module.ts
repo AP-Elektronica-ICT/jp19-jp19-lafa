@@ -8,6 +8,7 @@ import { NodesComponent } from './pages/nodes/nodes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NodeDetailComponent } from './pages/node/node.component';
 import { LineChartComponent } from './pages/node/line-chart/line-chart.component';
+import { ActuatorControlComponent } from './pages/node/actuator-control/actuator-control.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { LineChartComponent } from './pages/node/line-chart/line-chart.component
     NavComponent,
     NodesComponent,
     NodeDetailComponent,
-    LineChartComponent
+    LineChartComponent,
+    ActuatorControlComponent
   ],
   imports: [
     BrowserModule,

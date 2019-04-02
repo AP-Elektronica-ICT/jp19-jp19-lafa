@@ -1,4 +1,4 @@
-<div class="ui grid centered container" style="padding-top: 128px; padding-bottom: 128px;">
+<div class="ui grid centered container" style="padding-top: 128px; padding-bottom: 128px;" *ngIf="node">
   <!-- TODO: Move style to SCSS -->
   <div class="row" style="font-size: 24px; padding-bottom: 0;">
     <div class="six wide column" style="text-align: left;">
@@ -57,46 +57,16 @@
     </div>
   </div>
 
-  <!-- TODO: Extract into component -->
   <div class="ui row actuators">
 
-    <div class="ui four wide column">
-      <div class="ui segment" style="text-align: center;">
-        <div class="statistic" style="margin: 0 0 1rem 0;">
-          <div class="value">
-            <img src="assets/actuators/flow.svg" class="ui circular mini inline image"
-              style="padding: .5rem 0 .5rem 0;">
-          </div>
-          <div class="label">
-            Flow Pump
-          </div>
-        </div>
-        <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="255" (change)="updateValue($event)" [value]="flowpumpAct.value"
-            data-actuator="5ca353688f16170010235b0f" placeholder="Enter value...">
-          <div class="ui basic label"> %</div>
-        </div>
-      </div>
-    </div>
+    <app-actuator-control class="ui four wide column" [actuator]="flowpumpAct">
+    </app-actuator-control>
 
-    <div class="ui four wide column">
-      <div class="ui segment" style="text-align: center;">
-        <div class="statistic" style="margin: 0 0 1rem 0;">
-          <div class="value">
-            <img src="assets/actuators/light.svg" class="ui circular mini inline image"
-              style="padding: .5rem 0 .5rem 0;">
-          </div>
-          <div class="label">
-            Grow Light
-          </div>
-        </div>
-        <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="255" (change)="updateValue($event)" [value]="lightintAct.value"
-            data-actuator="5ca353688f16170010235b0e" placeholder="Enter value...">
-          <div class="ui basic label"> %</div>
-        </div>
-      </div>
-    </div>
+    <app-actuator-control class="ui four wide column" [actuator]="lightintAct">
+    </app-actuator-control>
+
+    <app-actuator-control class="ui four wide column" [actuator]="lightintAct">
+    </app-actuator-control>
 
     <div class="ui four wide column">
       <div class="ui segment" style="text-align: center;">
