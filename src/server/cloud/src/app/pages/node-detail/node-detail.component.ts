@@ -29,6 +29,7 @@ export class NodeDetailComponent implements OnInit {
       const id = this.route.snapshot.params.id;
       this.dataService.getNodeLatestData(id).subscribe(data => {
         this.node = data;
+        console.log(data);
         this.filterSensorsAndActuators();
       });
     } else {
@@ -68,8 +69,6 @@ export class NodeDetailComponent implements OnInit {
   }
 
   updateValue(event) {
-    this.dataService.updateActuatorById(event.target.dataset.actuator, event.target.value).subscribe(data => {
-      console.log(data);
-    });
+    this.dataService.updateActuatorById(event.target.dataset.actuator, event.target.value).subscribe(data => { });
   }
 }

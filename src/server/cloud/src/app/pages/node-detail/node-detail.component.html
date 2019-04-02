@@ -67,8 +67,8 @@
           </div>
         </div>
         <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="255" (change)="updateValue($event)" data-actuator="5ca353688f16170010235b0f"
-            placeholder="Enter value...">
+          <input type="number" min="0" max="255" (change)="updateValue($event)" [value]="flowpumpAct.value"
+            data-actuator="5ca353688f16170010235b0f" placeholder="Enter value...">
           <div class="ui basic label"> %</div>
         </div>
       </div>
@@ -86,8 +86,8 @@
           </div>
         </div>
         <div class="ui right labeled fluid input">
-          <input type="number" min="0" max="255" (change)="updateValue($event)" data-actuator="5ca353688f16170010235b0e"
-            placeholder="Enter value...">
+          <input type="number" min="0" max="255" (change)="updateValue($event)" [value]="lightintAct.value"
+            data-actuator="5ca353688f16170010235b0e" placeholder="Enter value...">
           <div class="ui basic label"> %</div>
         </div>
       </div>
