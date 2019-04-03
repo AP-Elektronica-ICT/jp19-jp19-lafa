@@ -2,7 +2,7 @@
 [Go to General Analysis](../../analysis#data--data-storage)
 
 ## Database
-PostgreSQL - an object-relational database management system with an emphasis on extensibility and standards compliance.
+MongoDB - A free and open-source cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemas.
 
 ## Entity Relationship Diagram
 ![ERD](../../images/analysis/web/erd_database.png)
@@ -10,39 +10,51 @@ PostgreSQL - an object-relational database management system with an emphasis on
 ## Database Interfaces
 ```typescript
 interface Node {
-  id: serial;
+  _id: ObjectID;
   label: string;
   live_since: Date;
   identity: string;
+  status: number;
+  sensors: Sensor[]       //Object IDs
+  actuators: Actuator[]   //Object IDs
+  plants: Plant[]         //Object IDs
 }
 ```
 ```typescript
 interface Sensor {
-  id: serial;
+  _id: ObjectID;
   label: string;
-  node: number;
+  type: string;
+  unit: string;
+  data: SensorData[];     //Object IDs
 }
 ```
 ```typescript
 interface SensorData {
-  id: serial;
-  sensor: number;
+  _id: ObjectID;
   value: number;
   time: Date;
 }
 ```
 ```typescript
-interface Plant {
-  id: serial;
+interface Actuators {
+  _id: ObjectID;
   label: string;
-  node: number;
+  type: string;
+  value: number;
+}
+```
+```typescript
+interface Plant {
+  _id: ObjectID;
+  label: string;
   planted: Date;
+  images: Image[]         //Object IDs
 }
 ```
 ```typescript
 interface Image {
-  id: serial,
-  plant: string,
+  _id: MongoID,
   time: Date
 }
 ```
