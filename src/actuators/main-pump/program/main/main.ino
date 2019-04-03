@@ -13,8 +13,8 @@ char recievedWire[] = {0,0,0};
 int recievedBytes = 0;
 int recievedValue = 0;
 
-long recieveTime = 0;
-long currentTime = millis();
+unsigned long recieveTime;
+unsigned long currentTime;
 
 void setup() {
   pinMode(1, OUTPUT);
@@ -28,10 +28,12 @@ void loop() {
     recievedBytes++;
     recieveTime = millis();
   }
-  
-  currentTime = millis();
-  if(currentTime >= recieveTime + 3){
-    recievedBytes = 0;
+
+  if(recievedBytes >= 1){
+    currentTime = millis();
+    if(currentTime - recieveTime >= 3){
+      recievedBytes = 0;
+    }
   }
   
   if(recievedBytes == 3){
