@@ -16,8 +16,8 @@ services:
     labels:
       - "traefik.backend=FarmLabLandingServer"
       - "traefik.frontend.rule=Host:farmlab.team"
-      - "traefik.docker.network=traefik_proxy"
-      - "traefik.port=80"
+      - "traefik.docker.network=management_proxy-bridge"
+      - "traefik.port=3000"
   api:
     build: ./api
     container_name: "farmlab-api"
@@ -27,13 +27,12 @@ services:
       - internal
     ports:
       - 1883:1883
-      - 5000:5000
     depends_on:
       - database
     labels:
       - "traefik.backend=FarmLabAPI"
       - "traefik.frontend.rule=Host:api.farmlab.team"
-      - "traefik.docker.network=traefik_proxy"
+      - "traefik.docker.network=management_proxy-bridge"
       - "traefik.port=5000"
   cloud:
     build: ./cloud
@@ -44,7 +43,7 @@ services:
     labels:
       - "traefik.backend=FarmLabCloud"
       - "traefik.frontend.rule=Host:cloud.farmlab.team"
-      - "traefik.docker.network=traefik_proxy"
+      - "traefik.docker.network=management_proxy-bridge"
       - "traefik.port=4200"
   # mongo-express:
   #   image: mongo-express:latest
@@ -69,7 +68,6 @@ services:
 
 networks:
   internal:
-  #   driver: bridge
   traefik_proxy:
     external:
       name: management_proxy-bridge
