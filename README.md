@@ -1,19 +1,27 @@
-![FarmLab](https://raw.githubusercontent.com/APLearning/FarmLab-Prep/master/branding/plant_header.png "FarmLab")
+![FarmLab](doc/images/branding/plant_header.png "FarmLab")
 
 Project for Smart Systems & IoT 2019 ([Reference](https://luytsm.gitbook.io/ssys-cursus/projecten/lab_farm))
 
+## Dashboard
+
+[`https://cloud.farmlab.team`](https://cloud.farmlab.team)
+
 ## Team
 
-- Michiel Meurs
-- Jonas Van Hoof
-- Ben Vinck
-- Matthias Willemsen
-- Tom Meyers
+* **Meurs Michiel** - *Technical Lead Mechanics* - [Contact](mailto:michiel.meurs@student.ap.be)
+* **Meyers Tom** - *Technical Lead Communication & Intergration* - [Contact](mailto:tom.meyers@student.ap.be)
+* **Van Hoof Jonas** - *Technical Lead Sensors* - [Contact](mailto:jonas.vanhoof@student.ap.be)
+* **Vinck Ben** - *Technical Lead Actuatoren* - [Contact](mailto:ben.vinck@student.ap.be)
+* **Willemsen Matthias** - *Technical Lead Web Platform & Team Leader* - [Contact](mailto:matthias.willemsen@student.ap.be)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## Summary
 
-Farmlabs is een project waarmee we het telen van planten willen automatiseren door gebruik te maken van sensoren, microcontrollers, pompen, etc. Dit alles werkt samen op het "farm netwerk" dat de maincontroller uit stuurt.
+FarmLab is a class project for Smart Systems & IoT 2019 @ AP Antwerp. FarmLab is an automated hydroponics farm that utilizes an array of sensor to make smart decisions an create the optimal growing environment. Multiple nodes can work together to create a big farm network.
 
-Het kweken van de planten zelf gebeurt volgens een techniek dat "Hydroponics" heet. Hydroponics is het telen van planten die gezet zijn in water en die worden gevoed door voedingsstoffen toe te voegen aan het water waar ze instaan.
+The cultivation of these plants follow the 'hydroponics' technique. This means the plants are planted directly in water without any type of soil. They are fed by nutrients added to that water.
 
-We hebben een heel gevarieerd team waardoor we dit project tot een goed einde kunnen brengen.
+## Analysis
+
+Visit our analysis [here](doc/analysis/README.md)
