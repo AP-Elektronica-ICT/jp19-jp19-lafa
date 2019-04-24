@@ -5,7 +5,7 @@ from multiprocessing import Process, Queue
 from network import network as net
 from motorcontroller import motor
 from i2c import i2c
-from computervision import vision
+#from computervision import vision
 import thread as tc
 q = Queue()
 threadHandler = tc.threadhandler()
@@ -24,12 +24,14 @@ if __name__ == '__main__':
     list.append(stepper2)
     stepper3 = Process(target=motor.start, args=(wrapper,tc.threadID("stepper3")))
     list.append(stepper3)
-
-    atmega = Process(target=i2c.start, args=(wrapper,tc.threadID("i2c")))
+    """
+    atmega = Process(target=i2c.start, args=(wrapper, tc.threadID("i2c")))
     list.append(atmega)
+
     """
     cv = Process(target=vision.start, args=(wrapper, tc.threadID("cv"),))
     list.append(cv)
+    """
 
     for process in list:
         process.start()

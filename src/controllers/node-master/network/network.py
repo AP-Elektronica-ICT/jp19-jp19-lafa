@@ -9,8 +9,8 @@ import network.helper as helper
 com = ""
 id = ""
 temperature = ""
-#serverIP = "mqtt.farmlab.team"
-serverIP = "172.16.0.80"
+serverIP = "mqtt.farmlab.team"
+#serverIP = "172.16.0.80"
 
 """
     This module handles communication with the central server.
@@ -127,10 +127,10 @@ class MQTT:
             print("Received id: " + self.id.id)
             self.id.save()
 
-        if msg.topic == self.id.id+'/light':
+        if msg.topic == self.id.id+'/actuator/lightint':
             print("Light value")
             light(str(msg.payload.decode("utf-8")))
-        if msg.topic == self.id.id+'/pump':
+        if msg.topic == self.id.id+'/actuator/flowpump':
             print("Pump value")
             pump(str(msg.payload.decode("utf-8")))
 
@@ -165,12 +165,11 @@ def light(value):
         print("MQTT broker send a value that can't be parsed to an int or failed notifying the thread")
 
 
-"""
-class used to send payloads to the i2c module
-"""
-
-
 class i2c:
+    """
+    class used to send payloads to the i2c module
+    """
+
     def __init__(self, addr, data):
         self.addr = addr
         self.data = data
@@ -180,20 +179,19 @@ class i2c:
 
 def eventHandler(server):
     while True:
-        server.subscribe(server.id.id+"/light")
-        server.subscribe(server.id.id+"/pump")
+        server.subscribe(server.id.id+"/actuator/lightint")
+        server.subscribe(server.id.id+"/actuator/flowpump")
         server.start()
         time.sleep(20)
         server.end()
     print("End of event loop")
 
 
-"""
-class used to receive events from other threads
-"""
-
-
 class event:
+    """
+    class used to receive events from other threads
+    """
+
     def receive(self, data, sender):
         global id, com
         print("Network thread received data from {}, payload is {}".format(
@@ -201,7 +199,7 @@ class event:
         if data.__contains__("Temperature"):
             print("Uploading temp {}".format(data))
             MQTT(serverIP, 1883, user="demo", password="demopass", useID=False).send(
-                '{}'.format(data.replace("Temperature ", "")), topic=File('id.txt').read() + "/temp")
+                '{}'.format(data.replace("Temperature ", "")), topic=File('id.txt').read() + "/sensors/watertemp")
 
 
 def start(communication, identifier):
