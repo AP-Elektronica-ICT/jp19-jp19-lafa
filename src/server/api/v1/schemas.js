@@ -4,6 +4,7 @@ const schemas = {
   nodeSchema: new mongoose.Schema({
     label: String,
     controller_id: String,
+    mac_address: String,
     live_since: { type: Date, default: Date.now },
     identity: String,
     status: Number,

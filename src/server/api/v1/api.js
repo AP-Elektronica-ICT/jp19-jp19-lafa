@@ -17,6 +17,7 @@ module.exports = function (db) {
   const authenticate = (client, username, password, callback) => {
     const authorized = (username === 'demo' && password.toString() === 'demopass');
     if (authorized) client.user = username;
+    console.log("Client Authentication Request: " + authorized);
     callback(null, authorized);
   };
 
@@ -48,7 +49,7 @@ module.exports = function (db) {
    */
   server.on('ready', () => {
     console.log('MQTT Server Running');
-    server.authenticate = authenticate;
+    // server.authenticate = authenticate;
   });
 
   /**
@@ -57,9 +58,9 @@ module.exports = function (db) {
   server.on('subscribed', (topic, client) => {
     switch (topic) {
       case id:
-        const node = generateNewNode();
-        mqtt.send(topic, node.id);
-        console.log('New Node: ' + node.id);
+        // const node = generateNewNode("FF:FF:FF:FF:FF:FF");
+        // mqtt.send(topic, node.id);
+        // console.log('New Node: ' + node.id);
         break;
     }
   });
@@ -67,7 +68,7 @@ module.exports = function (db) {
   /**
    * Generate new node
    */
-  function generateNewNode() {
+  function generateNewNode(macaddress) {
     // Actuators
     const lightintAct = new Actuator({
       label: 'Light Strip',
@@ -120,8 +121,9 @@ module.exports = function (db) {
     waterphSen.save();
     // Node
     const node = new Node({
-      label: 'Development Node',
+      label: 'Node ' + macaddress,
       identity: 'DevTemp',
+      mac_address: macaddress,
       status: 0,
       actuators: [
         lightintAct.id,
