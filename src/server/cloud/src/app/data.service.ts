@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-  // private BASEURL = 'http://localhost:3000/v1/';
-  private BASEURL = 'https://api.farmlab.team/v1/';
+  private BASEURL = 'http://localhost:5000/v1/';
+  // private BASEURL = 'https://api.farmlab.team/v1/';
 
   constructor(private http: HttpClient) { }
 
@@ -69,6 +69,7 @@ export interface Actuator {
 export interface Node {
   sensors: Sensor[];
   actuators: Actuator[];
+  mac_address: string;
   _id: string;
   label: string;
   identity: string;

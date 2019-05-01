@@ -26,7 +26,7 @@ export class ActuatorControlComponent implements OnInit {
     if (this.actuator.value >= 0) {
       return Math.round(this.actuator.value / 255 * 100);
     } else {
-      return;
+      return 0;
     }
   }
 }
