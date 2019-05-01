@@ -1,0 +1,25 @@
+version: '3.7'
+
+# Dev Command
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+services:
+  api:
+    extends:
+      file: docker-compose.yml
+      service: api
+    ports:
+      - 8081:5000
+  mongo-express:
+    image: mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=database
+      - ME_CONFIG_BASICAUTH_USERNAME=Matthias
+      - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
+    ports:
+      - 8082:8081
+  cloud:
+    extends:
+      file: docker-compose.yml
+      service: cloud
+    ports:
+      - 8080:4200
