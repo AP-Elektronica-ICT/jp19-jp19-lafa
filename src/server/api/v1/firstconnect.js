@@ -62,7 +62,7 @@ module.exports = function (db, logger, mac_address) {
     label: 'Node ' + mac_address,
     identity: undefined,
     mac_address: mac_address,
-    status: 0,
+    status: 1,
     actuators: [
       lightintAct.id,
       flowpumpAct.id,
