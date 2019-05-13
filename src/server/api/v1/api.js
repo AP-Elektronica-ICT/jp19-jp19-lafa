@@ -60,8 +60,12 @@ module.exports = function (db, logger) {
     Node.findOne({ "mac_address": client.id })
     .select('_id')
     .exec((err, node) => {
-      if (node) logger.info(`Client ${client.id} has existing node ${node.id}`);
-      else {
+      if (node) {
+        logger.info(`Client ${client.id} has existing node ${node.id}`);
+        Node.findOneAndUpdate({ mac_address: client.id }, { status: 1 }, (err, node) => {
+          logger.info(`Client ${node.mac_address} set status to online`);
+        });
+      } else {
         logger.warn(`Client ${client.id} doesn't have a node`);
         require('./firstconnect')(db, logger, client.id);
       }
@@ -73,6 +77,9 @@ module.exports = function (db, logger) {
    */
   server.on('clientDisconnected', function(client) {
     logger.info(`Client ${client.id} disconnected`);
+    Node.findOneAndUpdate({ mac_address: client.id }, { status: 0 }, (err, node) => {
+      logger.info(`Client ${node.mac_address} set status to offline`);
+    });
   });
 
   /*/// ROUTES ///*/
