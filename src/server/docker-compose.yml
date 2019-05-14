@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 volumes:
   farmlab-db-data:
@@ -45,14 +45,6 @@ services:
       - "traefik.frontend.rule=Host:cloud.farmlab.team"
       - "traefik.docker.network=management_proxy-bridge"
       - "traefik.port=4200"
-  # mongo-express:
-  #   image: mongo-express:latest
-  #   environment:
-  #     - ME_CONFIG_MONGODB_SERVER=database
-  #     - ME_CONFIG_BASICAUTH_USERNAME=Matthias
-  #     - ME_CONFIG_BASICAUTH_PASSWORD=TemporaryTestPassword#532
-  #   ports:
-  #     - 8081:8081
   database:
     image: 'mongo'
     container_name: "farmlab-db"

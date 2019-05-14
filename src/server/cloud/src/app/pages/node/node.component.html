@@ -29,10 +29,7 @@
       </div>
     </div>
     <div class="statistic">
-      <div class="value" *ngIf="watertempSen">
-        {{ watertempSen.data[0].value }} &deg;C
-      </div>
-      <div class="value" *ngIf="!watertempSen">
+      <div class="value">
         - &deg;C
       </div>
       <div class="label">
@@ -70,7 +67,7 @@
 
   </div>
 
-  <!-- TODO: Extract into component -->
+  <!-- TODO: Extract into component
   <div class="ui eight wide column">
     <div class="ui segment chart">
       <app-line-chart [showData]="true" [dataset]="fakerWaterTempData"></app-line-chart>
@@ -111,7 +108,7 @@
       <app-line-chart></app-line-chart>
       <div class="ui bottom right attached label">Water Flow</div>
     </div>
-  </div>
+  </div> -->
 
   <!-- <div class="ui relaxed divided list">
     <div class="item" *ngFor="let sensor of sensors">

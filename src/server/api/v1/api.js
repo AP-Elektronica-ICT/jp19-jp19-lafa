@@ -2,34 +2,15 @@ const router = require('express').Router({ mergeParams: true });
 const schemas = require('./schemas');
 const mosca = require('mosca');
 
-// TODO: Break up routes into files
-// TODO: Clean up MQTT server
+module.exports = function (db, logger) {
 
-module.exports = function (db) {
-
+  // Mongoose Schemas
   const Node = db.model('Node', schemas.nodeSchema);
   const Sensor = db.model('Sensor', schemas.sensorSchema);
   const SensorData = db.model('SensorData', schemas.sensorDataSchema);
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
 
-  /*/// MQTT ~ Mosca ///*/
-
-  const authenticate = (client, username, password, callback) => {
-    const authorized = (username === 'demo' && password.toString() === 'demopass');
-    if (authorized) client.user = username;
-    console.log("Client Authentication Request: " + authorized);
-    callback(null, authorized);
-  };
-
-  const mqtt = {
-    send: (topic, id) => {
-      server.publish({
-        topic: topic,
-        payload: id,
-        qos: 1
-      });
-    }
-  };
+  /*/// MQTT ///*/
 
   /**
    * Create MQTT Server
@@ -45,143 +26,68 @@ module.exports = function (db) {
   });
 
   /**
-   * MQTT Server on Ready
+   * MQTT Authentication
+   */
+  server.authenticate = (client, username, password, callback) => {
+    if(client && username && password) {
+      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/))
+        if(username.toString() === 'Farm' && password.toString() === 'Lab') {
+          callback(null, true);
+          return;
+        } else {
+          logger.warn(`Client ${client.id} tried to connect with invalid credentials`);
+        }
+      else
+        logger.warn(`Client ${client.id} tried to connect with an invalid ID`);
+    } else {
+      logger.warn(`Client ${client.id} tried to connect with an invalid ID`);
+    }
+    callback(null, false);
+  }
+
+  /**
+   * MQTT Server Ready
    */
   server.on('ready', () => {
-    console.log('MQTT Server Running');
-    // server.authenticate = authenticate;
+    logger.info('MQTT Server Running on port 1883');
   });
 
   /**
-   * MQTT Server on Subscribe (Client)
+   * MQTT Client connected to Server
    */
-  server.on('subscribed', (topic, client) => {
-    switch (topic) {
-      case id:
-        // const node = generateNewNode("FF:FF:FF:FF:FF:FF");
-        // mqtt.send(topic, node.id);
-        // console.log('New Node: ' + node.id);
-        break;
-    }
-  });
-
-  /**
-   * Generate new node
-   */
-  function generateNewNode(macaddress) {
-    // Actuators
-    const lightintAct = new Actuator({
-      label: 'Light Strip',
-      type: 'lightint',
-      value: '0'
-    });
-    lightintAct.save();
-    const flowpumpAct = new Actuator({
-      label: 'Flow Pump',
-      type: 'flowpump',
-      value: '0'
-    });
-    flowpumpAct.save();
-    const foodpumpAct = new Actuator({
-      label: 'Food Pump',
-      type: 'foodpump',
-      value: '0'
-    });
-    foodpumpAct.save();
-    // Sensors
-    const airtempSen = new Sensor({
-      label: 'Air Temperature',
-      type: 'airtemp',
-      unit: '&deg;C'
-    });
-    airtempSen.save();
-    const watertempSen = new Sensor({
-      label: 'Water Temperature',
-      type: 'watertemp',
-      unit: '&deg;C'
-    });
-    watertempSen.save();
-    const lightstrSen = new Sensor({
-      label: 'Light Strength',
-      type: 'lightstr',
-      unit: '&amp;'
-    });
-    lightstrSen.save();
-    const airhumiditySen = new Sensor({
-      label: 'Air Humidity',
-      type: 'airhumidity',
-      unit: '&amp;'
-    });
-    airhumiditySen.save();
-    const waterphSen = new Sensor({
-      label: 'Water Hardness',
-      type: 'waterph',
-      unit: '&amp;'
-    });
-    waterphSen.save();
-    // Node
-    const node = new Node({
-      label: 'Node ' + macaddress,
-      identity: 'DevTemp',
-      mac_address: macaddress,
-      status: 0,
-      actuators: [
-        lightintAct.id,
-        flowpumpAct.id,
-        foodpumpAct.id
-      ],
-      sensors: [
-        airtempSen.id,
-        watertempSen.id,
-        lightstrSen.id,
-        airhumiditySen.id,
-        waterphSen.id,
-      ]
-    });
-    node.save();
-    return node;
-  }
-
-  /**
-   * MQTT Server on Publish (Any)
-   */
-  server.on('published', (packet, client) => {
-    const topic = serializeTopic(packet);
-    if(topic)
-      console.log(topic);
-  });
-
-  /**
-   * Serialize and validate a received MQTT Packet
-   * @param {MQTTPacket} packet MQTT Packet
-   * @returns {Array(Topic.split)}
-   */
-  function serializeTopic(packet) {
-    topics = [
-      'lightstr',
-      'watertemp',
-      'airtemp',
-      'airhumidity',
-      'waterph',
-      'lightint',
-      'flowpump',
-      'foodpump'
-    ];
-    const topic = packet.topic.split('/');
-    if(topic[0] != '$SYS') {
-      if (topics.includes(topic[1])) {
-        return topic;
+  server.on('clientConnected', function (client) {
+    logger.info(`Client ${client.id} connected`);
+    Node.findOne({ "mac_address": client.id })
+    .select('_id')
+    .exec((err, node) => {
+      if (node) {
+        logger.info(`Client ${client.id} has existing node ${node.id}`);
+        Node.findOneAndUpdate({ mac_address: client.id }, { status: 1 }, (err, node) => {
+          logger.info(`Client ${node.mac_address} set status to online`);
+        });
+      } else {
+        logger.warn(`Client ${client.id} doesn't have a node`);
+        require('./firstconnect')(db, logger, client.id);
       }
-    } else
-      return false;
-  }
+    });
+  });
+
+  /**
+   * MQTT Client disconnect from Server
+   */
+  server.on('clientDisconnected', function(client) {
+    logger.info(`Client ${client.id} disconnected`);
+    Node.findOneAndUpdate({ mac_address: client.id }, { status: 0 }, (err, node) => {
+      logger.info(`Client ${node.mac_address} set status to offline`);
+    });
+  });
 
   /*/// ROUTES ///*/
 
   /*/ GET /*/
   /**
    * Get all nodes
-   * @returns {Array(Node)}
+   * @returns {Node[]}
    */
   router.route('/nodes').get((req, res) => {
     Node.find({})
@@ -232,6 +138,7 @@ module.exports = function (db) {
       });
   });
 
+
   /**
    * Get sensor data
    * @param {ObjectId} sensorid
@@ -270,11 +177,17 @@ module.exports = function (db) {
   // TODO: Add validation
   router.put('/actuators/:actuatorid/:value', (req, res) => {
     Node.findOne({ "actuators": { "$all": req.params.actuatorid } })
-      .select('_id')
+      .select('_id mac_address')
       .exec((err, node) => {
         Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
-          mqtt.send(node._id + '/actuator/' + actuator.type, req.params.value);
+          server.publish({
+            topic: node.mac_address + '/actuator/' + actuator.type,
+            payload: req.params.value,
+            qos: 1
+          });
+          logger.info(`Published update to topic ${node.mac_address + '/actuator/' + actuator.type}`);
           actuator.value = req.params.value;
+          logger.info(`Updated actuator ${actuator.id} to ${req.params.value}`);
           res.statusCode = 202;
           res.send(actuator);
         });
@@ -286,5 +199,4 @@ module.exports = function (db) {
   });
 
   return router;
-
-};
+}
