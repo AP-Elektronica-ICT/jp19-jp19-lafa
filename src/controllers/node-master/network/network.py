@@ -59,24 +59,11 @@ class ID:
         The ID class figures out if we already have an ID otherwise we get assigned one
     """
 
-    def __init__(self, filename, client):
-        self.file = File(filename)
-        self.client = client
-        self.check()
-
-    def check(self):
-        self.id = self.file.read()
-        if self.id == '':
-            print('No id provided, requesting id')
-            self.request()
-        else:
-            print('ID from file: ' + self.id)
-
-    def request(self):
-        self.client.subscribe("id")
-
-    def save(self):
-        self.file.write(self.id)
+    def __init__(self):
+        from uuid import getnode as get_mac
+        mac = get_mac()
+        self.id = "".join(c + ":" if i % 2 else c for i,
+                          c in enumerate(hex(mac)[2:].zfill(12)))[:-1]
 
 
 class MQTT:
@@ -93,14 +80,14 @@ class MQTT:
     """
 
     def __init__(self, host, port, password="", user="", useID=True):
+        self.id = ID()
         if useID:
-            self.client = mqtt.Client(client_id=File('id.txt').read())
+            self.client = mqtt.Client(client_id=self.id.id)
         else:
             self.client = mqtt.Client()
         self.client.username_pw_set(user, password)
         self.client.connect(host, port, 60)
         self.client.on_message = self.on_message
-        self.id = ID('id.txt', self.client)
 
     def send(self, item, topic="node"):
         self.client.publish(topic, item)
@@ -122,44 +109,28 @@ class MQTT:
     # TODO : send information to the atmega if nececery
     def on_message(self, client, userdata, msg):
         print("received topic: {}".format(msg.topic))
-        if msg.topic == 'id':
-            self.id.id = str(msg.payload.decode("utf-8"))
-            print("Received id: " + self.id.id)
-            self.id.save()
 
         if msg.topic == self.id.id+'/actuator/lightint':
             print("Light value")
-            light(str(msg.payload.decode("utf-8")))
+            PWM(17, str(msg.payload.decode("utf-8")))
         if msg.topic == self.id.id+'/actuator/flowpump':
             print("Pump value")
-            pump(str(msg.payload.decode("utf-8")))
+            PWM(27, str(msg.payload.decode("utf-8")))
+        if msg.topic == self.id.id+'/actuator/foodpump':
+            print("Food value")
+            PWM(22, str(msg.payload.decode("utf-8")))
 
 
-def pump(value):
+def PWM(pin, value):
     try:
         if int(value) >= 0 and int(value) <= 255:
             global com, id
             val = list(value)
             val = helper.normalize(val, 3)
             print("value: {}".format(val))
-            com.notifyThreadById(id, "i2c", i2c(21, val))
+            com.notifyThreadById(id, "stepper1", i2c(pin, val))
         else:
-            print("Value send from mqqt broker is invalid: {}".format(value))
-    except Exception as e:
-        print(e, value)
-        print("MQTT broker send a value that can't be parsed to an int or failed notifying the thread")
-
-
-def light(value):
-    try:
-        if int(value) >= 0 and int(value) <= 255:
-            global com, id
-            val = list(value)
-            val = helper.normalize(val, 3)
-            print("value: {}".format(val))
-            com.notifyThreadById(id, "i2c", i2c(20, val))
-        else:
-            print("Value send from mqqt broker is invalid: {}".format(value))
+            print("Value send from mqtt broker is invalid: {}".format(value))
     except Exception as e:
         print(e, value)
         print("MQTT broker send a value that can't be parsed to an int or failed notifying the thread")
@@ -192,14 +163,21 @@ class event:
     class used to receive events from other threads
     """
 
+    def __init(self):
+        self.init = True
+
+    def initInThread(self):
+        print("Init in network")
+        self.init = False
+
     def receive(self, data, sender):
         global id, com
         print("Network thread received data from {}, payload is {}".format(
             sender.id, data))
         if data.__contains__("Temperature"):
             print("Uploading temp {}".format(data))
-            MQTT(serverIP, 1883, user="demo", password="demopass", useID=False).send(
-                '{}'.format(data.replace("Temperature ", "")), topic=File('id.txt').read() + "/sensors/watertemp")
+            MQTT(serverIP, 1883, user="Farm", password="Lab", useID=False).send(
+                '{}'.format(data.replace("Temperature ", "")), topic=ID().id + "/sensors/watertemp")
 
 
 def start(communication, identifier):
@@ -209,7 +187,7 @@ def start(communication, identifier):
     id = identifier
     com = communication
 
-    server = MQTT(serverIP, 1883, user="demo", password="demopass")
+    server = MQTT(serverIP, 1883, user="Farm", password="Lab")
 
     eventHandler(server)
 

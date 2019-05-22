@@ -84,6 +84,8 @@ class threadhandler:
                 self.notifyThread(sender, thread, data)
 
     def notifyThread(self, sender, sendto, data):
+        if(sendto.thread.init):
+            sendto.thread.initInThread()
         sendto.thread.receive(data, sender)
 
 
