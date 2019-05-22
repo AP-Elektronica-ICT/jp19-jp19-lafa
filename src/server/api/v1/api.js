@@ -9,6 +9,20 @@ module.exports = function (db, logger) {
   const Sensor = db.model('Sensor', schemas.sensorSchema);
   const SensorData = db.model('SensorData', schemas.sensorDataSchema);
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
+  
+  /*/// HELPER FUNCTIONS///*/
+  // Check if the mac address is in sensor mode or not
+  const idToMac = function(str){
+    //detect if the string is a mac address
+    if(str.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/)){
+      return str;
+    }
+    // if it isn't it must be the sensor client
+    // In that case get the mac address out of the client id
+    let arr = str.split(":");
+    arr.splice(arr.length-1,1);
+    return arr.join(":");
+  }
 
   /*/// MQTT ///*/
 
@@ -30,7 +44,7 @@ module.exports = function (db, logger) {
    */
   server.authenticate = (client, username, password, callback) => {
     if(client && username && password) {
-      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/))
+      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){6}([0-9A-Fa-f]{2})$/))
         if(username.toString() === 'Farm' && password.toString() === 'Lab') {
           callback(null, true);
           return;
@@ -57,7 +71,7 @@ module.exports = function (db, logger) {
    */
   server.on('clientConnected', function (client) {
     logger.info(`Client ${client.id} connected`);
-    Node.findOne({ "mac_address": client.id })
+    Node.findOne({ "mac_address": idToMac(client.id) })
     .select('_id')
     .exec((err, node) => {
       if (node) {
