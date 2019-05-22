@@ -9,20 +9,6 @@ module.exports = function (db, logger) {
   const Sensor = db.model('Sensor', schemas.sensorSchema);
   const SensorData = db.model('SensorData', schemas.sensorDataSchema);
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
-  
-  /*/// HELPER FUNCTIONS///*/
-  // Check if the mac address is in sensor mode or not
-  const idToMac = function(str){
-    //detect if the string is a mac address
-    if(str.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/)){
-      return str;
-    }
-    // if it isn't it must be the sensor client
-    // In that case get the mac address out of the client id
-    let arr = str.split(":");
-    arr.splice(arr.length-1,1);
-    return arr.join(":");
-  }
 
   /*/// MQTT ///*/
 
@@ -38,6 +24,13 @@ module.exports = function (db, logger) {
       mongo: {}
     }
   });
+
+  function isRootClient(client) {
+    if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/)){
+      return true;
+    }
+    return false;
+  }
 
   /**
    * MQTT Authentication
@@ -70,30 +63,42 @@ module.exports = function (db, logger) {
    * MQTT Client connected to Server
    */
   server.on('clientConnected', function (client) {
-    logger.info(`Client ${client.id} connected`);
-    Node.findOne({ "mac_address": idToMac(client.id) })
-    .select('_id')
-    .exec((err, node) => {
-      if (node) {
-        logger.info(`Client ${client.id} has existing node ${node.id}`);
-        Node.findOneAndUpdate({ mac_address: idToMac(client.id) }, { status: 1 }, (err, node) => {
-          logger.info(`Client ${node.mac_address} set status to online`);
-        });
-      } else {
-        logger.warn(`Client ${client.id} doesn't have a node`);
-        require('./firstconnect')(db, logger, client.id);
-      }
-    });
+    if(isRootClient(client)) {
+      logger.info(`Client ${client.id} connected (ROOT)`);
+    } else {
+      logger.info(`Client ${client.id} connected (NON ROOT)`);
+    }
+    if(isRootClient(client)) {
+      Node.findOne({ "mac_address": client.id })
+      .select('_id')
+      .exec((err, node) => {
+        if (node) {
+          logger.info(`Client ${client.id} has existing node ${node.id}`);
+          Node.findOneAndUpdate({ mac_address: client.id }, { status: 1 }, (err, node) => {
+            logger.info(`Client ${node.mac_address} set status to online`);
+          });
+        } else {
+          logger.warn(`Client ${client.id} doesn't have a node`);
+          require('./firstconnect')(db, logger, client.id);
+        }
+      });
+    }
   });
 
   /**
    * MQTT Client disconnect from Server
    */
   server.on('clientDisconnected', function(client) {
-    logger.info(`Client ${client.id} disconnected`);
-    Node.findOneAndUpdate({ mac_address: idToMac(client.id) }, { status: 0 }, (err, node) => {
-      logger.info(`Client ${node.mac_address} set status to offline`);
-    });
+    if(isRootClient(client)) {
+      logger.info(`Client ${client.id} disconnected (ROOT)`);
+    } else {
+      logger.info(`Client ${client.id} disconnected (NON ROOT)`);
+    }
+    if (isRootClient(client)) {
+      Node.findOneAndUpdate({ mac_address: client.id }, { status: 0 }, (err, node) => {
+        logger.info(`Client ${node.mac_address} set status to offline`);
+      });
+    }
   });
 
   /*/// ROUTES ///*/
