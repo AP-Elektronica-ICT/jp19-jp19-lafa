@@ -44,7 +44,7 @@ module.exports = function (db, logger) {
    */
   server.authenticate = (client, username, password, callback) => {
     if(client && username && password) {
-      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){6}([0-9A-Fa-f]{2})$/))
+      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5,6}([0-9A-Fa-f]{2})$/))
         if(username.toString() === 'Farm' && password.toString() === 'Lab') {
           callback(null, true);
           return;
