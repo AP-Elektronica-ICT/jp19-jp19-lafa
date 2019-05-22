@@ -65,6 +65,9 @@ class ID:
         self.id = "".join(c + ":" if i % 2 else c for i,
                           c in enumerate(hex(mac)[2:].zfill(12)))[:-1]
 
+    def sensor(self):
+        return self.id+":aa"
+
 
 class MQTT:
     """
@@ -84,7 +87,7 @@ class MQTT:
         if useID:
             self.client = mqtt.Client(client_id=self.id.id)
         else:
-            self.client = mqtt.Client()
+            self.client = mqtt.Client(client_id=self.id.sensor())
         self.client.username_pw_set(user, password)
         self.client.connect(host, port, 60)
         self.client.on_message = self.on_message
@@ -163,7 +166,7 @@ class event:
     class used to receive events from other threads
     """
 
-    def __init(self):
+    def __init__(self):
         self.init = True
 
     def initInThread(self):

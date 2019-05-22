@@ -8,8 +8,8 @@ bus = smbus.SMBus(1)  # RPI used i2C bus 1
 address = 10
 
 
-def readNumber():
-    return bus.read_i2c_block_data(address, 2)
+def readNumber(addr):
+    return bus.read_i2c_block_data(addr, 2)
 
 # Read a message from the atmega, this message is maximum 20 bytes long
 # TODO read sensordata from an I²C sensor (or attiny) and propagate it to the webserver
@@ -34,6 +34,13 @@ class event:
     """
     class used to receive events from other threads
     """
+
+    def __init(self):
+        self.init = True
+
+    def initInThread(self):
+        print("Init in network")
+        self.init = False
 
     def receive(self, data, sender):
         bus.write_i2c_block_data(data.addr, ord(data.data[0]), [
