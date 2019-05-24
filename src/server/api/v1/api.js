@@ -26,10 +26,7 @@ module.exports = function (db, logger) {
   });
 
   function isRootClient(client) {
-    if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/)){
-      return true;
-    }
-    return false;
+    return client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/);
   }
 
   /**
@@ -63,7 +60,8 @@ module.exports = function (db, logger) {
    * MQTT Server Message Publish
    */
   server.on('published', (packet, client) => {
-    logger.info(`MQTT Message ${ packet.payload } by client ${ client.id } on topic ${ packet.topic }`);
+    if(packet.topic.split('/')[0].match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/))
+      logger.info(`MQTT Message ${ packet.payload } by client ${ client } on topic ${ packet.topic }`);
   });
 
   /**

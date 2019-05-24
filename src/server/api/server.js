@@ -35,7 +35,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Mongoose Connection
-mongoose.connect('mongodb://database:27017/data', { useNewUrlParser: true }).then(
+mongoose.connect('mongodb://database:27017/data', { useNewUrlParser: true, useFindAndModify: false }).then(
   () => logger.info('Mongoose Connected'),
   err => logger.error('Database Connection Error')
 );
