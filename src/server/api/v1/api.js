@@ -60,6 +60,13 @@ module.exports = function (db, logger) {
   });
 
   /**
+   * MQTT Server Message Publish
+   */
+  server.on('published', (packet, client) => {
+    logger.info(`MQTT Message ${ packet.payload } by client ${ client.id } on topic ${ packet.topic }`);
+  });
+
+  /**
    * MQTT Client connected to Server
    */
   server.on('clientConnected', function (client) {
