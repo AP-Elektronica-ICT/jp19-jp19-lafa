@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'nodes', component: NodesComponent },
   { path: 'node/:id', component: NodeDetailComponent },
   { path: 'auth', component: AuthComponent },
-  { path: '**', redirectTo: 'nodes' }
+  { path: '**', redirectTo: 'auth' }
 ];
 
 @NgModule({
