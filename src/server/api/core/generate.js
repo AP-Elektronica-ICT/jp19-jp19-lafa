@@ -1,11 +1,13 @@
 const schemas = require('./schemas');
+const nodeSchema = require('../models/node').node;
+const actuatorSchema = require('../models/actuator').actuator;
+const sensorSchema = require('../models/sensor').sensor;
 
 module.exports = function (db, logger, mac_address) {
   // Mongoose Schemas
-  const Node = db.model('Node', schemas.nodeSchema);
-  const Sensor = db.model('Sensor', schemas.sensorSchema);
-  const SensorData = db.model('SensorData', schemas.sensorDataSchema);
-  const Actuator = db.model('Actuator', schemas.actuatorSchema);
+  const Node = db.model('Node', nodeSchema);
+  const Sensor = db.model('Sensor', sensorSchema);
+  const Actuator = db.model('Actuator', actuatorSchema);
 
   // Actuators
   const lightintAct = new Actuator({
@@ -60,7 +62,6 @@ module.exports = function (db, logger, mac_address) {
   // Node
   const node = new Node({
     label: 'Node ' + mac_address,
-    identity: undefined,
     mac_address: mac_address,
     status: 1,
     actuators: [

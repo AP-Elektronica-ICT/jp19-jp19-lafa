@@ -27,7 +27,7 @@ mongoose.connect('mongodb://database:27017/farmlab', { useNewUrlParser: true, us
 app.use(cors());
 app.use(express.json());
 
-mqttServer = require('./mqtt')(mongoose, logger);
+mqttServer = require('./core/mqtt')(mongoose, logger);
 
 app.use('/nodes*', require('./routes/nodes')(mongoose, logger));
 app.use('/actuators*', require('./routes/actuators')(mongoose, logger, mqttServer));

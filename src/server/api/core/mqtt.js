@@ -2,7 +2,7 @@
 /*/// MQTT ///*/
 
 const mosca = require('mosca');
-const nodeSchema = require('./models/node').node;
+const nodeSchema = require('../models/node').node;
 
 module.exports = (db, logger) => {
   const Node = db.model('Node', nodeSchema);
@@ -75,8 +75,7 @@ module.exports = (db, logger) => {
           });
         } else {
           logger.warn(`Client ${client.id} doesn't have a node`);
-          // TODO: Fix first connect
-          //require('./firstconnect')(db, logger, client.id);
+          require('./generate')(db, logger, client.id);
         }
       });
     } else {
