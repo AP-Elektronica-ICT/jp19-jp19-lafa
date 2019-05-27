@@ -34,6 +34,7 @@ mqtt = require('./core/mqtt')(mongoose, logger);
 app.use('/nodes*', require('./routes/nodes')(mongoose, logger));
 app.use('/actuators*', require('./routes/actuators')(mongoose, logger, mqtt));
 app.use('/sensors*', require('./routes/sensors')(mongoose, logger, mqtt));
+app.use('/user*', require('./routes/user')(mongoose, logger));
 
 app.get('*', (req, res) => {
   res.sendStatus(404);
