@@ -2,33 +2,19 @@ const router = require('express').Router({ mergeParams: true });
 const schemas = require('./schemas');
 const mosca = require('mosca');
 
-// TODO: Break up routes into files
-// TODO: Clean up MQTT server
+module.exports = function (db, logger) {
 
-module.exports = function (db) {
-
+  // Mongoose Schemas
   const Node = db.model('Node', schemas.nodeSchema);
   const Sensor = db.model('Sensor', schemas.sensorSchema);
   const SensorData = db.model('SensorData', schemas.sensorDataSchema);
   const Actuator = db.model('Actuator', schemas.actuatorSchema);
 
-  /*/// MQTT ~ Mosca ///*/
+  /*/// MQTT ///*/
 
-  const authenticate = (client, username, password, callback) => {
-    const authorized = (username === 'demo' && password.toString() === 'demopass');
-    if (authorized) client.user = username;
-    callback(null, authorized);
-  };
-
-  const mqtt = {
-    send: (topic, id) => {
-      server.publish({
-        topic: topic,
-        payload: id
-      });
-    }
-  }
-
+  /**
+   * Create MQTT Server
+   */
   const server = new mosca.Server({
     port: 1883,
     backend: {
@@ -39,35 +25,85 @@ module.exports = function (db) {
     }
   });
 
+  function isRootClient(client) {
+    return client.id.match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/);
+  }
+
+  /**
+   * MQTT Authentication
+   */
+  server.authenticate = (client, username, password, callback) => {
+    if(client && username && password) {
+      if(client.id.match(/^([0-9A-Fa-f]{2}[:]){5,6}([0-9A-Fa-f]{2})$/))
+        if(username.toString() === 'Farm' && password.toString() === 'Lab') {
+          callback(null, true);
+          return;
+        } else {
+          logger.warn(`Client ${client.id} tried to connect with invalid credentials`);
+        }
+      else
+        logger.warn(`Client ${client.id} tried to connect with an invalid ID`);
+    } else {
+      logger.warn(`Client ${client.id} tried to connect with an invalid ID`);
+    }
+    callback(null, false);
+  }
+
+  /**
+   * MQTT Server Ready
+   */
   server.on('ready', () => {
-    console.log('MQTT Server Running');
-    server.authenticate = authenticate;
+    logger.info('MQTT Server Running on port 1883');
   });
 
-  // TODO: Automatic sensor & actuator creation
-  server.on('subscribed', (topic, client) => {
-    if (topic == 'id') {
-      const node = new Node({
-        label: 'default',
-        identity: 'default',
-        status: 0
+  /**
+   * MQTT Server Message Publish
+   */
+  server.on('published', (packet, client) => {
+    if(packet.topic.split('/')[0].match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/))
+      logger.info(`MQTT Message ${ packet.payload } by client ${ client } on topic ${ packet.topic }`);
+  });
+
+  /**
+   * MQTT Client connected to Server
+   */
+  server.on('clientConnected', function (client) {
+    if(isRootClient(client)) {
+      logger.info(`Client ${client.id} connected (ROOT)`);
+    } else {
+      logger.info(`Client ${client.id} connected (NON ROOT)`);
+    }
+    if(isRootClient(client)) {
+      Node.findOne({ "mac_address": client.id })
+      .select('_id')
+      .exec((err, node) => {
+        if (node) {
+          logger.info(`Client ${client.id} has existing node ${node.id}`);
+          Node.findOneAndUpdate({ mac_address: client.id }, { status: 1 }, (err, node) => {
+            logger.info(`Client ${node.mac_address} set status to online`);
+          });
+        } else {
+          logger.warn(`Client ${client.id} doesn't have a node`);
+          require('./firstconnect')(db, logger, client.id);
+        }
       });
-      send(topic, node.id);
     }
   });
 
-  // TODO: Add sensor updates & make dynamic
-  server.on('published', (packet, client) => {
-    const topic = packet.topic.split('/');
-    if (topic[0] != '$SYS')
-      if (topic[1] == 'light')
-        console.log('Light Strength: ' + packet.payload.toString());
-      else if (topic[1] == 'watertemp')
-        console.log('Air Temp: ' + packet.payload.toString());
-      else if (topic[1] == 'temp')
-        console.log('Water Temp: ' + packet.payload.toString());
-      else
-        console.log('Random');
+  /**
+   * MQTT Client disconnect from Server
+   */
+  server.on('clientDisconnected', function(client) {
+    if(isRootClient(client)) {
+      logger.info(`Client ${client.id} disconnected (ROOT)`);
+    } else {
+      logger.info(`Client ${client.id} disconnected (NON ROOT)`);
+    }
+    if (isRootClient(client)) {
+      Node.findOneAndUpdate({ mac_address: client.id }, { status: 0 }, (err, node) => {
+        logger.info(`Client ${node.mac_address} set status to offline`);
+      });
+    }
   });
 
   /*/// ROUTES ///*/
@@ -75,7 +111,7 @@ module.exports = function (db) {
   /*/ GET /*/
   /**
    * Get all nodes
-   * @returns {Array(Node)}
+   * @returns {Node[]}
    */
   router.route('/nodes').get((req, res) => {
     Node.find({})
@@ -126,6 +162,7 @@ module.exports = function (db) {
       });
   });
 
+
   /**
    * Get sensor data
    * @param {ObjectId} sensorid
@@ -164,11 +201,17 @@ module.exports = function (db) {
   // TODO: Add validation
   router.put('/actuators/:actuatorid/:value', (req, res) => {
     Node.findOne({ "actuators": { "$all": req.params.actuatorid } })
-      .select('_id')
+      .select('_id mac_address')
       .exec((err, node) => {
         Actuator.findByIdAndUpdate(req.params.actuatorid, { value: req.params.value }, (err, actuator) => {
-          mqtt.send(node._id + '/' + actuator.type, req.params.value);
+          server.publish({
+            topic: node.mac_address + '/actuator/' + actuator.type,
+            payload: req.params.value,
+            qos: 1
+          });
+          logger.info(`Published update to topic ${node.mac_address + '/actuator/' + actuator.type}`);
           actuator.value = req.params.value;
+          logger.info(`Updated actuator ${actuator.id} to ${req.params.value}`);
           res.statusCode = 202;
           res.send(actuator);
         });
@@ -180,5 +223,4 @@ module.exports = function (db) {
   });
 
   return router;
-
-};
+}

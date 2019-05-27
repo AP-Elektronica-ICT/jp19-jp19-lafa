@@ -1,0 +1,107 @@
+<div class="ui grid centered container" style="padding-top: 128px">
+
+  <div class="ui row">
+    <h2 class="ui icon header">
+      <i class="cubes icon"></i>
+      <div class="content">
+        FarmLab
+        <div class="sub header">Cluster</div>
+      </div>
+    </h2>
+  </div>
+
+  <!-- Loading Message -->
+  <div class="ui ten wide column row" *ngIf="dataState == 0">
+    <div class="ui icon message">
+      <i class="notched circle loading icon"></i>
+      <div class="content">
+        <div class="header">
+          Just one second
+        </div>
+        <p>We're fetching that content for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div class="ui ten wide column row" *ngIf="dataState == 1">
+    <div class="ui negative message">
+      <div class="header">
+        Can't reach server...
+      </div>
+      <p>
+        We couldn't contact our server, it might be down.
+      </p>
+    </div>
+  </div>
+
+  <!-- Empty Message -->
+  <div class="ui ten wide column row" style="text-align: center;" *ngIf="dataState == 2 && nodes.length == 0">
+    <div class="ui visible message">
+      <p>You currently don't have any nodes in your cluster</p>
+    </div>
+  </div>
+
+  <div *ngIf="dataState == 2" class="ui twelve wide column relaxed divided list">
+    <div class="ui grid raised segment" *ngFor="let node of nodes">
+      <h4 class="ui header ten wide column" *ngIf="node.status == 0">
+        <i class="circle red icon"></i>
+        <div class="content">
+          {{ node.label }}
+          <div class="sub header">#{{ node._id.substring(0,8) }}&nbsp; - &nbsp;Service offline</div>
+        </div>
+      </h4>
+      <h4 class="ui header ten wide column" *ngIf="node.status == 1">
+        <i class="circle green icon"></i>
+        <div class="content">
+          {{ node.label }}
+          <div class="sub header">#{{ node._id.substring(0,8) }}&nbsp; - &nbsp;Service running</div>
+        </div>
+      </h4>
+      <h4 class="ui header ten wide column" *ngIf="node.status == 2">
+        <i class="circle orange icon"></i>
+        <div class="content">
+          {{ node.label }}
+          <div class="sub header">#{{ node._id.substring(0,8) }}&nbsp; - &nbsp;Service needs attention</div>
+        </div>
+      </h4>
+      <div class="ui six wide column">
+        <div class="ui animated button" style="float: right;" [routerLink]="[ '/node', node._id ]"
+          *ngIf="node.status != 0">
+          <div class="visible content">Open</div>
+          <div class="hidden content">
+            <i class="right arrow icon"></i>
+          </div>
+        </div>
+        <div class="ui animated disabled button" style="float: right;" [routerLink]="[ '/node', node._id ]"
+          *ngIf="node.status == 0">
+          <div class="visible content">Open</div>
+          <div class="hidden content">
+            <i class="right arrow icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="ui grid raised segment">
+      <h4 class="ui header ten wide column">
+        <i class="plus icon"></i>
+        <div class="content">
+          New Node
+          <div class="sub header">Add a new node to the cluster</div>
+        </div>
+      </h4>
+      <div class="ui six wide column">
+        <div class="ui animated disabled button" style="float: right;">
+          <div class="visible content">Add</div>
+          <div class="hidden content">
+            <i class="plus icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
