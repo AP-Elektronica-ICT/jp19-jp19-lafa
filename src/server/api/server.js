@@ -44,6 +44,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/v1', require('./v1/api')(mongoose, logger));
+app.use('/auth', require('./authentication/auth')(mongoose, logger));
 // For debug purposes only
 // app.use('/populate', require('./v1/populate')(mongoose));
 

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NodeDetailComponent } from './pages/node/node.component';
 import { LineChartComponent } from './pages/node/line-chart/line-chart.component';
 import { ActuatorControlComponent } from './pages/node/actuator-control/actuator-control.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ActuatorControlComponent } from './pages/node/actuator-control/actuator
     NodesComponent,
     NodeDetailComponent,
     LineChartComponent,
-    ActuatorControlComponent
+    ActuatorControlComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
