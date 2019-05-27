@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MSALUser } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class DataService {
   }
 
   postAuthToken(authToken: string) {
-    return this.http.post('http://localhost:5000/auth', { authToken: authToken });
+    return this.http.post<MSALUser>('http://localhost:5000/auth', { authToken: authToken });
   }
 }
 
