@@ -16,7 +16,7 @@ module.exports = (db, logger) => {
       });
   });
 
-    /**
+  /**
    * Get all data from a node
    * @param {ObjectId} nodeid
    * @returns {Node}
