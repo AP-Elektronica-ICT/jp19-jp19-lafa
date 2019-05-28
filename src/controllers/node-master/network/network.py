@@ -10,8 +10,6 @@ import network.data as env
 com = ""
 id = ""
 temperature = ""
-serverIP = "mqtt.farmlab.team"
-# serverIP = "172.16.0.80"
 
 """
     This module handles communication with the central server.
@@ -19,40 +17,6 @@ serverIP = "mqtt.farmlab.team"
     each client saves an ID for easy lookup in the webserver (since mqtt id's change with each connection)
     This module relays the given information between the server and the atmega
 """
-
-
-class File:
-    """
-        The File class handles file input and output
-        Never forget to call the cleanup method.
-        This handles the closing of the file.
-        Never use this class if multiple instances of the same file are used since whe never close it
-        during its lifespan
-    """
-    # filename is located in the directory of the module
-    # this should be launched from launch.py
-
-    def __init__(self, file):
-        if __name__ == '__main__':
-            self.filename = os.getcwd() + '/' + \
-                __file__.replace(os.path.basename(__file__), '') + file
-        else:
-            self.filename = __file__.replace(
-                os.path.basename(__file__), '') + file
-
-    def read(self):
-        self.file = open(self.filename, "r+")
-        value = self.file.read()
-        self.cleanup()
-        return value
-
-    def write(self, value):
-        self.file = open(self.filename, "w+")
-        self.file.write(value)
-        self.cleanup()
-
-    def cleanup(self):
-        self.file.close()
 
 
 class ID:
@@ -108,21 +72,26 @@ class MQTT:
     def end(self):
         self.client.loop_stop()
 
+    def handleMotor(self, name, receivedtopic, topic, pin, payload):
+        if receivedtopic == self.id.id+topic:
+            print(name + " value")
+            PWM(pin, str(payload.decode("utf-8")))
+
     # The callback for when a PUBLISH message is received from the server.
     # this should parse the information and propagate it
     # TODO : send information to the atmega if nececery
+
     def on_message(self, client, userdata, msg):
         print("received topic: {}".format(msg.topic))
 
-        if msg.topic == self.id.id+'/actuator/lightint':
-            print("Light value")
-            PWM(env.light, str(msg.payload.decode("utf-8")))
-        if msg.topic == self.id.id+'/actuator/flowpump':
-            print("Pump value")
-            PWM(env.pump, str(msg.payload.decode("utf-8")))
-        if msg.topic == self.id.id+'/actuator/foodpump':
-            print("Food value")
-            PWM(env.food, str(msg.payload.decode("utf-8")))
+        self.handleMotor("Light", msg.topic, "/actuator/lightint",
+                         env.light, msg.payload)
+
+        self.handleMotor("Pump", msg.topic, "/actuator/flowpump",
+                         env.pump, msg.payload)
+
+        self.handleMotor("Food", msg.topic, "/actuator/foodpump",
+                         env.food, msg.payload)
 
 
 def PWM(pin, value):
@@ -181,41 +150,9 @@ class event:
         mqtt = MQTT(env.server, env.port, user=env.user,
                     password=env.passwd, useID=False)
 
-        if data.__contains__("Temperature"):
-            print("Uploading temp {}".format(data))
-            mqtt.send('{}'.format(data.replace("Temperature ", "")),
-                      topic=ID().id + "/sensors/watertemp")
-            time.sleep(0.5)
-
-        if data.__contains__("Humidity"):
-            print("Uploading humidity {}".format(data))
-            mqtt.send("{}".format(data.replace("Humidity", "").replace(
-                ", Temp", "")), topic=ID().id + "/sensors/humidity")
-            time.sleep(0.5)
-
-        if data.__contains__("Water1 level"):
-            mqtt.send("{}".format(data.replace("Water1 level", "")),
-                      topic=ID().id + "/sensors/water1")
-            time.sleep(0.5)
-
-        if data.__contains__("Water2 level"):
-            mqtt.send("{}".format(data.replace("Water2 level", "")),
-                      topic=ID().id + "/sensors/water2")
-            time.sleep(0.5)
-
-        if data.__contains__("Water3 level"):
-            mqtt.send("{}".format(data.replace("Water3 level", "")),
-                      topic=ID().id + "/sensors/water3")
-            time.sleep(0.5)
-
-        if data.__contains__("Light level"):
-            mqtt.send("{}".format(data.replace("Light level", "")),
-                      topic=ID().id + "/sensors/airlight")
-            time.sleep(0.5)
-
-        if data.__contains__("PH value"):
-            mqtt.send("{}".format(data.replace("PH value", "")),
-                      topic=ID().id + "/sensors/ph")
+        if data.isSensor:
+            print("Uploading {}".format(data.data))
+            mqtt.send(data.data, topic=ID().id + data.topic)
             time.sleep(0.5)
 
 

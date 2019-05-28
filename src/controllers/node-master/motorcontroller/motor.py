@@ -12,6 +12,7 @@ class event:
     def initInThread(self):
         print("Initing motor")
 
+    # Convert received value to a dutycyle on the received pin
     def receive(self, data, sender):
         pi = pigpio.pi()
         print(data)

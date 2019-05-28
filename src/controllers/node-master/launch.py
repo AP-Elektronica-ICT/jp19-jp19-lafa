@@ -29,8 +29,10 @@ if __name__ == '__main__':
         wrapper,tc.threadID("stepper3")))
     list.append(stepper3)
     """
+
     atmega = Process(target=i2c.start, args=(wrapper, tc.threadID("i2c")))
     list.append(atmega)
+
     """
     cv = Process(target=vision.start, args=(wrapper, tc.threadID("cv"),))
     list.append(cv)

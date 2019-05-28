@@ -1,3 +1,7 @@
+# convert a list to a certain size
+# eg size = 3 and the list is [1,2] it becomes [0,1,2]
+
+
 def normalize(list, size):
     end = list
     if(len(list) <= size):

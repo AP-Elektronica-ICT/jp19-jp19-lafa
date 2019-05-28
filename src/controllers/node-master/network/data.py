@@ -1,8 +1,8 @@
-server = "mqtt.farmlab.team"
-user = "Farm"
-passwd = "Lab"
-port = 1883
-interval = 20
-food = 22
-pump = 27
-light = 17
+server = "mqtt.farmlab.team"  # The server to connect to
+user = "Farm"  # the user to connect with mqtt
+passwd = "Lab"  # the password of said user
+port = 1883  # the mqtt port
+interval = 20  # how quickly to cycle through mqtt cycles
+food = 22  # pin on the rpi for the food pump
+pump = 27  # pin on the rpi for the water pump
+light = 17  # pin on the rpi for the lights
