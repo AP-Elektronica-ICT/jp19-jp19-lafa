@@ -1,0 +1,4 @@
+@mixin customBox {
+  box-shadow: 0 0 20px rgba($color: black, $alpha: .15);
+  border-radius: 20px;
+}
