@@ -41,6 +41,7 @@ export class AuthService {
     this.msal.acquireTokenSilent(this.requestObj).then((tokenResponse) => {
       this.dataService.postAuthToken(tokenResponse.accessToken).subscribe(user => {
         // Handle auth
+        console.log(user);
         this.router.navigate(["nodes"]);
       })
     });

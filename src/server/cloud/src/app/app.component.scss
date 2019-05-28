@@ -1,0 +1,9 @@
+:host {
+  display: grid;
+  // TODO: Using 0 is not a solution
+  grid: minmax(100vh, auto) / 72px auto;
+}
+
+div {
+  padding: 3em;
+}

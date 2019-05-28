@@ -1,27 +1,15 @@
-<div class="ui top fixed menu">
-  <div class="ui container">
-    <div class="item">
-      <img src="/assets/plant.svg">
-      &nbsp;&nbsp; Farm Lab &nbsp;&nbsp;
-    </div>
-    <!-- <a class="item" [routerLink]="[ '/nodes' ]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">Nodes</a> -->
-    <div class="right menu">
-      <div class="ui dropdown item">
-        <i class="user icon"></i>
-        Administrator
-        <i class="dropdown icon"></i>
-        <div class="menu" #user>
-          <div class="item">Settings</div>
-        </div>
-      </div>
-      <a class="ui dropdown item">
-        <i class="bell icon"></i>
-        <!-- <a class="ui label">2</a> -->
-        <!-- <div class="ui red horizontal label">New</div> -->
-        <div class="menu" #notifications>
-          <div class="item">No Notifications</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+<img class="logo" src="/assets/plant.svg">
+<ul class="menu">
+  <li [routerLink]="[ '/dashboard' ]" routerLinkActive="active">
+    <i class="fas fa-tachometer-alt"></i>
+  </li>
+  <li [routerLink]="[ '/nodes' ]" routerLinkActive="active">
+    <i class="fas fa-cubes"></i>
+  </li>
+  <li [routerLink]="[ '/settings' ]" routerLinkActive="active">
+    <i class="fas fa-cog"></i>
+  </li>
+  <li>
+    <i class="fas fa-bug"></i>
+  </li>
+</ul>

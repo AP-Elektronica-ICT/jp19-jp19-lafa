@@ -6,8 +6,8 @@ import { MSALUser } from './auth.service';
   providedIn: 'root'
 })
 export class DataService {
-  private BASEURL = 'http://localhost:5000/v1/';
-  // private BASEURL = 'https://api.farmlab.team/v1/';
+  // private BASEURL = 'http://localhost:5000/v1/';
+  private BASEURL = 'https://api.dev.farmlab.team/';
 
   constructor(private http: HttpClient) { }
 
@@ -46,7 +46,7 @@ export class DataService {
   }
 
   postAuthToken(authToken: string) {
-    return this.http.post<MSALUser>('http://localhost:5000/auth', { authToken: authToken });
+    return this.http.post<MSALUser>(this.BASEURL + 'user', { authToken: authToken });
   }
 }
 

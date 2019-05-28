@@ -1,20 +1,29 @@
-.right > .ui.item:last-child:after {
-  position: absolute;
-  content: '';
-  top: 0%;
-  right: 0px;
-  height: 100%;
-  width: 1px;
-  background: rgba(34, 36, 38, 0.1);
+:host {
+  box-shadow: 0 0 15px rgba($color: #000000, $alpha: .15);
+  padding: 1.5em 0 0 0;
 }
 
-i.arrow.left.icon {
-  margin: 0 !important;
+.logo {
+  padding: 12px;
+  box-sizing: content-box;
 }
 
-i.bell.icon {
-  margin: 0 !important;
-}
-.ui.dropdown.item > .menu.active {
-  display: block !important;
+ul.menu {
+  margin-top: 4em;
+  text-align: center;
+  font-size: 1.8em;
+  li {
+    margin: 1em 0;
+    color: #707070;
+    cursor: pointer;
+    height: 2em;
+    line-height: 2.2em;
+    outline: none;
+    &.active {
+      border-left: 4px solid #4CAF50;
+    }
+    &:hover {
+      background: rgba($color: #000000, $alpha: .03);
+    }
+  }
 }
