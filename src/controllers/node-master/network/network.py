@@ -4,13 +4,14 @@ import os
 import sys
 from multiprocessing import Queue
 import network.helper as helper
+import network.data as env
 
 
 com = ""
 id = ""
 temperature = ""
 serverIP = "mqtt.farmlab.team"
-#serverIP = "172.16.0.80"
+# serverIP = "172.16.0.80"
 
 """
     This module handles communication with the central server.
@@ -89,7 +90,7 @@ class MQTT:
         else:
             self.client = mqtt.Client(client_id=self.id.sensor())
         self.client.username_pw_set(user, password)
-        self.client.connect(host, port, 60)
+        self.client.connect(host, port, 10)
         self.client.on_message = self.on_message
 
     def send(self, item, topic="node"):
@@ -115,13 +116,13 @@ class MQTT:
 
         if msg.topic == self.id.id+'/actuator/lightint':
             print("Light value")
-            PWM(17, str(msg.payload.decode("utf-8")))
+            PWM(env.light, str(msg.payload.decode("utf-8")))
         if msg.topic == self.id.id+'/actuator/flowpump':
             print("Pump value")
-            PWM(27, str(msg.payload.decode("utf-8")))
+            PWM(env.pump, str(msg.payload.decode("utf-8")))
         if msg.topic == self.id.id+'/actuator/foodpump':
             print("Food value")
-            PWM(22, str(msg.payload.decode("utf-8")))
+            PWM(env.food, str(msg.payload.decode("utf-8")))
 
 
 def PWM(pin, value):
@@ -156,7 +157,7 @@ def eventHandler(server):
         server.subscribe(server.id.id+"/actuator/lightint")
         server.subscribe(server.id.id+"/actuator/flowpump")
         server.start()
-        time.sleep(20)
+        time.sleep(env.interval)
         server.end()
     print("End of event loop")
 
@@ -177,10 +178,45 @@ class event:
         global id, com
         print("Network thread received data from {}, payload is {}".format(
             sender.id, data))
+        mqtt = MQTT(env.server, env.port, user=env.user,
+                    password=env.passwd, useID=False)
+
         if data.__contains__("Temperature"):
             print("Uploading temp {}".format(data))
-            MQTT(serverIP, 1883, user="Farm", password="Lab", useID=False).send(
-                '{}'.format(data.replace("Temperature ", "")), topic=ID().id + "/sensors/watertemp")
+            mqtt.send('{}'.format(data.replace("Temperature ", "")),
+                      topic=ID().id + "/sensors/watertemp")
+            time.sleep(0.5)
+
+        if data.__contains__("Humidity"):
+            print("Uploading humidity {}".format(data))
+            mqtt.send("{}".format(data.replace("Humidity", "").replace(
+                ", Temp", "")), topic=ID().id + "/sensors/humidity")
+            time.sleep(0.5)
+
+        if data.__contains__("Water1 level"):
+            mqtt.send("{}".format(data.replace("Water1 level", "")),
+                      topic=ID().id + "/sensors/water1")
+            time.sleep(0.5)
+
+        if data.__contains__("Water2 level"):
+            mqtt.send("{}".format(data.replace("Water2 level", "")),
+                      topic=ID().id + "/sensors/water2")
+            time.sleep(0.5)
+
+        if data.__contains__("Water3 level"):
+            mqtt.send("{}".format(data.replace("Water3 level", "")),
+                      topic=ID().id + "/sensors/water3")
+            time.sleep(0.5)
+
+        if data.__contains__("Light level"):
+            mqtt.send("{}".format(data.replace("Light level", "")),
+                      topic=ID().id + "/sensors/airlight")
+            time.sleep(0.5)
+
+        if data.__contains__("PH value"):
+            mqtt.send("{}".format(data.replace("PH value", "")),
+                      topic=ID().id + "/sensors/ph")
+            time.sleep(0.5)
 
 
 def start(communication, identifier):
@@ -190,7 +226,8 @@ def start(communication, identifier):
     id = identifier
     com = communication
 
-    server = MQTT(serverIP, 1883, user="Farm", password="Lab")
+    server = MQTT(env.server, env.port, user=env.user, password=env.passwd)
+    print("Should be connected")
 
     eventHandler(server)
 
