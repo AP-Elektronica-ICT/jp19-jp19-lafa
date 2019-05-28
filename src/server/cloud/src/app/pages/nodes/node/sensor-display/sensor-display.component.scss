@@ -1,0 +1,22 @@
+:host {
+  background: white;
+  box-shadow: 0 0 15px rgba($color: black, $alpha: .15);
+  border-radius: 15px;
+  padding: 2em;
+  padding: 1em 0;
+  text-align: center;
+  .value {
+    color: #1F1F1F;
+    font: {
+      weight: normal;
+      size: 2em;
+    }
+  }
+  .desc {
+    color: rgb(100, 100, 100);
+    font: {
+      weight: lighter;
+      size: 1em;
+    }
+  }
+}

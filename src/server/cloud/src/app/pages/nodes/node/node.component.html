@@ -1,11 +1,12 @@
 <h2 class="title"><i class="fas fa-cube"></i> Node Alfa</h2>
 <p class="subtitle">#223hkljh6436l4jh5643</p>
 
-<div class="stats grid">
-  <div class="stat shadow" *ngFor="let i of [0,0,0,0,0]">
-    <div class="value">12&deg;C</div>
-    <div class="desc">Water Temp</div>
-  </div>
+<div class="stats grid" *ngIf="node">
+  <app-sensor-display [sensor]="airtempSen"></app-sensor-display>
+  <app-sensor-display [sensor]="watertempSen"></app-sensor-display>
+  <app-sensor-display [sensor]="lightstrSen"></app-sensor-display>
+  <app-sensor-display [sensor]="airhumiditySen"></app-sensor-display>
+  <app-sensor-display [sensor]="waterphSen"></app-sensor-display>
 </div>
 
 <div class="charts grid">

@@ -33,24 +33,6 @@
 
 .stats {
   margin-bottom: 2em;
-  .stat {
-    padding: 1em 0;
-    text-align: center;
-    .value {
-      color: #1F1F1F;
-      font: {
-        weight: normal;
-        size: 2em;
-      }
-    }
-    .desc {
-      color: rgb(100, 100, 100);
-      font: {
-        weight: lighter;
-        size: 1em;
-      }
-    }
-  }
 }
 
 .charts {

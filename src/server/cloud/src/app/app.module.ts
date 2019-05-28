@@ -12,6 +12,7 @@ import { ActuatorControlComponent } from './pages/nodes/node/actuator-control/ac
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { SensorDisplayComponent } from './pages/nodes/node/sensor-display/sensor-display.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
     ActuatorControlComponent,
     AuthComponent,
     DashboardComponent,
-    SettingsComponent
+    SettingsComponent,
+    SensorDisplayComponent
   ],
   imports: [
     BrowserModule,

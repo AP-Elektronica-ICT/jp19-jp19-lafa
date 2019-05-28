@@ -19,6 +19,9 @@ export class NodeDetailComponent implements OnInit {
   // Sensors
   private watertempSen: Sensor;
   private airtempSen: Sensor;
+  private airhumiditySen: Sensor;
+  private lightstrSen: Sensor;
+  private waterphSen: Sensor;
 
   private fakerAirTempData: ChartData = {
     labels: ['10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h'],
@@ -58,6 +61,15 @@ export class NodeDetailComponent implements OnInit {
           break;
         case 'airtemp':
           this.airtempSen = sensor;
+          break;
+        case 'airhumidity':
+          this.airhumiditySen = sensor;
+          break;
+        case 'lightstr':
+          this.lightstrSen = sensor;
+          break;
+        case 'waterph':
+          this.waterphSen = sensor;
           break;
         default:
           break;
