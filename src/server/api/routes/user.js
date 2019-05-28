@@ -7,7 +7,6 @@ module.exports = (db, logger) => {
 
   /**
    * Authenticate User
-   * @returns {}
    */
   router.route('/').post((req, res) => {
     axios.get('https://graph.microsoft.com/v1.0/me', {
