@@ -1,4 +1,3 @@
-const schemas = require('./schemas');
 const nodeSchema = require('../models/node').node;
 const actuatorSchema = require('../models/actuator').actuator;
 const sensorSchema = require('../models/sensor').sensor;
