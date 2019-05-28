@@ -1,15 +1,85 @@
-.arrow.left.icon, .settings.icon {
-  cursor: pointer;
-  &:hover {
-    color: rgba($color: #000000, $alpha: 0.6);
-    transition: all .15s ease-in-out;
+:host{
+  font-family: Helvetica, sans-serif;
+}
+
+.title {
+  color: #1F1F1F;
+  font: {
+    weight: bold;
+    size: 2.5em;
   }
 }
 
-.tiny.statistics {
-  margin: 1rem 0;
+.subtitle {
+  font: {
+    weight: lighter;
+    size: 1.2em;
+  }
+  margin-bottom: 2em;
 }
 
-.ui.row.actuators {
-  margin: 1rem 0;
+.grid {
+  display: grid;
+  grid: auto / repeat(5, 1fr);
+  grid-gap: 2em;
+}
+
+.shadow {
+  background: white;
+  box-shadow: 0 0 15px rgba($color: black, $alpha: .15);
+  border-radius: 15px;
+  padding: 2em;
+}
+
+.stats {
+  margin-bottom: 2em;
+  .stat {
+    padding: 1em 0;
+    text-align: center;
+    .value {
+      color: #1F1F1F;
+      font: {
+        weight: normal;
+        size: 2em;
+      }
+    }
+    .desc {
+      color: rgb(100, 100, 100);
+      font: {
+        weight: lighter;
+        size: 1em;
+      }
+    }
+  }
+}
+
+.charts {
+  margin-bottom: 2em;
+  h4 {
+    margin-bottom: .75em;
+    font: {
+      weight: lighter;
+      size: 1.4em;
+    }
+  }
+  .chart-lg1 {
+    grid-column: 1 / 4;
+  }
+  .chart-sm1 {
+    grid-column: 4 / 6;
+  }
+  .chart-sm2 {
+    grid-column: 1 / 3;
+  }
+  .chart-lg2 {
+    grid-column: 3 / 6;
+  }
+  .placeholder {
+    height: 256px;
+    background:  rgb(240, 240, 240);
+    border-radius: 15px;
+    line-height: 256px;
+    text-align: center;
+    color: rgb(124, 124, 124);
+  }
 }

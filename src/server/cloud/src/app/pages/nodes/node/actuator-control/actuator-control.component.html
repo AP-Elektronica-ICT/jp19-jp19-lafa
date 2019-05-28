@@ -1,15 +1,7 @@
-<div class="ui segment">
-  <div class="statistic">
-    <div class="value">
-      <img [src]="'/assets/actuators/' + actuator.type + '.svg'" class="ui circular mini inline image">
-    </div>
-    <div class="label">
-      {{ actuator.label }}
-    </div>
-  </div>
-  <div class="ui right labeled fluid input" [ngClass]="{'disabled': actuator.value == -1}">
-    <input type="number" min="0" max="100" (change)="updateActuator($event)" [value]="getActuatorValue()"
-      placeholder="Enter value...">
-    <div class="ui basic label">%</div>
+<div class="control">
+  <img [src]="'assets/actuators/' + actuator.type + '.svg'" alt="">
+  <div>{{ actuator.label }} <span class="right" #percent>{{ getActuatorValue() }} %</span></div>
+  <div>
+    <input type="range" min="0" max="100" class="slider" (change)="updateActuator($event)" [value]="getActuatorValue()">
   </div>
 </div>

@@ -1,122 +1,35 @@
-<div class="ui grid centered container" style="padding-top: 128px; padding-bottom: 128px;" *ngIf="node">
-  <!-- TODO: Move style to SCSS -->
-  <div class="row" style="font-size: 24px; padding-bottom: 0;">
-    <div class="six wide column" style="text-align: left;">
-      <i class="arrow left icon" [routerLink]="[ '/nodes' ]"></i>
-    </div>
-    <div class="six wide column" style="text-align: right;">
-      <i class="settings icon"></i>
+<h2 class="title"><i class="fas fa-cube"></i> Node Alfa</h2>
+<p class="subtitle">#223hkljh6436l4jh5643</p>
+
+<div class="stats grid">
+  <div class="stat shadow" *ngFor="let i of [0,0,0,0,0]">
+    <div class="value">12&deg;C</div>
+    <div class="desc">Water Temp</div>
+  </div>
+</div>
+
+<div class="charts grid">
+  <div class="chart-lg1 shadow">
+    <h4>Temperature</h4>
+    <div class="placeholder">Chart Placeholder</div>
+  </div>
+  <div class="chart-sm1 shadow">
+    <h4>Light</h4>
+    <div class="placeholder">Chart Placeholder</div>
+  </div>
+</div>
+
+<div class="charts grid">
+  <div class="chart-sm2 shadow">
+    <h4>Controls</h4>
+    <div class="controls" *ngIf="node">
+      <app-actuator-control [actuator]="lightintAct"></app-actuator-control>
+      <app-actuator-control [actuator]="flowpumpAct"></app-actuator-control>
+      <app-actuator-control [actuator]="foodpumpAct"></app-actuator-control>
     </div>
   </div>
-
-  <div class="ui row">
-    <h2 class="ui icon header">
-      <i class="cube icon"></i>
-      <div *ngIf="node" class="content">
-        {{ node.label }}
-        <!-- <div class="sub header">#{{ node._id.substring(0,8) }}</div> -->
-      </div>
-    </h2>
+  <div class="chart-lg2 shadow">
+    <h4>Water Flow</h4>
+    <div class="placeholder">Chart Placeholder</div>
   </div>
-
-  <div class="ui row tiny statistics">
-    <div class="statistic">
-      <div class="value">
-        - &deg;C
-      </div>
-      <div class="label">
-        Air Temperature
-      </div>
-    </div>
-    <div class="statistic">
-      <div class="value">
-        - &deg;C
-      </div>
-      <div class="label">
-        Water Temperature
-      </div>
-    </div>
-    <div class="statistic">
-      <div class="value">
-        - %
-      </div>
-      <div class="label">
-        Air Humidity
-      </div>
-    </div>
-    <div class="statistic">
-      <div class="value">
-        - pH
-      </div>
-      <div class="label">
-        Water Hardness
-      </div>
-    </div>
-  </div>
-
-  <div class="ui row actuators">
-
-    <app-actuator-control class="ui four wide column" [actuator]="flowpumpAct">
-    </app-actuator-control>
-
-    <app-actuator-control class="ui four wide column" [actuator]="lightintAct">
-    </app-actuator-control>
-
-    <app-actuator-control class="ui four wide column" [actuator]="foodpumpAct">
-    </app-actuator-control>
-
-  </div>
-
-  <!-- TODO: Extract into component
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart [showData]="true" [dataset]="fakerWaterTempData"></app-line-chart>
-      <div class="ui bottom right attached label">Water Temperature</div>
-    </div>
-  </div>
-
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart [showData]="true" [dataset]="fakerAirTempData"></app-line-chart>
-      <div class="ui bottom right attached label">Air Temperature</div>
-    </div>
-  </div>
-
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Air Humidity</div>
-    </div>
-  </div>
-
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Water pH Level</div>
-    </div>
-  </div>
-
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Light Intensity</div>
-    </div>
-  </div>
-
-  <div class="ui eight wide column">
-    <div class="ui segment chart">
-      <app-line-chart></app-line-chart>
-      <div class="ui bottom right attached label">Water Flow</div>
-    </div>
-  </div> -->
-
-  <!-- <div class="ui relaxed divided list">
-    <div class="item" *ngFor="let sensor of sensors">
-      <i class="large server aligned icon"></i>
-      <div class="content">
-        <a class="header">{{ sensor.label }}</a>
-        <div class="description">Sensor measures in {{ sensor.type }}</div>
-      </div>
-    </div>
-  </div> -->
 </div>

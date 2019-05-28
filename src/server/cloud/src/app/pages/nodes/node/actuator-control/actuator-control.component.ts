@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DataService, Actuator } from 'src/app/data.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { DataService, Actuator } from 'src/app/data.service';
 })
 export class ActuatorControlComponent implements OnInit {
   @Input() actuator: Actuator;
+  @ViewChild('percent') percent;
 
   constructor(private dataService: DataService) { }
 
@@ -15,6 +16,7 @@ export class ActuatorControlComponent implements OnInit {
   }
 
   updateActuator(event) {
+    this.percent.nativeElement.innerText = Math.round(parseInt(event.target.value, 10)) + '%';
     let value: number = Math.round(parseInt(event.target.value, 10) / 100 * 255);
     if (!value || value < 0 || value > 255) {
       value = 0;
