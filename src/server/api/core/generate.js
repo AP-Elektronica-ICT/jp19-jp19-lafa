@@ -43,19 +43,19 @@ module.exports = function (db, logger, mac_address) {
   const lightstrSen = new Sensor({
     label: 'Light Strength',
     type: 'lightstr',
-    unit: '&amp;'
+    unit: ''
   });
   lightstrSen.save();
   const airhumiditySen = new Sensor({
     label: 'Air Humidity',
     type: 'airhumidity',
-    unit: '&amp;'
+    unit: '&#x00025;'
   });
   airhumiditySen.save();
   const waterphSen = new Sensor({
     label: 'Water Hardness',
     type: 'waterph',
-    unit: '&amp;'
+    unit: 'PH'
   });
   waterphSen.save();
   // Node
