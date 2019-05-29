@@ -36,18 +36,16 @@ export class NodeDetailComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // data.sensors.filter(obj => {
-    //   return obj.type === 'light';
-    // });
-    if (this.route.snapshot.params.id) {
+    if (this.route.snapshot.params.id.match(/^([0-9a-z]{24})$/)) {
       const id = this.route.snapshot.params.id;
-      this.dataService.getNodeLatestData(id).subscribe(data => {
-        this.node = data;
-        this.filterSensorsAndActuators();
-      });
+      this.update()
     } else {
       this.router.navigate(['nodes']);
     }
+
+    setInterval(() => {
+      this.update()
+    }, 15000);
   }
 
   // TODO: Automate
@@ -90,6 +88,14 @@ export class NodeDetailComponent implements OnInit {
         default:
           break;
       }
+    });
+  }
+
+  update() {
+    let subscription = this.dataService.getNodeLatestData(this.route.snapshot.params.id).subscribe(data => {
+      this.node = data;
+      this.filterSensorsAndActuators();
+      subscription.unsubscribe();
     });
   }
 

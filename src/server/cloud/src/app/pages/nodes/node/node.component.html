@@ -1,36 +1,32 @@
-<h2 class="title"><i class="fas fa-cube"></i> {{ node.label }}</h2>
-<p class="subtitle"># {{ node._id }}</p>
+<div *ngIf="node">
+  <h2 class="title">{{ node.label }}</h2>
+  <p class="subtitle"># {{ node._id }}</p>
 
-<div class="stats grid" *ngIf="node">
-  <app-sensor-display [sensor]="airtempSen"></app-sensor-display>
-  <app-sensor-display [sensor]="watertempSen"></app-sensor-display>
-  <app-sensor-display [sensor]="lightstrSen"></app-sensor-display>
-  <app-sensor-display [sensor]="airhumiditySen"></app-sensor-display>
-  <app-sensor-display [sensor]="waterphSen"></app-sensor-display>
-</div>
-
-<div class="charts grid">
-  <div class="chart-lg1 shadow">
-    <h4>Temperature</h4>
-    <div class="placeholder">Chart Placeholder</div>
+  <div class="stats grid">
+    <app-sensor-display [sensor]="sensor" *ngFor="let sensor of node.sensors"></app-sensor-display>
   </div>
-  <div class="chart-sm1 shadow">
-    <h4>Light</h4>
-    <div class="placeholder">Chart Placeholder</div>
-  </div>
-</div>
 
-<div class="charts grid">
-  <div class="chart-sm2 shadow">
-    <h4>Controls</h4>
-    <div class="controls" *ngIf="node">
-      <app-actuator-control [actuator]="lightintAct"></app-actuator-control>
-      <app-actuator-control [actuator]="flowpumpAct"></app-actuator-control>
-      <app-actuator-control [actuator]="foodpumpAct"></app-actuator-control>
+  <div class="charts grid">
+    <div class="chart-lg1 shadow">
+      <h4>Temperature</h4>
+      <div class="placeholder">Chart Placeholder</div>
+    </div>
+    <div class="chart-sm1 shadow">
+      <h4>Light</h4>
+      <div class="placeholder">Chart Placeholder</div>
     </div>
   </div>
-  <div class="chart-lg2 shadow">
-    <h4>Water Flow</h4>
-    <div class="placeholder">Chart Placeholder</div>
+
+  <div class="charts grid">
+    <div class="chart-sm2 shadow">
+      <h4>Controls</h4>
+      <div class="controls">
+        <app-actuator-control [actuator]="actuator" *ngFor="let actuator of node.actuators"></app-actuator-control>
+      </div>
+    </div>
+    <div class="chart-lg2 shadow">
+      <h4>Water Flow</h4>
+      <div class="placeholder">Chart Placeholder</div>
+    </div>
   </div>
 </div>
