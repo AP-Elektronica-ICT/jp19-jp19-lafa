@@ -49,5 +49,6 @@
 | ------------------------------ | :----: | ------: | :--: |
 | Mean Well Voeding - 12V 10A | 1 | €20,66 | [Visit](https://www.tinytronics.nl/shop/nl/voedingen/12v/mean-well-voeding-12v-12.5a-switching-power-supply-lrs-150-12)
 | Mean Well Voeding - 5V 10A | 1 | €12,44 | [Visit](https://www.tinytronics.nl/shop/nl/voedingen/5v/mean-well-voeding-5v-10a-switching-power-supply-lrs-50-5)
+|USB Voeding 5v 2.1A|1|9.91 | [Visit](https://www.conrad.be/p/hn-power-hnp11-usbv2-black-hnp11-usbv2-black-usb-oplader-thuis-uitgangsstroom-max-2100-ma-1-x-usb-1341277)
 
 ### *Prijzen zonder BTW*
