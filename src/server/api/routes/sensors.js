@@ -14,7 +14,7 @@ module.exports = (db, logger, mqtt) => {
     if (!req.params.limit) req.params.limit = 1;
     Sensor.findById(req.params.sensorid)
       .select('-__v')
-      .populate({ path: 'data', select: '-__v -_id', options: { limit: req.params.limit } })
+      .populate({ path: 'data', select: '-__v -_id', options: { limit: req.params.limit, sort: { time: -1 } } })
       .exec((err, sensor) => {
         res.send(sensor)
       });
