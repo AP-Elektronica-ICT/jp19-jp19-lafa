@@ -3,9 +3,14 @@
 
 const mosca = require('mosca');
 const nodeSchema = require('../models/node').node;
+const sensorSchema = require('../models/sensor').sensor;
+const sensorDataSchema = require('../models/sensor').sensorData;
+const mongoose = require('mongoose');
 
 module.exports = (db, logger) => {
   const Node = db.model('Node', nodeSchema);
+  const Sensor = db.model('Sensor', sensorSchema);
+  const SensorData = db.model('SensorData', sensorDataSchema);
 
   /**
    * Create MQTT Server
@@ -56,7 +61,7 @@ module.exports = (db, logger) => {
    */
   server.on('published', (packet, client) => {
     if(packet.topic.split('/')[0].match(/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/))
-      logger.info(`MQTT Message ${ packet.payload } by client ${ client } on topic ${ packet.topic }`);
+      if (packet.topic.split('/')[1] === 'sensors') handleSensor(packet, client);
   });
 
   /**
@@ -96,6 +101,39 @@ module.exports = (db, logger) => {
       logger.info(`Client ${client.id} disconnected (NON ROOT)`);
     }
   });
+
+  function handleSensor(packet, client) {
+    getSensorIdByNodeId(packet.topic.split('/')[2], client).then(id => {
+      Sensor.findById(id).exec((err, doc) => {
+        senData = new SensorData({
+          value: packet.payload.toString()
+        })
+        senData.save();
+        doc.data.push(senData.id);
+        doc.save();
+        logger.info(`MQTT Sensor Message ${ packet.payload.toString() } by client ${ client.id } on sensor ${ packet.topic.split('/')[2] }`);
+      });
+    }).catch(err => {
+      logger.warn(`Invalid Sensor topic ${ packet.topic}`);
+    });
+  }
+
+  function getSensorIdByNodeId(type, client) {
+    return new Promise((resolve, reject) => {
+      if(!isRootClient(client)) nodeClient = client.id.substring(0, 17);
+      else nodeClient = client.id;
+      Node.findOne({ "mac_address": nodeClient })
+      .select('sensors')
+      .populate({ path: 'sensors', select: '_id type'})
+      .exec((err, node) => {
+        // TODO: Find a better solution
+        node.sensors.forEach(sensor => {
+          if (sensor.type == type) resolve(sensor._id);
+        });
+        reject(null);
+      })
+    });
+  }
 
   return server;
 }
