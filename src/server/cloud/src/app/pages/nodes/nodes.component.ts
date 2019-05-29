@@ -21,6 +21,20 @@ export class NodesComponent implements OnInit {
     });
   }
 
+  getStateClass(node: Node) {
+    switch (node.status) {
+      case 1:
+        return { online: true }
+        break;
+      case 0:
+        return { offline: true }
+        break;
+      case 2:
+        return { warning: true }
+        break;
+    }
+  }
+
 }
 
 enum HTTPRequestState {

@@ -1,5 +1,5 @@
-<h2 class="title"><i class="fas fa-cube"></i> Node Alfa</h2>
-<p class="subtitle">#223hkljh6436l4jh5643</p>
+<h2 class="title"><i class="fas fa-cube"></i> {{ node.label }}</h2>
+<p class="subtitle"># {{ node._id }}</p>
 
 <div class="stats grid" *ngIf="node">
   <app-sensor-display [sensor]="airtempSen"></app-sensor-display>

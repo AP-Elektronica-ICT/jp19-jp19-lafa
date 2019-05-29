@@ -7,7 +7,7 @@ import { MSALUser } from './auth.service';
 })
 export class DataService {
   // private BASEURL = 'http://localhost:5000/v1/';
-  private BASEURL = 'https://api.dev.farmlab.team/';
+  private BASEURL = 'https://api.farmlab.team/';
 
   constructor(private http: HttpClient) { }
 

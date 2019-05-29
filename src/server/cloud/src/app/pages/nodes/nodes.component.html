@@ -1,7 +1,13 @@
 <h2>Nodes</h2>
 
-<div class="nodes">
-  <div class="node online">
+<div class="nodes" *ngIf="nodes">
+  <div class="node online" [ngClass]="getStateClass(node)" *ngFor="let node of nodes" [routerLink]="[ '/nodes', node._id ]">
+    <h3>{{node.label}}</h3>
+    <h5>#{{node._id}}</h5>
+    <p>Running</p>
+    <div class="button"><i class="fas fa-arrow-right"></i></div>
+  </div>
+  <!-- <div class="node online">
     <h3>Node Alfa</h3>
     <h5>#01092351f</h5>
     <p>Running</p>
@@ -18,5 +24,5 @@
     <h5>#100aa4d72</h5>
     <p>Offline</p>
     <div class="button"><i class="fas fa-arrow-right"></i></div>
-  </div>
+  </div> -->
 </div>

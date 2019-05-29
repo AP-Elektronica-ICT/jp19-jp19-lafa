@@ -41,8 +41,7 @@ export class NodeDetailComponent implements OnInit {
     // });
     if (this.route.snapshot.params.id) {
       const id = this.route.snapshot.params.id;
-      this.dataService.getNodeById(id).subscribe(data => {
-      // this.dataService.getNodeLatestData(id).subscribe(data => {
+      this.dataService.getNodeLatestData(id).subscribe(data => {
         this.node = data;
         this.filterSensorsAndActuators();
       });

@@ -13,7 +13,7 @@ export class SensorDisplayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.value.nativeElement.innerHTML = '- ' + this.sensor.unit;
+    this.value.nativeElement.innerHTML = Math.round(parseFloat(this.sensor.data[0].value) * 10)/10 + this.sensor.unit;
   }
 
 }
