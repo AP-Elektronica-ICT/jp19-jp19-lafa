@@ -24,6 +24,10 @@ export class ActuatorControlComponent implements OnInit {
     this.dataService.updateActuatorById(this.actuator._id, value).subscribe();
   }
 
+  draw(event) {
+    this.percent.nativeElement.innerText = Math.round(parseInt(event.target.value, 10)) + '%';
+  }
+
   getActuatorValue() {
     if (this.actuator.value >= 0) {
       return Math.round(this.actuator.value / 255 * 100);

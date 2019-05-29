@@ -28,12 +28,12 @@ export class DataService {
 
   getSensorByTopic(nodeid: string, topic: string) {
     // /v1/nodes/<NODEID>/sensors/<TYPE>
-    return this.http.get<Node>(this.BASEURL + 'nodes/' + nodeid + 'sensors/' + topic);
+    return this.http.get<Sensor>(this.BASEURL + 'nodes/' + nodeid + 'sensors/' + topic);
   }
 
-  getSensorById(sensorid: string, limit: string) {
+  getSensorDataById(sensorid: string, limit: number) {
     // /v1/sensors/<SENSORID>
-    return this.http.get<Node>(this.BASEURL + 'sensors/' + sensorid + '/' + limit);
+    return this.http.get<Sensor>(this.BASEURL + 'sensors/' + sensorid + '/' + limit);
   }
 
   getActuatorById(actuatorid: string) {
@@ -61,6 +61,7 @@ export interface Sensor {
 export interface SensorData {
   _id: string;
   value: string;
+  time: Date;
 }
 
 export interface Actuator {

@@ -9,11 +9,12 @@
   <div class="charts grid">
     <div class="chart-lg1 shadow">
       <h4>Temperature</h4>
-      <div class="placeholder">Chart Placeholder</div>
+      <!-- <div class="placeholder">Chart Placeholder</div> -->
+      <app-temperature-chart [watersensor]="watertempSen" [airsensor]="airtempSen"></app-temperature-chart>
     </div>
     <div class="chart-sm1 shadow">
-      <h4>Light</h4>
-      <div class="placeholder">Chart Placeholder</div>
+      <h4>Humidity</h4>
+      <app-humidity-chart [sensor]="airhumiditySen" *ngIf="airhumiditySen"></app-humidity-chart>
     </div>
   </div>
 

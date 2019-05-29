@@ -7,12 +7,13 @@ import { NavComponent } from './nav/nav.component';
 import { NodesComponent } from './pages/nodes/nodes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NodeDetailComponent } from './pages/nodes/node/node.component';
-import { LineChartComponent } from './pages/nodes/node/line-chart/line-chart.component';
+import { TemperatureChartComponent } from './pages/nodes/node/chart/temperature-chart/temperature-chart.component';
 import { ActuatorControlComponent } from './pages/nodes/node/actuator-control/actuator-control.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SensorDisplayComponent } from './pages/nodes/node/sensor-display/sensor-display.component';
+import { HumidityChartComponent } from './pages/nodes/node/chart/humidity-chart/humidity-chart.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { SensorDisplayComponent } from './pages/nodes/node/sensor-display/sensor
     NavComponent,
     NodesComponent,
     NodeDetailComponent,
-    LineChartComponent,
+    TemperatureChartComponent,
     ActuatorControlComponent,
     AuthComponent,
     DashboardComponent,
     SettingsComponent,
-    SensorDisplayComponent
+    SensorDisplayComponent,
+    HumidityChartComponent
   ],
   imports: [
     BrowserModule,
