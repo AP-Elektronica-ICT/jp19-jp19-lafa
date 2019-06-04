@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>reveal.js – The HTML Presentation Framework</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/blood.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<style>
+		.ultra-small {
+			font-size: 0.5 rem !important;
+		}
+
+		.pcb {
+			height: 40vh;
+			width: auto;
+		}
+
+		.pcb-matic {
+			height: 45vh;
+			width: auto;
+		}
+
+		.cloud {
+			height: 40vh;
+			width: auto;
+		}
+
+		.invert {
+			filter: invert(1);
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<h1>Farmlab</h1>
+				<h3>The next generation of farming</h3>
+				<small>
+					Created by
+					<a href="http://flappy.tf">Vinck Ben</a>,
+					<a href="http://matthiaswillemsen.me">Willemsen Matthias</a>,
+					<a href="http://pbfp.team">Meyers Tom</a>,
+					<a href="http://jonasvanhoof.me">Van Hoof Jonas</a>,
+					<a href="http://michielmeurs.me">Meurs Michiel</a>
+				</small>
+			</section>
+			<section>
+				<h2>Inhoud</h2>
+				<p>
+					reveal.js enables you to create beautiful interactive slide decks using HTML. This
+					presentation will
+					show you examples of what it can do.
+				</p>
+			</section>
+
+			<!-- Example of nested vertical slides -->
+			<section>
+				<h2>Analysis</h2>
+			</section>
+			<section>
+				<h2>Sensoren</h2>
+				<section>
+					<h3>PH</h3>
+					<ul>
+						<li>
+							<bold>Type: </bold> DFRobot-SEN-0161
+						</li>
+						<li>
+							<bold>Analog Voltage: </bold> 0-5V
+						</li>
+						<li>
+							Attiny -> ADC to I²C
+						</li>
+					</ul>
+					<p style="font-size: 1.3rem">* Has to be in a liquid at all times</p>
+				</section>
+				<section>
+					<h3>Humidity and Air temperature</h3>
+					<ul>
+						<li>
+							<bold>Type: </bold> HIH6030
+						</li>
+						<li>
+							<bold>Communication: </bold> I²C
+						</li>
+						<li>
+							<bold>Address:</bold> 0x27
+						</li>
+						<li>
+							<bold>Temperature range: </bold> -40°C to 100°C
+						</li>
+
+					</ul>
+				</section>
+				<section>
+					<h3>Water Level</h3>
+					<ul>
+						<li>
+							<bold>Analog Voltage: </bold> 0-5V
+						</li>
+						<li>
+							Attiny -> ADC to I²C
+						</li>
+						<li>
+							<bold>Measurement range: </bold> 40 mm
+						</li>
+					</ul>
+					<p style="font-size: 1.3rem">* Doesn't dry fast enough.</p>
+				</section>
+				<section>
+					<h3>Water Temperature</h3>
+					<ul>
+						<li>
+							<bold>Type: </bold> DS18B20+
+						</li>
+						<li>
+							<bold>Communication: </bold> One-Wire
+						</li>
+						<li>
+							<bold>Temperature range: </bold> -55°C to 125°C
+						</li>
+						<li>
+							<bold>Accuracy: </bold> ± 0.5 °C
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Light</h3>
+					<ul>
+						<li>
+							<bold>Resistance: </bold> 5KΩ - 15KΩ
+						</li>
+						<li>
+							Voltage divider -> attiny -> I²C
+						</li>
+					</ul>
+					<p style="font-size: 1.3rem">* Inaccurate due to reference voltage</p>
+				</section>
+			</section>
+
+			<section>
+				<h2>Actuators</h2>
+				<section>
+					<h3>Light</h3>
+					<ul>
+						<li>
+							<bold>Power supply: </bold> 12V @ 1A/m
+						</li>
+						<li>
+							<bold>LED Ratio</bold> 1 blue/ 3 red
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Flow Pump</h3>
+					<ul>
+						<li>
+							<bold>Type: </bold> BARWIG0444
+						</li>
+						<li>
+							<bold>Power rating: </bold> 6-12V @ 1.2A
+						</li>
+						<li>
+							<bold>Fitting:</bold> 10mm
+						</li>
+						<li>
+							<bold>Flowrate: </bold> 600 l/h
+						</li>
+
+					</ul>
+				</section>
+				<section>
+					<h3>Food Pump</h3>
+					<ul>
+						<li>
+							<bold>Type: </bold> INTLLAB Peristaltic pump
+						</li>
+						<li>
+							<bold>Power rating: </bold> 6-12V @ 400mA
+						</li>
+						<li>
+							<bold>Fitting:</bold> 3mm
+						</li>
+						<li>
+							<bold>Flowrate: </bold> 100 ml/min
+						</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<h2>Structure</h2>
+
+				<ul>
+					<li>Tubing and reservoirs should be more secure.</li>
+					<li>Counter Weight</li>
+					<li>Camera mounting</li>
+					<li>Reservoir safety</li>
+					<li>Filter</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Data Flow</h2>
+				<section>
+					<h3>Sensors</h3>
+					<ul>
+						<li>Measure</li>
+						<li>attiny</li>
+						<li>i²C</li>
+						<li>Pi sensor thread</li>
+						<li>Pi network thread</li>
+						<li>Server</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Actuators</h3>
+					<ul>
+						<li>Pi network thread</li>
+						<li>Pi motor thread</li>
+						<li>GPIO</li>
+						<li>Motor driver</li>
+					</ul>
+				</section>
+
+			</section>
+
+			<section>
+				<h2>PCB</h2>
+				<section>
+					<h3>board</h3>
+					<img class="pcb" src="pcb.png" alt="">
+				</section>
+				<section>
+					<h3>schematic</h3>
+					<img class="pcb-matic" src="schematic.png" alt="">
+				</section>
+			</section>
+
+			<section>
+				<h2>Cloud</h2>
+				<img class="invert cloud"
+					src="https://github.com/AP-Elektronica-ICT/jp19-lafa/blob/master/doc/images/analysis/web/webplatform_blockdiagram.png?raw=true"
+					alt="">
+			</section>
+
+			<section>
+				<h3>BOM</h3>
+				<a href="https://github.com/AP-Elektronica-ICT/jp19-lafa/blob/master/doc/materials/BOM.md">Bill</a>
+			</section>
+
+			<section>
+				<h3>roadmap</h3>
+				<img src="roadmap.png"></img>
+			</section>
+
+		</div>
+
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function () {
+						hljs.initHighlightingOnLoad();
+					}
+				},
+				{
+					src: 'plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
