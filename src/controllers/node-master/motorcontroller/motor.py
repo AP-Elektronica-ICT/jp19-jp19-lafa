@@ -1,5 +1,7 @@
 import pigpio
 
+pi = pigpio.pi()
+
 
 class event:
     """
@@ -14,9 +16,8 @@ class event:
 
     # Convert received value to a dutycyle on the received pin
     def receive(self, data, sender):
-        pi = pigpio.pi()
         print(data)
-        val = int(float("".join(data.data))/2.55)
+        val = int(float("".join(data.data)))
         print("Value in percent {}".format(val))
         pi.set_PWM_dutycycle(data.addr, val)
 

@@ -13,21 +13,25 @@ ph = 0x33      # I2C address for detecting the ph value of water
 
 
 def readHumidity():
-    bus.write_quick(0x27)
-    time.sleep(0.1)
+    try:
+        bus.write_quick(0x27)
+        time.sleep(0.1)
 
-    # HIH6020 address, 0x27(39)
-    # Read data back from 0x00(00), 4 bytes
-    # humidity MSB, humidity LSB, temp MSB, temp LSB
-    data = bus.read_i2c_block_data(0x27, 0x00, 4)
+        # HIH6020 address, 0x27(39)
+        # Read data back from 0x00(00), 4 bytes
+        # humidity MSB, humidity LSB, temp MSB, temp LSB
+        data = bus.read_i2c_block_data(0x27, 0x00, 4)
 
-    # Convert the data to 14-bits
-    humidity = ((((data[0] & 0x3F) * 256.0) + data[1]) * 100.0) / 16382.0
-    temp = ((data[2] * 256) + (data[3] & 0xFC)) / 4
-    cTemp = (temp / 16382.0) * 165.0 - 40.0
+        # Convert the data to 14-bits
+        humidity = ((((data[0] & 0x3F) * 256.0) + data[1]) * 100.0) / 16382.0
+        temp = ((data[2] * 256) + (data[3] & 0xFC)) / 4
+        cTemp = (temp / 16382.0) * 165.0 - 40.0
 
-    # Output data to screen
-    return humidity, cTemp
+        # Output data to screen
+        return humidity, cTemp
+    except Exception as e:
+        print(e)
+    return 0, 0
 
 
 # Read one byte over i2c
@@ -41,7 +45,7 @@ def readLevel(addr):
     time.sleep(1.5)
     if data != None:
         return "{}".format(data)
-    return "None"
+    return "0"
 
 
 class event:
@@ -68,6 +72,13 @@ class message:
         self.isSensor = bisSensor
 
 
+def send(com, id, to, msg):
+    try:
+        com.notifyThreadById(id, to, msg)
+    except Exception as e:
+        print(e)
+
+
 def start(com, id):
     id.thread = event()
     com.subscribe(id)
@@ -79,42 +90,52 @@ def start(com, id):
         print("Could not read the One wire interface")
     while True:
         try:
+            print("Sending watertemp")
+            try:
+                send(com, id, "network", message("{}".format(
+                    temperature.read_temp(temp)), '/sensors/watertemp'))
+            except Exception as e:
+                pass
 
-            com.notifyThreadById(id, "network",
-                                 message("Temperature {}".format(
-                                     temperature.read_temp(temp)), '/sensors/watertemp'))
-
+            print("reading airhumidity")
             humidity, humidityTemp = readHumidity()
 
-            com.notifyThreadById(
-                id, "network",
-                message("Humidity {}, Temp {}".format(humidity, humidityTemp), '/sensors/humidity'))
+            print("Sending airhumidity")
+            send(com,
+                 id, "network",
+                 message("{}".format(humidity), '/sensors/airhumidity'))
 
-            com.notifyThreadById(
-                id, "network",
-                message("Water1 level {}".format(
-                    readLevel(water1)), '/sensors/water1'))
+            print("Sending airtemp")
+            send(com, id, "network", message("{}".format(
+                humidityTemp), '/sensors/airtemp'))
 
-            com.notifyThreadById(id, "network", message(
-                "Water2 level {}".format(readLevel(water2)), '/sensors/water2'))
+            print("Sending waterlvl0")
+            send(com,
+                 id, "network",
+                 message(readLevel(water1), '/sensors/waterlvl/0'))
 
-            com.notifyThreadById(
-                id, "network",
-                message("Water3 level {}".format(
-                    readLevel(water3)), 'sensors/water3'))
+            print("Sending waterlvl1")
+            send(com, id, "network", message(
+                readLevel(water2), '/sensors/waterlvl/1'))
 
-            com.notifyThreadById(
-                id, "network", message("Light level {}".format(
-                    readLevel(light)), '/sensors/airlight'))
+            print("Sending waterlvl2")
+            send(com,
+                 id, "network",
+                 message("{}".format(
+                     readLevel(water3)), '/sensors/waterlvl/2'))
 
-            com.notifyThreadById(
-                id, "network",
-                message("PH value {}".format(readLevel(ph)), '/sensors/ph'))
+            print("Sending light strength")
+            send(com, id, "network", message("{}".format(
+                readLevel(light)), '/sensors/lightstr'))
+
+            print("Sending waterph")
+            send(com, id, "network",
+                 message("{}".format(float(readLevel(ph))/18.214), '/sensors/waterph'))
         except Exception as e:
             print(e)
             print("Could not read the One wire interface")
         com.notifyThreadById(id, "cv", "Hello")
 
-        time.sleep(1)
+        time.sleep(10)
 # send datat to attiny (light)
 # bus.write_i2c_block_data(0,ord('2'),[ord("5"),ord('5')])
